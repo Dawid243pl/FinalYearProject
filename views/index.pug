@@ -1,0 +1,20 @@
+extends layout
+
+block content
+    script
+      include ../public/javascripts/getLoc.js
+      
+  
+
+    form#locationForm(action = "/findArea", method = "POST")
+        div
+          label(for = "say") Say:
+          input(required name = "say" placeholder = "Enter Postcode")
+          input(type="hidden" id="lat" name="lat" value="")
+          input(type="hidden" id="long" name="long" value="")
+    button#locBtnPscode Find Postcode
+    button#locBtn Find loc
+    //div#x
+   
+
+
