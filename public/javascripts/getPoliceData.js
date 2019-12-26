@@ -3,7 +3,7 @@
 $(function(){
   console.log("DWAAAAAAAAAAAAAAAAAAAAAAlat",latz,"lon",longz);
   
-  });
+
   if ('geolocation' in navigator) {
     console.log('geolocation available');
     navigator.geolocation.getCurrentPosition(async position => {
@@ -61,3 +61,4 @@ $(function(){
     console.log('geolocation not available');
   }
   
+});

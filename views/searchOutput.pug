@@ -1,21 +1,19 @@
 extends layout
 
 block content
-  script
-    include ../public/javascripts/makeMap.js
-    include ../public/javascripts/getPoliceData.js
+
     
   script.
-    var latz = '#{test1}';
-    var longz = '#{test2}';
-    console.log("FUNAL",latz,longz);
+    var postcode = '#{title}';
+    //var longz = '#{test2}';
+    //var easting = '#{ea}';
+    //var northing = '#{no}';
    
   //script.
     console.log(lat,long)
   h1 The Weather is Here
   p Area #{title}
-  p Lat #{test1}
-  p Long #{test2}
+
   
   p The weather here at  
     span#latitude  
@@ -44,4 +42,4 @@ block content
 
   script
     //include ../public/javascripts/makeMap.js
-    include ../public/javascripts/getPoliceData.js
+    include ../public/javascripts/checkPostCode.js

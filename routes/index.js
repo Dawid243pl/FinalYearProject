@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
  
@@ -10,12 +11,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-router.get('/dwa', function(req, res, next) {
- 
-  res.render('index', { title: '' });
-
-
-});
 // Parse URL-encoded bodies (as sent by HTML forms)
 router.use(express.urlencoded());
 
@@ -29,54 +24,10 @@ router.post('/findArea', function(req, res){
     var area = req.body.say;
     var lat =  req.body.lat;
     var long =  req.body.long;  
-
+  
     
-    console.log("reqboyd",req.body);
-    res.render('searchOutput', { title:area,test1:lat,test2:long});
-    //console.log(request.body.user.email);
-
-    const request = require('request');
-
-    //console.log("area:",area);
-
-   
-  if (area){
-      console.log("AREA NOT NULL");
-      var url = 'https://api.postcodes.io/postcodes/'+area;
+    res.render('searchOutput', { title:area});
   
-      request(url, { json: true }, (err, res, body) => {
-        if (err) { return console.log(err); }
-          //console.log(body);
-          //console.log(body.result.postcode);
-          console.log(body.result.admin_ward);
-          console.log(body.result.postcode);
-          console.log(body.result.longitude);
-          console.log(body.result.latitude);
-       
-        lat = body.result.latitude;
-        long = body.result.longitude;
-        //console.log("lat",lat);
-        //console.log("long",long);
-      });
-  
-  }else{
-  
-    console.log("AREA NULL");
-    var url = 'https://api.postcodes.io/postcodes?lon='+long+'&lat='+lat;
-    console.log(url);
-    request(url, { json: true }, (err, res, body) => {
-      if (err) { return console.log(err); }
-      //console.log(body);
-      //console.log(body.result.postcode);
-      console.log(body.result[0].admin_ward);
-      console.log(body.result[0].postcode);
-      //console.log(body.result[0].longitude);
-      //console.log(body.result[0].latitude);
-
-    });
-  }
-
-  console.log("FINAL LAT",lat,"FINAL LONG",long);
 
 });
 
@@ -132,34 +83,9 @@ exports.getUserById = function(id) {
 };
 */
 
-/*
 
 
 
-/*
-router.get('/weather', function(req, res, next) {
-  
-  const https = require('https');
-  
-  https.get('https://api.openweathermap.org/data/2.5/forecast?q=Edinburgh,gb&units=metric&APPID=6d958d0832ecb8a256f5b68533cd9014', (resp) => {
-    let data = '';
-  
-    // A chunk of data has been recieved.
-    resp.on('data', (chunk) => {
-      data += chunk;
-    });
-  
-    // The whole response has been received. Print out the result.
-    resp.on('end', () => {
-      console.log(JSON.parse(data));
-      console.log("yolo");
-    });
-  
-  }).on("error", (err) => {
-    console.log("Error: " + err.message);
-  });
-  
-});*/
 
 router.get('/policeData/:date/:lat/:lon', async (request, response) => {
   const fetch = require("node-fetch");
@@ -220,6 +146,33 @@ router.get('/weather/:lat/:lon', async (request, response) => {
 
 
 
+router.get('/postCode/:ps', async (request, response) => {
+
+  const fetch = require("node-fetch");
+  //console.log(request.params);
+  //const latlon = request.params.latlon.split(',');
+  //console.log(latlon);
+  const postcode = request.params.ps;
+ 
+  
+  //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
+  const postcode_url = `https://api.postcodes.io/postcodes/${postcode}`;
+  const postcode_response = await fetch(postcode_url);
+  const postcode_data = await postcode_response.json();
+/*
+  const aq_url = `https://api.openaq.org/v1/latest?locations/coordinates=${lat},${lon}?radius=2500`;
+  const aq_response = await fetch(aq_url);
+  const aq_data = await aq_response.json();
+*/
+  const data = {
+    postcode: postcode_data,
+    //air_quality: aq_data
+  };
+  response.json(data);
+});
+
+
+
 
 
 
@@ -258,16 +211,50 @@ router.get('/crime', function(req, res, next) {
 request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=quality-of-life-2015-16-ward&facet=indicator&facet=theme&facet=ward_name/?apikey=f032bd51ccead3c84bcd9ac2ec6c958db3bb016f42972f026d867912', { json: true }, (err, res, body) => {
   if (err) { return console.log(err); }
   //console.log(body.records[0].fields.ward_name,body.records[0].fields.indicator,body.records[0].fields.statistic);
-  
+  console.log(body);
+  /*
   var check = body.records;
   console.log("big",check.length);
   for(var i=0;i < 10;i++ ){
     console.log(body.records[i].fields.ward_name);
   
   }
+*/
+});
+  
+});
+
+
+router.get('/air', function(req, res, next) {
+  
+  const request = require('request');
+  https://opendata.bristol.gov.uk/explore/dataset/no2-diffusion-tube-data/api/?disjunctive.location&rows=9999&refine.year=2018&location=12,51.46727,-2.60342
+request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=no2-diffusion-tube-data&rows=9999&refine.year=2018&location=12,51.46727,-2.60342/?apikey=f032bd51ccead3c84bcd9ac2ec6c958db3bb016f42972f026d867912', { json: true }, (err, res, body) => {
+  if (err) { return console.log(err); }
+  //console.log(body.records[0].fields.ward_name,body.records[0].fields.indicator,body.records[0].fields.statistic);
+  console.log(body.records);
+
 
 });
   
 });
+
+
+
+router.get('/test', function(req, res, next) {
+  
+  const request = require('request');
+
+ 
+request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=no2-diffusion-tube-data&rows=9999&facet=location&facet=year&facet=geopoint&refine.year=2018&refine.recordid=061bb86e7d650fe7b5cab3b90c20d69ea625b1c5&/?apikey=f032bd51ccead3c84bcd9ac2ec6c958db3bb016f42972f026d867912', { json: true }, (err, res, body) => {
+  if (err) { return console.log(err); }
+  //console.log(body.records[0].fields.ward_name,body.records[0].fields.indicator,body.records[0].fields.statistic);
+  console.log(body.records);
+});
+  
+});
+
+
+
 
 module.exports = router;
