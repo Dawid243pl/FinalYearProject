@@ -53,7 +53,7 @@ const pool2 = mysql.createPool({
 
   host:'localhost',
   user:'root',
-  database:'wardcrimes'
+  database:'postcodeapi'
 
 })
 
@@ -85,6 +85,17 @@ router.get('/form2', function(req, res, next) {
 
 
 });
+
+router.get('/makeDB', function(req, res, next) {
+ 
+  res.render('addToDbView', { title: '' });
+
+
+});
+
+
+
+
 
 
 router.post('/user_create',(req,res)=>{
@@ -207,6 +218,39 @@ console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop);
 
 
 })
+
+//router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop',(req,res)=>{
+
+router.get('/quallity_create/:ward/:indicator/:theme/:total',(req,res)=>{
+
+  const wrd = req.params.ward;
+  const indicator = req.params.indicator;
+  const theme = req.params.theme;
+  const total = req.params.total;
+ 
+  console.log("check",wrd,indicator,theme,total);
+  const connection = getConnection2();
+  
+
+  const queryString = "INSERT INTO quallitylife (WardName,Indicator,Theme,Total) VALUES (?,?,?,?)"; 
+
+  connection.query(queryString,[wrd,indicator,theme,total], (err,result,fields) =>{
+
+    if (err){
+      console.log("failed to insert new user"+err)
+      return
+    }
+
+    console.log("inserted a new user with the id",result.insertId);
+    res.end()
+  })
+
+
+
+})
+
+
+
 
 // Access the parse results as request.body
 router.post('/findArea', function(req, res){
@@ -516,13 +560,13 @@ router.get('/Quallity/:wardName', async (request, response) => {
   const health_response = await fetch(health_url);
   const health_data = await health_response.json();
 
-  const all_wards_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=early-years-pupils-achieving-a-good-level-of-development-in-bristol&rows=9999&sort=-number_of_pupils_achieving_a_good_level_of_development&facet=ward_name&facet=time_period`;
+  const all_wards_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/quality-of-life-2018-19-ward/records?rows=100&select=indicator,%20theme,%20ward_name,%20upper_confidence_limit,%20lower_confidence_limit`;
   const all_wards_response = await fetch(all_wards_url);
   const all_wards_data = await all_wards_response.json();
 
   const data = {
-    health: health_data,
-    //all_wards: all_wards_data
+    //health: health_data,
+    all_wards: all_wards_data
   };
   response.json(data);
 });

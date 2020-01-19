@@ -31,10 +31,10 @@ $(function(){
         $.each(json_crime.all_wards.records, function(i){
 
           
-          //console.log("all json",json_crime.all_wards.records);
-          console.log("k",json_crime.all_wards.records[i]);
+          console.log("all json",json_crime.all_wards.records);
+          //console.log("k",json_crime.all_wards.records[i]);
 
-          console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
+          //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
 
 
           var bulg = json_crime.all_wards.records[i].record.fields.burglary_number;
@@ -153,7 +153,7 @@ $(function(){
       //const response_database = await fetch(api_url_quall );
 
 
-      getQuallity();
+      //getQuallity();
       getEdu();
       getWeather();
       getCrime();
