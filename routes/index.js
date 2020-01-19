@@ -1,5 +1,19 @@
 var express = require('express');
 var router = express.Router();
+const mysql = require('mysql')
+const fetch = require("node-fetch");
+//const bodyParser = require('body-parser')
+
+
+
+
+// Parse URL-encoded bodies (as sent by HTML forms)
+router.use(express.urlencoded());
+
+// Parse JSON bodies (as sent by API clients)
+router.use(express.json());
+
+
 
 
 /* GET home page. */
@@ -11,11 +25,188 @@ router.get('/', function(req, res, next) {
 });
 
 
-// Parse URL-encoded bodies (as sent by HTML forms)
-router.use(express.urlencoded());
 
-// Parse JSON bodies (as sent by API clients)
-router.use(express.json());
+const pool = mysql.createPool({
+
+  host:'localhost',
+  user:'root',
+  database:'lbta_mysql'
+
+})
+
+function getConnection(){
+  return pool
+  
+  /*mysql.createConnection({
+
+      host: 'localhost',
+      user: 'root',
+      database: 'restapi_mysql'
+      //password:
+
+   })   
+*/
+
+}
+
+const pool2 = mysql.createPool({
+
+  host:'localhost',
+  user:'root',
+  database:'wardcrimes'
+
+})
+
+function getConnection2(){
+  return pool2
+  
+  /*mysql.createConnection({
+
+      host: 'localhost',
+      user: 'root',
+      database: 'restapi_mysql'
+      //password:
+
+   })   
+*/
+
+}
+
+router.get('/form', function(req, res, next) {
+ 
+  res.render('form', { title: '' });
+
+
+});
+
+router.get('/form2', function(req, res, next) {
+ 
+  res.render('form2', { title: '' });
+
+
+});
+
+
+router.post('/user_create',(req,res)=>{
+
+  console.log("trying to make a new user");
+  console.log("How to get data");
+
+  console.log("first name",req.body.create_firstname);
+  console.log("last name",req.body.create_lastname);
+
+  const firstName = req.body.create_firstname;
+  const lastName = req.body.create_lastname;
+
+  const connection = getConnection();
+
+  const queryString = "INSERT INTO users (first_name,last_name) VALUES (?,?)"; 
+
+  connection.query(queryString,[firstName,lastName], (err,result,fields) =>{
+
+
+    if (err){
+      console.log("failed to insert new user"+err)
+      return
+    }
+
+    console.log("inserted a new user with the id",result.insertId);
+    res.end()
+  })
+
+
+ 
+})
+
+router.get("/users", (req,res) => {
+
+  const user1 = {firstName: "stephen", lastName: "cos"}
+
+  const user2 = {firstName: "Dawid", lastName: "Koleczko"}
+
+  res.json([user1,user2]);
+
+})
+
+router.get('/user/:id', (req,res)=>{
+  console.log("fetch id"+req.params.id);
+
+  const connection = getConnection();
+  
+  const queryString = "SELECT * FROM users WHERE id =?";
+  const userId = req.params.id;
+
+  connection.query(queryString,[req.params.id],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+    const users = rows.map((row)=> {
+      return {firstName: row.first_name,lastName: row.last_name}
+    })
+
+    res.json(users);
+
+  })
+  //res.end();
+});
+
+
+
+/*
+router.get('/crime_create',(req,res)=>{
+
+  res.send("yolo");
+});*/
+
+router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop',(req,res)=>{
+
+  const wrd = req.params.wardName;
+  const bulglary = req.params.bulglary;
+  const sexualOffence = req.params.sexualOffence;
+  const allCrimes = req.params.AllCrimes;
+  const TotalPop = req.params.totalPop;
+
+
+console.log("trying to make a new user");
+console.log("How to get data");
+
+//console.log("all params",request.params);
+//console.log("last name",req.body.create_lastname);
+/*
+const wrd = req.body.create_ward;
+const bulglary = req.body.create_bulglary;
+const sexualOffence = req.body.create_sexOffemce;
+const allCrimes = req.body.create_allCrimes;
+const TotalPop = req.body.create_pop;
+*/
+//console.log(req.params);
+
+console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop);
+
+  const connection = getConnection2();
+
+  const queryString = "INSERT INTO crime (WardName,burglary,sexual_offences,total_crimes,total_population) VALUES (?,?,?,?,?)"; 
+
+  connection.query(queryString,[wrd,bulglary,sexualOffence,allCrimes,TotalPop], (err,result,fields) =>{
+
+
+    if (err){
+      console.log("failed to insert new user"+err)
+      return
+    }
+
+    console.log("inserted a new user with the id",result.insertId);
+    res.end()
+  })
+
+
+
+})
 
 // Access the parse results as request.body
 router.post('/findArea', function(req, res){
@@ -88,7 +279,7 @@ exports.getUserById = function(id) {
 
 
 router.get('/policeData/:date/:lat/:lon', async (request, response) => {
-  const fetch = require("node-fetch");
+
   //console.log(request.params);
   //const latlon = request.params.latlon.split(',');
   //console.log(latlon);
@@ -117,7 +308,7 @@ router.get('/policeData/:date/:lat/:lon', async (request, response) => {
 
 
 router.get('/weather/:lat/:lon', async (request, response) => {
-  const fetch = require("node-fetch");
+  
   //console.log(request.params);
   //const latlon = request.params.latlon.split(',');
   //console.log(latlon);
@@ -129,7 +320,9 @@ router.get('/weather/:lat/:lon', async (request, response) => {
   const weather_response = await fetch(weather_url);
   const weather_data = await weather_response.json();
 
-  const aq_url = `https://api.openaq.org/v1/latest?locations/coordinates=${lat},${lon}?radius=10`;
+  const xaccesstoken = "eyJhbGciOiJIUzI1NiJ9.OGVhY2Y4YjAtMjgxYi0xMWVhLWI1MmMtZDMwZGU3OTk2NTMw.8enNkjxpH-8gtjqAmaFWuYYW431NFH5wkNVYIozMGkQ";
+
+  const aq_url = `https://api.openaq.org/v1/latest?locations/coordinates=${lat},${lon}/?radius=10`;
   const aq_response = await fetch(aq_url);
   const aq_data = await aq_response.json();
 
@@ -148,7 +341,7 @@ router.get('/weather/:lat/:lon', async (request, response) => {
 
 router.get('/postCode/:ps', async (request, response) => {
 
-  const fetch = require("node-fetch");
+
   //console.log(request.params);
   //const latlon = request.params.latlon.split(',');
   //console.log(latlon);
@@ -174,55 +367,167 @@ router.get('/postCode/:ps', async (request, response) => {
 
 
 
+router.get('/ward/:wardName', async (request, response) => {
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  //console.log(request.params);
+  //const latlon = request.params.latlon.split(',');
+  //console.log(latlon);
+  const ward = request.params.wardName;
+ 
+  
+  //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
+  const ward_url = `https://api.postcodes.io/postcodes/${ward}`;
+  const ward_response = await fetch(ward_url);
+  const ward_data = await ward_response.json();
 /*
-router.get('/weather', function(req, res, next) {
-  
-  const request = require('request');
-
-request('https://api.openweathermap.org/data/2.5/forecast?q=Edinburgh,gb&units=metric&APPID=6d958d0832ecb8a256f5b68533cd9014', { json: true }, (err, res, body) => {
-  if (err) { return console.log(err); }
-  console.log(body.city.name);
-});
-  
-});
+  const aq_url = `https://api.openaq.org/v1/latest?locations/coordinates=${lat},${lon}?radius=2500`;
+  const aq_response = await fetch(aq_url);
+  const aq_data = await aq_response.json();
 */
+  const data = {
+    ward: ward_data,
+    //air_quality: aq_data
+  };
+  response.json(data);
+});
 
 
-router.get('/crime', function(req, res, next) {
+router.get('/crimes/:wardName', async (request, response) => {
+
+
+  //console.log(request.params);
+  //const latlon = request.params.latlon.split(',');
+  //console.log(latlon);
+  const crimes = request.params.wardName;
+ 
   
-  const request = require('request');
+  //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
+  const crimes_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward&facet=ward_name&facet=year&refine.ward_name=${crimes}`;
+  const crimes_response = await fetch(crimes_url);
+  const crimes_data = await crimes_response.json();
 
-request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=quality-of-life-2015-16-ward&facet=indicator&facet=theme&facet=ward_name/?apikey=f032bd51ccead3c84bcd9ac2ec6c958db3bb016f42972f026d867912', { json: true }, (err, res, body) => {
-  if (err) { return console.log(err); }
-  //console.log(body.records[0].fields.ward_name,body.records[0].fields.indicator,body.records[0].fields.statistic);
-  console.log(body);
+  const all_wards_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward/records?rows=100&select=all_crimes_number,%20violent_sexual_offences_number,%20burglary_number,%20ward_name,%20latest_mid_year_population_estimates_for_ward&where="2018/19"`;
+  const all_wards_response = await fetch(all_wards_url);
+  const all_wards_data = await all_wards_response.json();
+
+  const data = {
+    //Current_ward: crimes_data,
+    all_wards: all_wards_data
+  };
+  
+  response.json(data);
   /*
-  var check = body.records;
-  console.log("big",check.length);
-  for(var i=0;i < 10;i++ ){
-    console.log(body.records[i].fields.ward_name);
+  const queryString ="INSERT INTO users (burglary,sexual offences,total crimes,total population,WardName) VALUES (?,?,?,?,?)";
+
+  for(var i = 0; i < data.length;i++){
   
-  }
-*/
+      console.log("burglary",v.fields.burglary_number);
+      console.log("sexual offences",v.fields.violent_sexual_offences_number);
+      console.log("total crimes",v.fields.all_crimes_number);
+      console.log("total population",v.fields.latest_mid_year_population_estimates_for_ward);
+    
+}
+/*
+  $.each(json_crime.Current_ward.records, function(k, v){
+        
+    //console.log(json_crime.Current_ward.field.burglary_number);
+    //console.log("kv",k,v);
+    //console.log(v.fields.year);
+    //console.log(v.fields.burglary_number);
+    if (v.fields.year === "2018/19"){
+      console.log("burglary",v.fields.burglary_number);
+      console.log("sexual offences",v.fields.violent_sexual_offences_number);
+      console.log("total crimes",v.fields.all_crimes_number);
+      console.log("total population",v.fields.latest_mid_year_population_estimates_for_ward);
+      var bulg = v.fields.burglary_number;
+      var sex = v.fields.violent_sexual_offences_number;
+      var all = v.fields.all_crimes_number;
+      var pop = v.fields.latest_mid_year_population_estimates_for_ward;
+      var wrd= v.fields.ward_name;
+      getConnection().query(queryString, [bulg,sex,all,pop,wrd],(err,results,fields)=>{
+
+        if (err){
+            console.log("Failed to insert new user:"+err)
+            res.sendStatus(500)
+            return
+        }
+    
+        console.log("Inserted a new user with id:", results.insertId)
+        //response.end()
+    
+    });
+    
+    }
+  }); 
+ 
+
+
+ /// res.end()
+ */
 });
+
+
+
+
+
+
+
+router.get('/education/:wardName', async (request, response) => {
+
+
+  //console.log(request.params);
+  //const latlon = request.params.latlon.split(',');
+  //console.log(latlon);
+  const crimes = request.params.wardName;
+ 
   
+  //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
+  const education_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=early-years-pupils-achieving-a-good-level-of-development-in-bristol&rows=9999&sort=-number_of_pupils_achieving_a_good_level_of_development&facet=ward_name&facet=time_period&refine.ward_name=${crimes}`;
+  const education_response = await fetch(education_url);
+  const education_data = await education_response.json();
+
+  const all_wards_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=early-years-pupils-achieving-a-good-level-of-development-in-bristol&rows=9999&sort=-number_of_pupils_achieving_a_good_level_of_development&facet=ward_name&facet=time_period`;
+  const all_wards_response = await fetch(all_wards_url);
+  const all_wards_data = await all_wards_response.json();
+
+  const data = {
+    Current_ward: education_data,
+    //all_wards: all_wards_data
+  };
+  response.json(data);
 });
+
+
+
+
+
+
+router.get('/Quallity/:wardName', async (request, response) => {
+
+  //console.log(request.params);
+  //const latlon = request.params.latlon.split(',');
+  //console.log(latlon);
+  const crimes = request.params.wardName;
+ 
+  
+  //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
+  const health_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=quality-of-life-2018-19-ward&rows=9999&facet=indicator&facet=theme_indicator&facet=ward_name&refine.theme_indicator=Health+%26+Wellbeing&refine.ward_name=${crimes}`;
+  const health_response = await fetch(health_url);
+  const health_data = await health_response.json();
+
+  const all_wards_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=early-years-pupils-achieving-a-good-level-of-development-in-bristol&rows=9999&sort=-number_of_pupils_achieving_a_good_level_of_development&facet=ward_name&facet=time_period`;
+  const all_wards_response = await fetch(all_wards_url);
+  const all_wards_data = await all_wards_response.json();
+
+  const data = {
+    health: health_data,
+    //all_wards: all_wards_data
+  };
+  response.json(data);
+});
+
+
 
 
 router.get('/air', function(req, res, next) {
@@ -240,19 +545,6 @@ request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=no2-dif
 });
 
 
-
-router.get('/test', function(req, res, next) {
-  
-  const request = require('request');
-
- 
-request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=no2-diffusion-tube-data&rows=9999&facet=location&facet=year&facet=geopoint&refine.year=2018&refine.recordid=061bb86e7d650fe7b5cab3b90c20d69ea625b1c5&/?apikey=f032bd51ccead3c84bcd9ac2ec6c958db3bb016f42972f026d867912', { json: true }, (err, res, body) => {
-  if (err) { return console.log(err); }
-  //console.log(body.records[0].fields.ward_name,body.records[0].fields.indicator,body.records[0].fields.statistic);
-  console.log(body.records);
-});
-  
-});
 
 
 

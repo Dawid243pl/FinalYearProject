@@ -1,7 +1,7 @@
 // Geo Locate
 //let lat, lon;
 $(function(){
-  console.log("DWAAAAAAAAAAAAAAAAAAAAAAlat",latz,"lon",longz);
+  //console.log("DWAAAAAAAAAAAAAAAAAAAAAAlat",latz,"lon",longz);
   
 
   if ('geolocation' in navigator) {

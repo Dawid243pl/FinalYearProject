@@ -21,7 +21,7 @@ block content
     span#longitude  
     | &amp;&deg; is  
     span#summary 
-    | with a temperature of  
+    |  with a temperature of  
     span#temp &deg;  
     | C. The concentration of particulate matter ( 
     span#aq_parameter 
@@ -30,7 +30,7 @@ block content
     span#aq_units 
     | last read on 
     span#aq_date  
-  
+    #testDiv
   //div.textBlock
     all of the text below is as seen on the webpage    
     p The Ward Profiles are compiled for Bristol City Council wards using the latest data as of 
@@ -42,4 +42,6 @@ block content
 
   script
     //include ../public/javascripts/makeMap.js
+    include ../public/javascripts/mainFunc.js
     include ../public/javascripts/checkPostCode.js
+    //include ../public/javascripts/updtDatabase.js
