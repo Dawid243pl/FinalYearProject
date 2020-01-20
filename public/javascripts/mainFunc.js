@@ -5,3 +5,12 @@ function avgTwoNumb(x,y){
     return average;
 }
 
+function containsEncodedComponents(x) {
+    // ie ?,=,&,/ etc
+    if ((decodeURI(x) !== decodeURIComponent(x)) == false){
+        return decodeURIComponent(x);
+
+    }else{
+        return(x);
+    }
+  }

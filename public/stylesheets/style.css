@@ -17,13 +17,6 @@ a {
   color: #00B7FF;
 }
 
-
-#findArea{
-  background-image:url("../../images/pc_01.jpg");
-  
-
-}
-
 #map {
   height: 100%;
 }
@@ -34,9 +27,5 @@ a {
   margin: auto;
   margin-top: 200px;
   text-transform: capitalize;
-}
-#formHolder{
-  background-image:url("../../images/pc_01.jpg"); ;
-  
-
+  text-align: center;
 }

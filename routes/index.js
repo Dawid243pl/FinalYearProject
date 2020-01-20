@@ -111,7 +111,7 @@ router.post('/user_create',(req,res)=>{
 
   const connection = getConnection();
 
-  const queryString = "INSERT INTO users (first_name,last_name) VALUES (?,?)"; 
+  const queryString = "REPLACE INTO users (first_name,last_name) VALUES (?,?)"; 
 
   connection.query(queryString,[firstName,lastName], (err,result,fields) =>{
 
@@ -201,7 +201,9 @@ console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop);
 
   const connection = getConnection2();
 
-  const queryString = "INSERT INTO crime (WardName,burglary,sexual_offences,total_crimes,total_population) VALUES (?,?,?,?,?)"; 
+  const queryString = "REPLACE INTO crime (WardName,burglary,sexual_offences,total_crimes,total_population) VALUES (?,?,?,?,?)";
+  
+  
 
   connection.query(queryString,[wrd,bulglary,sexualOffence,allCrimes,TotalPop], (err,result,fields) =>{
 
@@ -219,6 +221,99 @@ console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop);
 
 })
 
+
+
+router.get('/listCrime/:id', (req,res)=>{
+  
+  const connection = getConnection2();
+  
+  const queryString = "SELECT * FROM crime WHERE WardName =?";
+  const userId = req.params.id;
+
+  connection.query(queryString,[userId],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+   
+    const users = rows.map((row)=> {
+      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population}
+  
+
+    })
+
+    res.json(users);
+
+  })
+  //res.end();
+});
+
+
+router.get('/listCrimes', (req,res)=>{
+  
+  const connection = getConnection2();
+  
+  const queryString = "SELECT * FROM crime";
+  const userId = req.params.id;
+
+  connection.query(queryString,[userId],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+   
+    const users = rows.map((row)=> {
+      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population}
+  
+
+    })
+
+    res.json(users);
+
+  })
+  //res.end();
+});
+
+
+
+
+router.get('/listQuallity/:id', (req,res)=>{
+  
+  const connection = getConnection2();
+  
+  const queryString = "SELECT * FROM quallitylife WHERE WardName =?";
+  const userId = req.params.id;
+
+  connection.query(queryString,[userId],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+   
+    const users = rows.map((row)=> {
+      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population}
+  
+
+    })
+
+    res.json(users);
+
+  })
+  //res.end();
+});
+
 //router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop',(req,res)=>{
 
 router.get('/quallity_create/:ward/:indicator/:theme/:total',(req,res)=>{
@@ -232,7 +327,7 @@ router.get('/quallity_create/:ward/:indicator/:theme/:total',(req,res)=>{
   const connection = getConnection2();
   
 
-  const queryString = "INSERT INTO quallitylife (WardName,Indicator,Theme,Total) VALUES (?,?,?,?)"; 
+  const queryString = "REPLACE INTO quallitylife (WardName,Indicator,Theme,Total) VALUES (?,?,?,?)"; 
 
   connection.query(queryString,[wrd,indicator,theme,total], (err,result,fields) =>{
 
@@ -462,7 +557,7 @@ router.get('/crimes/:wardName', async (request, response) => {
   
   response.json(data);
   /*
-  const queryString ="INSERT INTO users (burglary,sexual offences,total crimes,total population,WardName) VALUES (?,?,?,?,?)";
+  const queryString ="REPLACE INTO users (burglary,sexual offences,total crimes,total population,WardName) VALUES (?,?,?,?,?)";
 
   for(var i = 0; i < data.length;i++){
   
@@ -542,9 +637,20 @@ router.get('/education/:wardName', async (request, response) => {
   response.json(data);
 });
 
+router.get('/listWards', async (request, response) => {
 
 
+ 
+  const list_of_wards = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/wards/records?&rows=100&select=name`;
+  const list_of_wards_response = await fetch(list_of_wards);
+  const list_of_wards_json = await list_of_wards_response.json();
 
+  const data = {
+    wards:list_of_wards_json
+  };
+  response.json(data);
+
+});
 
 
 router.get('/Quallity/:wardName', async (request, response) => {
@@ -552,10 +658,18 @@ router.get('/Quallity/:wardName', async (request, response) => {
   //console.log(request.params);
   //const latlon = request.params.latlon.split(',');
   //console.log(latlon);
-  const crimes = request.params.wardName;
+  var crimes = request.params.wardName;
  
-  
+  //console.log("encoded",encodeURI(crimes));
+  //console.log("DECODEURI COMONENT",decodeURIComponent(crimes));
+  //console.log("decodeURI",decodeURI(crimes));
+
+  //console.log("blank",crimes);
+  //console.log("test",crimes.replace(/&/,"%26"));
+
+  crimes = crimes.replace(/&/,"%26");
   //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
+  /*
   const health_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=quality-of-life-2018-19-ward&rows=9999&facet=indicator&facet=theme_indicator&facet=ward_name&refine.theme_indicator=Health+%26+Wellbeing&refine.ward_name=${crimes}`;
   const health_response = await fetch(health_url);
   const health_data = await health_response.json();
@@ -563,10 +677,20 @@ router.get('/Quallity/:wardName', async (request, response) => {
   const all_wards_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/quality-of-life-2018-19-ward/records?rows=100&select=indicator,%20theme,%20ward_name,%20upper_confidence_limit,%20lower_confidence_limit`;
   const all_wards_response = await fetch(all_wards_url);
   const all_wards_data = await all_wards_response.json();
+*/
+  
+  const specific_crime_quallity = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/quality-of-life-2018-19-ward/records?refine=theme_indicator:Crime+%26+Safety&select=indicator,%20theme,%20ward_name,%20upper_confidence_limit,%20lower_confidence_limit&refine=ward_name:${crimes}`;
+  console.log(specific_crime_quallity);
+  
+  const specific_crime_quallity_response = await fetch(specific_crime_quallity);
+  const crime_quallity_of_life = await specific_crime_quallity_response.json();
+
+  
 
   const data = {
     //health: health_data,
-    all_wards: all_wards_data
+    //all_wards: all_wards_data,
+    crimeQ:crime_quallity_of_life
   };
   response.json(data);
 });
