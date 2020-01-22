@@ -37,6 +37,28 @@ block content
         b May 2019.
         | This interactive tool provides data for each of the wards against Bristol as a whole. It highlights any significant differences for the relevant ward compared to the Bristol average. The tool is designed to allow users to copy pages into other reports to provide local evidence. There is also a suite of individual ward profile reports. See 
         a(href="http://www.bristol.gov.uk/wardprofiles") www.bristol.gov.uk/wardprofiles.  
+  
+  .container
+    .titContainer 
+      a.btn.btn-primary.btn-lg(href="#" role="button") Crime
+  
+    .jumbotron
+      h1.display-4
+      .widget
+        .header Total Number of crimes recorded by Police 2018/2019
+        div#chartBrs.chart-container
+        div#chartWrd.chart-container
+
+      p.lead
+        | This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+      hr.my-4
+      p
+        | It uses utility classes for typography and spacing to space content out within the larger container.
+      p.lead
+        a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
+      p.CrimeComponent  
+      hr.my-4
+      ul.list-group
 
 
 
@@ -45,4 +67,6 @@ block content
     include ../public/javascripts/mainFunc.js
     include ../public/javascripts/gettingFromAPI/checkPostCodeFunc.js
     include ../public/javascripts/checkPostCode.js
+    include ../public/javascripts/D3/donut.js
+
     //include ../public/javascripts/updtDatabase.js

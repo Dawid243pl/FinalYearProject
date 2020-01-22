@@ -227,7 +227,8 @@ router.get('/listCrime/:id', (req,res)=>{
   
   const connection = getConnection2();
   
-  const queryString = "SELECT * FROM crime WHERE WardName =?";
+  //const queryString = "SELECT * FROM crime WHERE WardName =?";
+  const queryString = "SELECT * FROM crime";
   const userId = req.params.id;
 
   connection.query(queryString,[userId],(err,rows,fields)=>{
@@ -289,7 +290,7 @@ router.get('/listQuallity/:id', (req,res)=>{
   
   const connection = getConnection2();
   
-  const queryString = "SELECT * FROM quallitylife WHERE WardName =?";
+  const queryString = "SELECT * FROM quallitylife WHERE WardName =? AND total > 0";
   const userId = req.params.id;
 
   connection.query(queryString,[userId],(err,rows,fields)=>{
@@ -301,9 +302,10 @@ router.get('/listQuallity/:id', (req,res)=>{
     console.log("i think we fetched sucessfuly");
 
     //custom format for json response
+    
    
     const users = rows.map((row)=> {
-      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population}
+      return {WardName: row.WardName,Indicator: row.Indicator,Theme:row.Theme, Total: row.Total}
   
 
     })

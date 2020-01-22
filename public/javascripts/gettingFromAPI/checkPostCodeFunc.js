@@ -1,64 +1,80 @@
 function getCrime(json_crime){
-    tempArray = [];
-    $.each(json_crime, function(i){
+
+      var newJsonArrayWrd =[];
+      var newJsonArrayBrs =[];
+   
 
       
-      console.log("Crime json",json_crime);
+  //    console.log("Crime json",json_crime);
 
+    //  console.log("Crime json",json_crime[0].bulgary);
 
-      //console.log("k",json_crime.all_wards.records[i]);
-
-      //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
-
-
-      //var bulg = json_crime.all_wards.records[i].record.fields.burglary_number;
-      //var sex = json_crime.all_wards.records[i].record.fields.violent_sexual_offences_number;
-      //var all = json_crime.all_wards.records[i].record.fields.all_crimes_number;
-      //var pop = json_crime.all_wards.records[i].record.fields.latest_mid_year_population_estimates_for_ward;
-      //var wrd = json_crime.all_wards.records[i].record.fields.ward_name;
-
-
-    
-      /*
-      //console.log(json_crime.Current_ward.field.burglary_number);
-      //console.log("kv",k,v);
-      //console.log(v.fields.year);
-      //console.log(v.fields.burglary_number);
-      //if (v.fields.year === "2018/19"){
-        console.log("burglary",v.fields.burglary_number);
-        console.log("sexual offences",v.fields.violent_sexual_offences_number);
-        console.log("total crimes",v.fields.all_crimes_number);
-        console.log("total population",v.fields.latest_mid_year_population_estimates_for_ward);
-        var bulg = v.fields.burglary_number;
-        var sex = v.fields.violent_sexual_offences_number;
-        var all = v.fields.all_crimes_number;
-        var pop = v.fields.latest_mid_year_population_estimates_for_ward;
-        var wrd = v.fields.ward_name;
-
-      
-        //$('#testDiv').append(bulg);
-        //var tempArr=[];
-        //tempArr.push(wrd,bulg,sex,all,pop);
-        ///crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop
-        addToDB(wrd,bulg,sex,all,pop);
-
-        //tempArray.push(tempArr);
-      }
+/*
+      var crimeStat1 = new Object();
+      crimeStat1.name = "Bulglary";
+      crimeStat1.percent = json_crime[0].bulgary;
+  
+      var crimeStat2 = new Object();
+      crimeStat2.name = "Sexual Offence";
+      crimeStat2.percent = json_crime[0].sexOffence;
 */
+$.each(json_crime, function(i){
 
-    }); 
-    
-    
+
+  if( json_crime[i].WardName ==ward){
+      var crimeStat3 = new Object();
+      crimeStat3.name = "Total crimes";
+      crimeStat3.percent = 100;
+      crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);;
+      crimeStat3.wName = json_crime[i].WardName;
+  
+      
+      newJsonArrayWrd.push(crimeStat3);
+  
+      makeDonut(newJsonArrayWrd,chartWrd,"colour");
+  }
+  
+  if( json_crime[i].WardName =="Bristol"){
+      var crimeStat1 = new Object();
+      crimeStat1.name = "Total crimes";
+      crimeStat1.percent = 100;
+      crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);;
+      crimeStat1.wName = json_crime[i].WardName;
+  
+     
+      newJsonArrayBrs.push(crimeStat1);
+  
+      makeDonut(newJsonArrayBrs,chartBrs,"colour");
+  }
+      //makeDonut(newJsonArrayBrs);
+      
+      /*
+      $(".CrimeComponent").append(json_crime[0].bulgary+"<br>");
+      $(".CrimeComponent").append(json_crime[0].sexOffence+"<br>");
+      $(".CrimeComponent").append(json_crime[0].totalCrimes+"<br>");
+      $(".CrimeComponent").append(json_crime[0].population+"<br>");
+    */
+  });
+      
   }
 
 function getQuallity(json_quall){
   
-    $.each(json_quall, function(i){
+ 
 
-      
-      console.log("Quallity Crime json",json_quall);
+  $.each(json_quall, function(i){
+    //console.log("Quallity Crime json",json_quall[i]);
 
-    }); 
+    console.log(json_quall[i].Indicator);
+    console.log(json_quall[i].Total);
+
+   
+    $(".list-group").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
+
+  });
+    
+
+   
     
     
   }

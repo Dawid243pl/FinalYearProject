@@ -20,6 +20,8 @@ $(function(){
         ward = json.postcode.result.admin_ward;
 
 
+        $(".display-4").append("Your Search<br> Ward: "+ward+" Postcode: "+postC);
+
         const api_url_crime = `listCrime/${ward}`;
         const response_crime = await fetch(api_url_crime);
         const json_crime = await response_crime.json();
@@ -28,11 +30,12 @@ $(function(){
         const api_url_weather = `weather/${lat}/${long}`;
         const response_weather = await fetch(api_url_weather);
         const json_weather = await response_weather.json();
-      
+
+        /*
         const api_url_edu = `education/${ward}`;
         const response_edu = await fetch(api_url_edu);
         const json_edu = await response_edu.json();
-
+*/
       
         const api_url_quall = `ListQuallity/${ward}`;
         const response_quall = await fetch(api_url_quall );
@@ -60,7 +63,7 @@ $(function(){
       };
       */
       getQuallity(json_quall);
-      getEdu(json_edu);
+      //getEdu(json_edu);
       getWeather(json_weather);
       getCrime(json_crime);
 
