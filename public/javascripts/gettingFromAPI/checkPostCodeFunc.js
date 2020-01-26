@@ -65,8 +65,8 @@ function getQuallity(json_quall){
   $.each(json_quall, function(i){
     //console.log("Quallity Crime json",json_quall[i]);
 
-    console.log(json_quall[i].Indicator);
-    console.log(json_quall[i].Total);
+    //console.log(json_quall[i].Indicator);
+    //console.log(json_quall[i].Total);
 
    
     $(".list-group").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
@@ -83,7 +83,7 @@ function getQuallity(json_quall){
     $.each(json_edu.Current_ward.records, function(k, v){
      
       if (v.fields.time_period === "2018/2019"){
-        console.log("good devo",v.fields.achieving_a_good_level_of_development);
+        //console.log("good devo",v.fields.achieving_a_good_level_of_development);
      
         var devo = v.fields.achieving_a_good_level_of_development;
   

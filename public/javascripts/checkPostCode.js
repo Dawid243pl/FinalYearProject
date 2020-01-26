@@ -41,27 +41,87 @@ $(function(){
         const response_quall = await fetch(api_url_quall );
         const json_quall  = await response_quall.json();
 
+        console.log(lat,long);
+
+
+
+        var today = new Date();
+  
+        //console.log(d.toLocaleDateString());
+        var dateArray=[];
+
+        for(var y =0;y<12;y++){
+          var d = new Date();
+
+          d.setMonth(d.getMonth() - y);
+          
+          dateArray.push(d);
+        }
+
+        console.log("date array",dateArray);
+
+       var policeDataObj = [];
+
+       for(var z =0;z<dateArray.length;z++){
+          
+          var mm = dateArray[z].getMonth()+1;
+          var yr = dateArray[z].getFullYear();
+
+          var combinedDate =yr+'-'+mm;
+          console.log("combined",combinedDate);
+          
+          var api_url_police = `/policeData/${combinedDate}/${lat}/${long}/`;
+          var response_police = await fetch(api_url_police);
+          var json_police  = await response_police.json();
+
+          $.each(json_police, function(i){
+           
+            var length = json_police[i].length;
+
+            for(var l = 0;l < length;l++){
+
+              console.log("police",json_police[i][l]);
+              
+              $(".latestCrime").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_police[i][l].category+"<span class='badge badge-primary badge-pill'>"+json_police[i][l].month+"</span></div>");
+        
+            }
+         
+            
+
+       
+          });
+
+          //console.log(json_police);
+         
+            //policeDataObj.push(json_police);
+          
+          
+          }
+
+        //console.log(policeDataObj,"police data");
+
+
+
+        //policeDataObj[0].category;
 
 /*
-      function getQuallity(){
-        tempArray = [];
-        $.each(json_quall.health.records, function(k, v){
-         
-         
-            console.log("indicator",v.fields.indicator,"avg score",avgTwoNumb(v.fields.upper_confidence_limit,v.fields.lower_confidence_limit));
+        category: "public-order"
+        location_type: "Force"
+        location:
+        latitude: "51.466777"
+        street: {id: 545032, name: "On or near Mallard Close"}
+        longitude: "-2.537445"
+        __proto__: Object
+        context: ""
+        outcome_status: {category: "Unable to prosecute suspect", date: "2019-04"}
+        persistent_id: "b2ee197de3f094f89db755d7a61e9042d87ddd8438b70d33037765d5d2ba1dfb"
+        id: 73227419
+        location_subtype: ""
+        month: "2019-04"
+*/
 
-           
-          
-         
-            //var devo = v.fields.achieving_a_good_level_of_development;
+
       
-            //tempArray.push(devo);
-          
-        }); 
-        console.log(tempArray);
-
-      };
-      */
       getQuallity(json_quall);
       //getEdu(json_edu);
       getWeather(json_weather);
@@ -74,19 +134,6 @@ $(function(){
         document.getElementById('aq_value').textContent = 'NO READING';
       }
 
-      /*
-      const data = { lat, lon, weather, air };
-      const options = {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-      };
-      const db_response = await fetch('/api', options);
-      const db_json = await db_response.json();
-      console.log(db_json);
-      */
 });
 
 
