@@ -2,7 +2,7 @@ function getCrime(json_crime){
     $.each(json_crime.all_wards.records, function(i){
 
       
-      //console.log("all json",json_crime.all_wards.records);
+      console.log("all json",json_crime.all_wards.records);
       //console.log("k",json_crime.all_wards.records[i]);
 
       //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
@@ -13,14 +13,57 @@ function getCrime(json_crime){
       var all = json_crime.all_wards.records[i].record.fields.all_crimes_number;
       var pop = json_crime.all_wards.records[i].record.fields.latest_mid_year_population_estimates_for_ward;
       var wrd = json_crime.all_wards.records[i].record.fields.ward_name;
+      var year = "2018-19";
 
 
-      addCrimeToDb(wrd,bulg,sex,all,pop);
+      addCrimeToDb(wrd,bulg,sex,all,pop,year);
+ 
+
+    }); 
+
+    $.each(json_crime.year_17_18.records, function(i){
+
+      
+      //console.log("all json",json_crime.all_wards.records);
+      //console.log("k",json_crime.all_wards.records[i]);
+
+      //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
+
+
+      var bulg = json_crime.year_17_18.records[i].record.fields.burglary_number;
+      var sex = json_crime.year_17_18.records[i].record.fields.violent_sexual_offences_number;
+      var all = json_crime.year_17_18.records[i].record.fields.all_crimes_number;
+      var pop = json_crime.year_17_18.records[i].record.fields.latest_mid_year_population_estimates_for_ward;
+      var wrd = json_crime.year_17_18.records[i].record.fields.ward_name;
+      var year = "2017-18";
+
+
+      addCrimeToDb(wrd,bulg,sex,all,pop,year);
  
 
     }); 
     
-   
+    $.each(json_crime.year_16_17.records, function(i){
+
+      
+      //console.log("all json",json_crime.all_wards.records);
+      //console.log("k",json_crime.all_wards.records[i]);
+
+      //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
+
+
+      var bulg = json_crime.year_16_17.records[i].record.fields.burglary_number;
+      var sex = json_crime.year_16_17.records[i].record.fields.violent_sexual_offences_number;
+      var all = json_crime.year_16_17.records[i].record.fields.all_crimes_number;
+      var pop = json_crime.year_16_17.records[i].record.fields.latest_mid_year_population_estimates_for_ward;
+      var wrd = json_crime.year_16_17.records[i].record.fields.ward_name;
+      var year = "2016-17";
+
+
+      addCrimeToDb(wrd,bulg,sex,all,pop,year);
+ 
+
+    }); 
   }
 
   function getEdu(json_edu){

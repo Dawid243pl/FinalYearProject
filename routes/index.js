@@ -174,13 +174,14 @@ router.get('/crime_create',(req,res)=>{
   res.send("yolo");
 });*/
 
-router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop',(req,res)=>{
+router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop/:Year',(req,res)=>{
 
   const wrd = req.params.wardName;
   const bulglary = req.params.bulglary;
   const sexualOffence = req.params.sexualOffence;
   const allCrimes = req.params.AllCrimes;
   const TotalPop = req.params.totalPop;
+  const year = req.params.Year;
 
 
 console.log("trying to make a new user");
@@ -197,15 +198,15 @@ const TotalPop = req.body.create_pop;
 */
 //console.log(req.params);
 
-console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop);
+console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop,year);
 
   const connection = getConnection2();
 
-  const queryString = "REPLACE INTO crime (WardName,burglary,sexual_offences,total_crimes,total_population) VALUES (?,?,?,?,?)";
+  const queryString = "REPLACE INTO crime (WardName,burglary,sexual_offences,total_crimes,total_population,year) VALUES (?,?,?,?,?,?)";
   
   
 
-  connection.query(queryString,[wrd,bulglary,sexualOffence,allCrimes,TotalPop], (err,result,fields) =>{
+  connection.query(queryString,[wrd,bulglary,sexualOffence,allCrimes,TotalPop,year], (err,result,fields) =>{
 
 
     if (err){
@@ -242,7 +243,7 @@ router.get('/listCrime/:id', (req,res)=>{
     //custom format for json response
    
     const users = rows.map((row)=> {
-      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population}
+      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population,year:row.year}
   
 
     })
@@ -552,9 +553,19 @@ router.get('/crimes/:wardName', async (request, response) => {
   const all_wards_response = await fetch(all_wards_url);
   const all_wards_data = await all_wards_response.json();
 
+  const year_17_18_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward/records?rows=100&select=all_crimes_number,%20violent_sexual_offences_number,%20burglary_number,%20ward_name,%20latest_mid_year_population_estimates_for_ward&where="2017/18"`;
+  const year_17_18_response = await fetch(year_17_18_url);
+  const year_17_18_data = await year_17_18_response.json();
+
+  const year_16_17_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward/records?rows=100&select=all_crimes_number,%20violent_sexual_offences_number,%20burglary_number,%20ward_name,%20latest_mid_year_population_estimates_for_ward&where="2016/17"`;
+  const year_16_17_response = await fetch(year_16_17_url);
+  const year_16_17_data = await year_16_17_response.json();
+
   const data = {
     //Current_ward: crimes_data,
-    all_wards: all_wards_data
+    all_wards: all_wards_data,
+    year_17_18: year_17_18_data,
+    year_16_17: year_16_17_data
   };
   
   response.json(data);

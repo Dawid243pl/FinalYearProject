@@ -1,8 +1,8 @@
   
   //Add crime to db
-  async function addCrimeToDb(ward,bulglary,sexOffence,allCrimes,totalPop)  {
+  async function addCrimeToDb(ward,bulglary,sexOffence,allCrimes,totalPop,year)  {
     try{
-      let response = await fetch(`crime_create/${ward}/${bulglary}/${sexOffence}/${allCrimes}/${totalPop}`);
+      let response = await fetch(`crime_create/${ward}/${bulglary}/${sexOffence}/${allCrimes}/${totalPop}/${year}`);
       //return await response.json();
     }catch(err){
       console.error(err);

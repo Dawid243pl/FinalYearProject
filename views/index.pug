@@ -3,27 +3,16 @@ extends layout
 block content
     script
       include ../public/javascripts/getLoc.js
+      include ../public/javascripts/mainFunc.js
+      include ../public/javascripts/main/indexMain.js
       
-  
-
-    //form#locationForm(action = "/findArea", method = "POST")
-        div
-          label(for = "say") Say:
-          input(required name = "say" placeholder = "Enter Postcode")
-          input(type="hidden" id="lat" name="lat" value="")
-          input(type="hidden" id="long" name="long" value="")
-    //button#locBtnPscode Find Postcode
-    //button#locBtn Find loc
-    //div#x
     #formHolder
-    form#locationForm.form-signin.text-white(action = "/findArea", method = "POST")
+    form#locationForm.form-signin.text-white(action = "/findArea", method = "POST" onSubmit="return val()")
       img.mb-4(src='../images/map.png', alt='', width='72', height='72')
       |   
       h1.h3.mb-3.font-weight-normal Please find PostCode
-      |   
-      label.sr-only(for='inputEmail') Email address
-      |   
-      input#inputEmail.form-control(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
+      |    
+      input#inputPostC.form-control(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
       |   
       label.sr-only(for='inputPassword') Password
       |   

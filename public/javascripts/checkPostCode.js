@@ -19,8 +19,38 @@ $(function(){
         northing = json.postcode.result.northings;
         ward = json.postcode.result.admin_ward;
 
+        const api_url_ward = `listWards`;
+        const response_ward = await fetch(api_url_ward);
+        const json_ward = await response_ward.json();
 
+        ward = ward.replace('and','&');
+        var falseWard = false;
+        $.each(json_ward.wards.records, function(i){
+
+          
+          var wrd = json_ward.wards.records[i].record.fields.name;
+
+          if (wrd === ward){
+            
+            falseWard = true;
+          }
+          
+        });
+
+        if (falseWard == false){
+          location.replace("/")
+        }
+
+        //check a list of wards if ward not in DB ERROR
+
+       
+        
         $(".display-4").append("Your Search<br> Ward: "+ward+" Postcode: "+postC);
+
+        //check a list of wards if ward not in DB ERROR
+        $(".cont-h#brs").append("Bristol");
+        $(".cont-h#wrd").append(ward);
+     
 
         const api_url_crime = `listCrime/${ward}`;
         const response_crime = await fetch(api_url_crime);
@@ -50,7 +80,7 @@ $(function(){
         //console.log(d.toLocaleDateString());
         var dateArray=[];
 
-        for(var y =0;y<12;y++){
+        for(var y =0;y<3;y++){
           var d = new Date();
 
           d.setMonth(d.getMonth() - y);

@@ -18,27 +18,47 @@ function getCrime(json_crime){
       crimeStat2.name = "Sexual Offence";
       crimeStat2.percent = json_crime[0].sexOffence;
 */
+var chartJsArray=[];
 $.each(json_crime, function(i){
 
-
-  if( json_crime[i].WardName ==ward){
+  //console.log(js)
+  if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2018-19") ){
       var crimeStat3 = new Object();
       crimeStat3.name = "Total crimes";
       crimeStat3.percent = 100;
-      crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);;
+      crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);
       crimeStat3.wName = json_crime[i].WardName;
   
-      
+      var trendYears = json_crime[i].year;
+      var stat =  json_crime[i].totalCrimes;
+
       newJsonArrayWrd.push(crimeStat3);
-  
+
+      chartJsArray.push(trendYears,stat);
+
       makeDonut(newJsonArrayWrd,chartWrd,"colour");
   }
+  if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2017-18") ){
+    
+    var trendYears = json_crime[i].year;
+    var stat =  json_crime[i].totalCrimes;
+
+    chartJsArray.push(trendYears,stat);
+}
+if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2016-17") ){
+
+  var trendYears = json_crime[i].year;
+  var stat =  json_crime[i].totalCrimes;
+
+  chartJsArray.push(trendYears,stat);
+ 
+}
   
-  if( json_crime[i].WardName =="Bristol"){
+  if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2018-19") ){
       var crimeStat1 = new Object();
       crimeStat1.name = "Total crimes";
       crimeStat1.percent = 100;
-      crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);;
+      crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);
       crimeStat1.wName = json_crime[i].WardName;
   
      
@@ -46,7 +66,15 @@ $.each(json_crime, function(i){
   
       makeDonut(newJsonArrayBrs,chartBrs,"colour");
   }
-      //makeDonut(newJsonArrayBrs);
+
+  
+
+
+
+  //makeChartJsCrime();
+
+
+  //makeDonut(newJsonArrayBrs);
       
       /*
       $(".CrimeComponent").append(json_crime[0].bulgary+"<br>");
@@ -55,7 +83,9 @@ $.each(json_crime, function(i){
       $(".CrimeComponent").append(json_crime[0].population+"<br>");
     */
   });
-      
+  
+  console.log("chart array",chartJsArray);
+  makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5]);
   }
 
 function getQuallity(json_quall){

@@ -68,11 +68,11 @@ function makeDonut(dataset,id,clr){
                     })
                     .attr("dy", ".4em")
                     .attr("text-anchor", "middle")
-                   
+                   /*
                     .text(function(d){
                         return d.data.wName;
                     })
-                    
+                    */
                     .style({
                         fill:'#fff',
                         'font-size':'1em'
@@ -107,6 +107,6 @@ function makeDonut(dataset,id,clr){
                     });
         };
     
-        setTimeout(restOfTheData,1000);
+        setTimeout(restOfTheData,100);
 };
 

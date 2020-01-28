@@ -44,18 +44,23 @@ block content
   
     .jumbotron
       h1.display-4
-      .widget
-        .header Total Number of crimes recorded by Police 2018/2019
+      .widget.bg-dark
+        .header.bg-info Total Number of crimes recorded by Police 2018/2019
+        .header_sub.bg-danger
+          .cont-h#brs
+          .cont-h#wrd 
         div#chartBrs.chart-container
         div#chartWrd.chart-container
 
       p.lead
-        | This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.
+        | #INFO
       hr.my-4
       p
         | It uses utility classes for typography and spacing to space content out within the larger container.
       p.lead
         a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
+      p.lead
+      | Crime in the last 3 Months  
       p.CrimeComponent  
       hr.my-4
       ul.list-group
@@ -63,7 +68,7 @@ block content
       p.lead
         | Crime in the last 3 Months
         .latestCrime
-    
+      canvas#myChart
 
 
 
@@ -73,5 +78,6 @@ block content
     include ../public/javascripts/gettingFromAPI/checkPostCodeFunc.js
     include ../public/javascripts/checkPostCode.js
     include ../public/javascripts/D3/donut.js
+    include ../public/javascripts/ChartJs/sampleChart.js
 
     //include ../public/javascripts/updtDatabase.js
