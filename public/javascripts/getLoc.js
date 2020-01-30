@@ -25,14 +25,6 @@ function getLocation() {
 }
 
 function showPosition(position) {
-    //console.log("YOLO",position.coords.latitude,position.coords.longitude);
-
-    //var lat = position.coords.latitude;
-    //var long = position.coords.longitude;
-
-    //var Low  = parseFloat(lat).toFixed(7);
-    //var High = parseFloat(long).toFixed(7);
-    
     
     var Low  = "51.467038";
     var High = "-2.537563";

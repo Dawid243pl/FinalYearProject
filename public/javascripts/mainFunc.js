@@ -37,3 +37,17 @@ function val(){
     }
 }
 
+/*function newFetch(){
+    var ps = $("#inputZip").val();    
+    fetch('../postCode/'+ps)
+  .then((response) => {
+    return response.json();
+  })
+  .then((myJson) => {
+    
+    $("#wardName").val(myJson.postcode.result.admin_ward);
+    $("#userForm").submit();
+  });
+}
+*/
+

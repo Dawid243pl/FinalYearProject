@@ -25,30 +25,6 @@ router.get('/', function(req, res, next) {
 });
 
 
-
-const pool = mysql.createPool({
-
-  host:'localhost',
-  user:'root',
-  database:'lbta_mysql'
-
-})
-
-function getConnection(){
-  return pool
-  
-  /*mysql.createConnection({
-
-      host: 'localhost',
-      user: 'root',
-      database: 'restapi_mysql'
-      //password:
-
-   })   
-*/
-
-}
-
 const pool2 = mysql.createPool({
 
   host:'localhost',
@@ -97,7 +73,7 @@ router.get('/makeDB', function(req, res, next) {
 
 
 
-
+/*
 router.post('/user_create',(req,res)=>{
 
   console.log("trying to make a new user");
@@ -128,7 +104,8 @@ router.post('/user_create',(req,res)=>{
 
  
 })
-
+*/
+/*
 router.get("/users", (req,res) => {
 
   const user1 = {firstName: "stephen", lastName: "cos"}
@@ -138,7 +115,8 @@ router.get("/users", (req,res) => {
   res.json([user1,user2]);
 
 })
-
+*/
+/*
 router.get('/user/:id', (req,res)=>{
   console.log("fetch id"+req.params.id);
 
@@ -166,7 +144,7 @@ router.get('/user/:id', (req,res)=>{
   //res.end();
 });
 
-
+*/
 
 /*
 router.get('/crime_create',(req,res)=>{
