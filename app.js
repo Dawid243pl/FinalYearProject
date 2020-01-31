@@ -8,7 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var areaRouter = require('./routes/searchOutput');
-
+const session = require("express-session");
 
 var app = express();
 
@@ -21,6 +21,28 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const TWO_HR = 1000 * 60 * 60 * 2;
+
+const{
+  NODE_ENV = 'development',
+  SESS_Name = 'ssid',
+  SEES_LIFETIME = TWO_HR,
+  SEES_SECRET = 'testSecret',
+} = process.env;
+const IN_PROD = NODE_ENV === 'production';
+app.use(session({
+  name: SESS_Name,
+  secret: SEES_SECRET,
+  resave: true,
+  saveUninitialized: true,
+  cookie:{
+    maxAge: SEES_LIFETIME,
+    sameSite: true,
+    secure: IN_PROD
+  }
+
+}));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

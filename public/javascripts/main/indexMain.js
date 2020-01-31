@@ -4,21 +4,9 @@ $(function(){
 
         $("#sBox").remove();
       };
-
       
-      /*
-      $("#locBtnPscode").click(function() {
-
-        var pCode = $("#inputPostC").val();
-        alert(pCode);
-        checkPostCode(pCode);
-
-      });
-*/
-      
-
-
-
+      $("body").addClass("HomePage");
+   
 });
 
 /*

@@ -2,10 +2,8 @@ var express = require('express');
 var router = express.Router();
 const mysql = require('mysql')
 const fetch = require("node-fetch");
+
 //const bodyParser = require('body-parser')
-
-
-
 
 // Parse URL-encoded bodies (as sent by HTML forms)
 router.use(express.urlencoded());
@@ -18,8 +16,16 @@ router.use(express.json());
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
- 
-  res.render('index', { title: '' });
+  console.log(req.session);
+
+  if (req.session.loggedin){
+    console.log("WElcome back,"+req.session.userEmail+'!');
+    //document.getElementById("#lgIn").style.visibility = 'hidden';
+  }else{
+    console.log("Please log in");
+    //document.getElementById("#lgOut").style.visibility = 'hidden';
+  }
+  res.render('index', { title: '',userMail:req.session.userEmail});
 
 
 });
@@ -146,11 +152,6 @@ router.get('/user/:id', (req,res)=>{
 
 */
 
-/*
-router.get('/crime_create',(req,res)=>{
-
-  res.send("yolo");
-});*/
 
 router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop/:Year',(req,res)=>{
 
@@ -334,10 +335,17 @@ router.post('/findArea', function(req, res){
 
     var area = req.body.say;
     var lat =  req.body.lat;
-    var long =  req.body.long;  
-  
+    var long =  req.body.long;
+      
+    if (req.session.loggedin){
+      console.log("WElcome back,"+req.session.userEmail+'!');
+      //document.getElementById("#lgIn").style.visibility = 'hidden';
+    }else{
+      console.log("Please log in");
+      //document.getElementById("#lgOut").style.visibility = 'hidden';
+    }
     
-    res.render('searchOutput', { title:area});
+    res.render('searchOutput', { title:area,userMail:req.session.userEmail});
   
 
 });
@@ -547,54 +555,7 @@ router.get('/crimes/:wardName', async (request, response) => {
   };
   
   response.json(data);
-  /*
-  const queryString ="REPLACE INTO users (burglary,sexual offences,total crimes,total population,WardName) VALUES (?,?,?,?,?)";
-
-  for(var i = 0; i < data.length;i++){
   
-      console.log("burglary",v.fields.burglary_number);
-      console.log("sexual offences",v.fields.violent_sexual_offences_number);
-      console.log("total crimes",v.fields.all_crimes_number);
-      console.log("total population",v.fields.latest_mid_year_population_estimates_for_ward);
-    
-}
-/*
-  $.each(json_crime.Current_ward.records, function(k, v){
-        
-    //console.log(json_crime.Current_ward.field.burglary_number);
-    //console.log("kv",k,v);
-    //console.log(v.fields.year);
-    //console.log(v.fields.burglary_number);
-    if (v.fields.year === "2018/19"){
-      console.log("burglary",v.fields.burglary_number);
-      console.log("sexual offences",v.fields.violent_sexual_offences_number);
-      console.log("total crimes",v.fields.all_crimes_number);
-      console.log("total population",v.fields.latest_mid_year_population_estimates_for_ward);
-      var bulg = v.fields.burglary_number;
-      var sex = v.fields.violent_sexual_offences_number;
-      var all = v.fields.all_crimes_number;
-      var pop = v.fields.latest_mid_year_population_estimates_for_ward;
-      var wrd= v.fields.ward_name;
-      getConnection().query(queryString, [bulg,sex,all,pop,wrd],(err,results,fields)=>{
-
-        if (err){
-            console.log("Failed to insert new user:"+err)
-            res.sendStatus(500)
-            return
-        }
-    
-        console.log("Inserted a new user with id:", results.insertId)
-        //response.end()
-    
-    });
-    
-    }
-  }); 
- 
-
-
- /// res.end()
- */
 });
 
 

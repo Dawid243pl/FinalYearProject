@@ -37,6 +37,7 @@ function val(){
     }
 }
 
+
 /*function newFetch(){
     var ps = $("#inputZip").val();    
     fetch('../postCode/'+ps)

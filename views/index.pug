@@ -1,11 +1,8 @@
 extends layout
 
-block content
-    script
-      include ../public/javascripts/getLoc.js
-      include ../public/javascripts/mainFunc.js
-      include ../public/javascripts/main/indexMain.js
-      
+block content   
+    //script.
+      var userMail = "#{userMail}"
     #formHolder
     form#locationForm.form-signin.text-white(action = "/findArea", method = "POST" onSubmit="return val()")
       img.mb-4(src='../images/map.png', alt='', width='72', height='72')
@@ -23,4 +20,8 @@ block content
       button#locBtnPscode.btn.btn-lg.btn-primary.btn-block(type='submit') Find Postcode
       |   
       p.mt-5.mb-3.text-white &copy; Dawid Koleczko
+    script
+      include ../public/javascripts/getLoc.js
+      include ../public/javascripts/mainFunc.js
+      include ../public/javascripts/main/indexMain.js
 

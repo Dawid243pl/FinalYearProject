@@ -11,7 +11,7 @@ html
     block scripts
       script(src='https://d3js.org/d3.v3.min.js')
       script(src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0")
-    body.HomePage
+    body
     nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
       a.navbar-brand(href='#') Find My PostCode
       button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
@@ -27,8 +27,15 @@ html
           li.nav-item
             a.nav-link.disabled(href='#') Disabled
         ul.navbar-nav.ml-auto
-          li.nav-item
-            a.nav-link(href='#') Log In
+          if typeof userMail === 'undefined'
+            li.nav-item#lgIn
+              a.nav-link(href='/users/login')
+                button.btn.btn-lg.btn-primary.btn-block log In
+          else
+            li.nav-item#lgOut
+                //a.nav-link(href='users/logout') Log Out  
+                form(method="POST", action="users/logout") 
+                  button.btn.btn-lg.btn-primary.btn-block log Out      
         form.form-inline.mt-2.mt-md-0#sBox
           input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
           button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
