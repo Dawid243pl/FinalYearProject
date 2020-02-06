@@ -37,10 +37,79 @@ block content
         b May 2019.
         | This interactive tool provides data for each of the wards against Bristol as a whole. It highlights any significant differences for the relevant ward compared to the Bristol average. The tool is designed to allow users to copy pages into other reports to provide local evidence. There is also a suite of individual ward profile reports. See 
         a(href="http://www.bristol.gov.uk/wardprofiles") www.bristol.gov.uk/wardprofiles.  
-  
+  .container.marketing  
+    .row
+      .col-sm-4.col-lg-2.text-center#cr
+        .donut-container(style="background: #9C0;")
+          .donut-inner
+            .donut-label 
+              title Crime
+        h2 
+          a(href='#Crimez') Crime
+        p
+          | kox
+        p
+          a.btn.btn-secondary(href='#', role='button') View details »
+      // /.col-lg-4
+      .col-sm-4.col-lg-2.text-center#hs
+        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+          title Housing
+          rect(width='100%', height='100%', fill='#777')
+          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+        h2 Housing
+        p
+          | kox
+        p
+          a.btn.btn-secondary(href='#', role='button') View details »
+      // /.col-lg-4
+      .col-sm-4.col-lg-2.text-center#sr
+        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+          title Services
+          rect(width='100%', height='100%', fill='#777')
+          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+        h2 Services
+        p
+          | kox
+        p
+          a.btn.btn-secondary(href='#', role='button') View details »
+      // /.col-lg-4
+      .col-sm-4.col-lg-2.text-center#pop
+        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+          title Population
+          rect(width='100%', height='100%', fill='#777')
+          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+        h2 Population
+        p
+          | kox
+        p
+          a.btn.btn-secondary(href='#', role='button') View details »
+    
+      .col-sm-4.col-lg-2.text-center#uscr
+        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+          title User Score
+          rect(width='100%', height='100%', fill='#777')
+          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+        h2 User Score
+        p
+          | kox
+        p
+          a.btn.btn-secondary(href='#', role='button') View details »
+    
+      .col-sm-4.col-lg-2.text-center#edu
+        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+          title Education
+          rect(width='100%', height='100%', fill='#777')
+          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+        h2 Education
+        p
+          | kox
+        p
+          a.btn.btn-secondary(href='#', role='button') View details »
+      // /.col-lg-4
+
   .container
     .titContainer 
-      a.btn.btn-primary.btn-lg(href="#" role="button") Crime
+      a.btn.btn-primary.btn-lg#Crimez(href="#" role="button") Crime
   
     .jumbotron
       h1.display-4
@@ -54,22 +123,23 @@ block content
 
       p.lead
         | #INFO
-      hr.my-4
-      p
-        | It uses utility classes for typography and spacing to space content out within the larger container.
-      p.lead
-        a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
-      p.lead
-      | Crime in the last 3 Months  
-      p.CrimeComponent  
-      hr.my-4
-      ul.list-group
-      hr.my-4
-      p.lead
-        | Crime in the last 3 Months
-        .latestCrime
-      canvas#myChart
-
+      .hiddenCont  
+        hr.my-4
+        p
+          | It uses utility classes for typography and spacing to space content out within the larger container.
+        p.lead
+          a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
+        p.lead
+        | Crime in the last 3 Months  
+        p.CrimeComponent  
+        hr.my-4
+        ul.list-group
+        hr.my-4
+        p.lead
+          | Crime in the last 3 Months
+          .latestCrime
+        canvas#myChart
+      btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
 
   script

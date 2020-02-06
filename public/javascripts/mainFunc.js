@@ -82,4 +82,7 @@ function checkBristol(pCode){
 };
 
 
+$(".viewAll").click(function() {
+  $(this).parent().find(".hiddenCont").slideToggle( "slow");
+});
 
