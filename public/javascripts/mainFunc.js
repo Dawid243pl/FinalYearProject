@@ -1,4 +1,17 @@
 
+if (window.location.pathname == "/"){
+
+  $("#sBox").remove();
+  $("body").addClass("HomePage");
+}
+else if (window.location.pathname == "/findArea"){
+  $("body").addClass("HomePage");
+}else{
+  $("#sBox").remove();
+}
+
+
+
 function avgTwoNumb(x,y){
     var average=((x+y)/2).toFixed(2);
 

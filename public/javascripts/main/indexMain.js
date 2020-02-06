@@ -1,11 +1,5 @@
 $(function(){
 
-    if (window.location.pathname == "/"){
-
-        $("#sBox").remove();
-      };
-      
-      $("body").addClass("HomePage");
    
 });
 
