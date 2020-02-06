@@ -1,16 +1,17 @@
 
-if (window.location.pathname == "/"){
+function checkSite(){
+  if (window.location.pathname == "/"){
 
-  $("#sBox").remove();
-  $("body").addClass("HomePage");
-}
-else if (window.location.pathname == "/findArea"){
-  $("body").addClass("HomePage");
-}else{
-  $("#sBox").remove();
-}
-
-
+    $("#sBox").remove();
+    $("body").addClass("HomePage");
+  }
+  else if (window.location.pathname == "/findArea"){
+    $("body").addClass("HomePage");
+  }else{
+    $("#sBox").remove();
+  }
+};
+checkSite();
 
 function avgTwoNumb(x,y){
     var average=((x+y)/2).toFixed(2);
@@ -46,22 +47,39 @@ function val(){
         return false;
     }
     else{
-        return true;
+      checkBristol(pCode);
+      //console.log(cityCheck);
+        //return true;
+        /*
+        var cityCheck = checkBristol(pCode);
+        console.log(cityCheck);
+        if (cityCheck === "Bristol"){
+          console.log("true");
+          return true;
+        }else{
+          console.log("false");
+          return false;
+        }
+        */
+       return false;
     }
 }
 
 
-/*function newFetch(){
-    var ps = $("#inputZip").val();    
-    fetch('../postCode/'+ps)
-  .then((response) => {
-    return response.json();
-  })
-  .then((myJson) => {
-    
-    $("#wardName").val(myJson.postcode.result.admin_ward);
-    $("#userForm").submit();
-  });
-}
-*/
+function checkBristol(pCode){
+
+  $.getJSON('../postCode/'+pCode, function(data) {
+    if (data.postcode.result.primary_care_trust == "Bristol"){
+      document.getElementById("locationForm").submit();
+      return true;
+
+    }else{
+      return false;
+    }
+});
+
+  
+};
+
+
 

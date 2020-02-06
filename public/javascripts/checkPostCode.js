@@ -73,16 +73,14 @@ $(function(){
 
         console.log(lat,long);
 
-
-
-        var today = new Date();
-  
+        
         //console.log(d.toLocaleDateString());
+        
         var dateArray=[];
 
         for(var y =0;y<3;y++){
           var d = new Date();
-
+          d.setMonth(d.getMonth() - 1);
           d.setMonth(d.getMonth() - y);
           
           dateArray.push(d);
@@ -116,9 +114,6 @@ $(function(){
         
             }
          
-            
-
-       
           });
 
           //console.log(json_police);
