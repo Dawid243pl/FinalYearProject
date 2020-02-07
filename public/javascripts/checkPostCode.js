@@ -19,10 +19,13 @@ $(function(){
         northing = json.postcode.result.northings;
         ward = json.postcode.result.admin_ward;
 
+         //to redirect to home page if ward does not exist
+
         const api_url_ward = `listWards`;
         const response_ward = await fetch(api_url_ward);
         const json_ward = await response_ward.json();
 
+       
         ward = ward.replace('and','&');
         var falseWard = false;
         $.each(json_ward.wards.records, function(i){
@@ -43,8 +46,6 @@ $(function(){
 
         //check a list of wards if ward not in DB ERROR
 
-       
-        
         $(".searchRes").append("Your Search<br> Ward: "+ward+" Postcode: "+postC);
 
         //check a list of wards if ward not in DB ERROR
@@ -115,42 +116,18 @@ $(function(){
             }
          
           });
-
-          //console.log(json_police);
-         
-            //policeDataObj.push(json_police);
-          
           
           }
 
-        //console.log(policeDataObj,"police data");
-
-
-
-        //policeDataObj[0].category;
-
-/*
-        category: "public-order"
-        location_type: "Force"
-        location:
-        latitude: "51.466777"
-        street: {id: 545032, name: "On or near Mallard Close"}
-        longitude: "-2.537445"
-        __proto__: Object
-        context: ""
-        outcome_status: {category: "Unable to prosecute suspect", date: "2019-04"}
-        persistent_id: "b2ee197de3f094f89db755d7a61e9042d87ddd8438b70d33037765d5d2ba1dfb"
-        id: 73227419
-        location_subtype: ""
-        month: "2019-04"
-*/
-
-
+      var api_url_pop = `/getPopulation`;
+      var response_pop = await fetch(api_url_pop);
+      var json_pop  = await response_pop.json();    
       
       getQuallity(json_quall);
       //getEdu(json_edu);
       getWeather(json_weather);
       getCrime(json_crime);
+      getPopulation(json_pop);
 
       } 
       catch (error) {

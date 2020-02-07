@@ -108,11 +108,7 @@ function getQuallity(json_quall){
     $(".list-group").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
 
   });
-    
-
-   
-    
-    
+  
   }
   function getEdu(json_edu){
     tempArray = [];
@@ -149,7 +145,84 @@ function getQuallity(json_quall){
   */
   }
 
-  function getPopulation(){
+  function getPopulation(json_pop){
+  
+    //var brsAvg
+    var yearArray =[];
+    var workingAge =[];
+    var children =[];
+    var older =[];
+    var totPop =[];
 
+    $.each(json_pop, function(i){
+
+      if(json_pop[i].WardName ==ward){
+        if(json_pop[i].Year == "2018"){
+
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+        }
+        if(json_pop[i].Year == "2017"){
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+  
+        }
+        if(json_pop[i].Year == "2016"){
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+  
+        }
+        if(json_pop[i].Year == "2015"){
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+        }
+        if(json_pop[i].Year == "2014"){
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+        }
+        if(json_pop[i].Year == "2013"){
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+        }
+        if(json_pop[i].Year == "2012"){
+          yearArray.push(json_pop[i].Year);
+          workingAge.push(json_pop[i].wAgeNumb);
+          children.push(json_pop[i].childrenNumb);
+          older.push(json_pop[i].olderPNumb);
+          totPop.push(json_pop[i].totalPop);
+        }
+  
+      }
+    
+    });
+    console.log("yr",yearArray);
+    console.log("workign age",workingAge);
+    console.log("children",children);
+    console.log("older",older);
+    console.log("tot",totPop);
+
+    popChartJs(yearArray[0],yearArray[1],yearArray[2],yearArray[3],yearArray[4],yearArray[5],yearArray[6],
+      totPop[0],totPop[1],totPop[2],totPop[3],totPop[4],totPop[5],totPop[6],
+      workingAge[0],workingAge[1],workingAge[2],workingAge[3],workingAge[4],workingAge[5],workingAge[6],
+      children[0],children[1],children[2],children[3],children[4],children[5],children[6],
+      older[0],older[1],older[2],older[3],older[4],older[5],older[6]);
 
   }
