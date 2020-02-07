@@ -45,7 +45,7 @@ $(function(){
 
        
         
-        $(".display-4").append("Your Search<br> Ward: "+ward+" Postcode: "+postC);
+        $(".searchRes").append("Your Search<br> Ward: "+ward+" Postcode: "+postC);
 
         //check a list of wards if ward not in DB ERROR
         $(".cont-h#brs").append("Bristol");

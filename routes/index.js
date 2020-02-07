@@ -650,6 +650,124 @@ router.get('/Quallity/:wardName', async (request, response) => {
 
 
 
+
+
+
+router.get('/population', async (request, response) => {
+
+
+  const population_18_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2018`;
+  const population_18_response = await fetch(population_18_url);
+  const population_18_data = await population_18_response.json();
+
+  const population_17_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2017`;
+  const population_17_response = await fetch(population_17_url);
+  const population_17_data = await population_17_response.json();
+
+  const population_16_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2016`;
+  const population_16_response = await fetch(population_16_url);
+  const population_16_data = await population_16_response.json();
+
+  const population_15_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2015`;
+  const population_15_response = await fetch(population_15_url);
+  const population_15_data = await population_15_response.json();
+
+  const population_14_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2014`;
+  const population_14_response = await fetch(population_14_url);
+  const population_14_data = await population_14_response.json();
+
+  const population_13_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2013`;
+  const population_13_response = await fetch(population_13_url);
+  const population_13_data = await population_13_response.json();
+
+  const population_12_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/population-mid-2012-to-mid-2017-by-broad-age-band-2016-ward/records?rows=100&refine=mid_year:2012`;
+  const population_12_response = await fetch(population_12_url);
+  const population_12_data = await population_12_response.json();
+
+  
+
+  const data = {
+
+    population_18: population_18_data,
+    population_17: population_17_data,
+    population_16: population_16_data,
+    population_15: population_15_data,
+    population_14: population_14_data,
+    population_13: population_13_data,
+    population_12: population_12_data,
+
+
+  };
+  
+  response.json(data);
+  
+});
+
+
+
+router.get('/population_create/:ward/:year/:workingAgeP/:olderPP/:childrenP/:workingAgeN/:olderPN/:childrenN/:totalPop',(req,res)=>{
+
+  const wrd = req.params.ward;
+  const yr = req.params.year;
+  const wAgeP = req.params.workingAgeP;
+  const olderPP = req.params.olderPP;
+  const childP = req.params.childrenP;
+  const wAgeN = req.params.workingAgeN;
+  const olderPN = req.params.olderPN;
+  const childN = req.params.childrenN;
+  const totalPop = req.params.totalPop;
+
+  const connection = getConnection2();
+  
+
+  const queryString = "REPLACE INTO population (WardName,Year,wAgePer,olderPPer,childrenPer,wAgeNumb,olderPNumb,childrenNumb,totalPop) VALUES (?,?,?,?,?,?,?,?,?)"; 
+
+  connection.query(queryString,[wrd,yr,wAgeP,olderPP,childP,wAgeN,olderPN,childN,totalPop], (err,result,fields) =>{
+
+    if (err){
+      console.log("failed to insert new user"+err)
+      return
+    }
+
+    console.log("inserted a new user with the id",result.insertId);
+    res.end()
+  })
+
+
+
+})
+
+
+
+router.get('/getPopulation', (req,res)=>{
+  
+  const connection = getConnection2();
+  
+  const queryString = "SELECT * FROM population";
+
+  connection.query(queryString,(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+    
+    const users = rows.map((row)=> {
+      return {WardName: row.WardName,Year: row.Year,wAgePer:row.wAgePer, olderPPer: row.olderPPer, childrenPer: row.childrenPer, wAgeNumb: row.wAgeNumb, olderPNumb: row.olderPNumb, childrenNumb: row.childrenNumb, totalPop: row.totalPop}
+  
+
+    })
+
+    res.json(users);
+
+  })
+  //res.end();
+});
+
+
 router.get('/air', function(req, res, next) {
   
   const request = require('request');

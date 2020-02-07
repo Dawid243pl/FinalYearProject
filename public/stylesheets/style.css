@@ -70,9 +70,11 @@ a {
 .jumbotron{
   overflow: auto;
 }
-.container{
+.container.marketing{
   background-color: #e9ecef;
   margin-bottom: 20px;
+  margin-top: 150px;
+  text-align: center;
 }
 .form-label-group input:not(:placeholder-shown) {
   padding-top: 1.25rem;

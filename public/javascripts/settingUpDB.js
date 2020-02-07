@@ -138,3 +138,115 @@ function getCrime(json_crime){
  */
 
   };
+
+  function getPopulation(json_pop){
+
+    console.log(json_pop);
+
+    $.each(json_pop.population_18.records, function(i){
+
+      
+      var ward = json_pop.population_18.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_18.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_18.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_18.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_18.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_18.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_18.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_18.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_18.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+    $.each(json_pop.population_17.records, function(i){
+        
+      var ward = json_pop.population_17.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_17.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_17.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_17.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_17.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_17.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_17.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_17.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_17.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+
+    
+    $.each(json_pop.population_16.records, function(i){
+        
+      var ward = json_pop.population_16.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_16.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_16.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_16.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_16.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_16.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_16.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_16.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_16.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+    $.each(json_pop.population_15.records, function(i){
+        
+      var ward = json_pop.population_15.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_15.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_15.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_15.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_15.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_15.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_15.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_15.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_15.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+
+    $.each(json_pop.population_14.records, function(i){
+        
+      var ward = json_pop.population_14.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_14.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_14.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_14.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_14.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_14.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_14.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_14.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_14.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+
+    $.each(json_pop.population_13.records, function(i){
+        
+      var ward = json_pop.population_13.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_13.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_13.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_13.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_13.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_13.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_13.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_13.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_13.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+    $.each(json_pop.population_12.records, function(i){
+        
+      var ward = json_pop.population_12.records[i].record.fields["2016_ward_name"];
+      var year = json_pop.population_12.records[i].record.fields.mid_year;
+      var workingAgeP = json_pop.population_12.records[i].record.fields.working_age;
+      var olderPP = json_pop.population_12.records[i].record.fields.older_people;
+      var childrenP = json_pop.population_12.records[i].record.fields.children;
+      var workingAgeN = json_pop.population_12.records[i].record.fields.working_age_16_64_year_olds;
+      var olderPN = json_pop.population_12.records[i].record.fields.older_people_65_years_and_over;
+      var childrenN = json_pop.population_12.records[i].record.fields.children_0_15_year_olds;
+      var totalPop = json_pop.population_12.records[i].record.fields.total_population_all_ages;
+
+      addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop);
+    });
+
+
+
+  }

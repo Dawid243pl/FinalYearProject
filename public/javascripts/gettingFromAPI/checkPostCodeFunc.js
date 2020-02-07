@@ -20,9 +20,13 @@ function getCrime(json_crime){
 */
 var chartJsArray=[];
 $.each(json_crime, function(i){
-
+  
   //console.log(js)
   if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2018-19") ){
+
+      var pop = json_crime[i].population;
+      $(".popWrd").append("<h1>"+pop+"</h1>");   
+
       var crimeStat3 = new Object();
       crimeStat3.name = "Total crimes";
       crimeStat3.percent = 100;
@@ -55,6 +59,9 @@ if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2016-17") ){
 }
   
   if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2018-19") ){
+    
+      var pop = json_crime[i].population;
+      $(".popBrs").append("<h1>"+pop+"</h1>");   
       var crimeStat1 = new Object();
       crimeStat1.name = "Total crimes";
       crimeStat1.percent = 100;
@@ -84,7 +91,6 @@ if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2016-17") ){
     */
   });
   
-  console.log("chart array",chartJsArray);
   makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5]);
   }
 
@@ -127,7 +133,7 @@ function getQuallity(json_quall){
   };
 
   function getWeather(json_weather){
-
+/*
     weather = json_weather.weather.currently;
 
     air = json_weather.air_quality.results[0].measurements[0];
@@ -140,4 +146,10 @@ function getQuallity(json_quall){
     document.getElementById('aq_value').textContent = air.value;
     document.getElementById('aq_units').textContent = air.unit;
     document.getElementById('aq_date').textContent = air.lastUpdated;
+  */
+  }
+
+  function getPopulation(){
+
+
   }

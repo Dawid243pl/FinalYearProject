@@ -23,3 +23,14 @@
           // Handle errors here
         }
       }
+
+      async function addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop)  {
+          try{
+            let response = await fetch(`population_create/${ward}/${year}/${workingAgeP}/${olderPP}/${childrenP}/${workingAgeN}/${olderPN}/${childrenN}/${totalPop}`);
+            
+            //return await response.json();
+          }catch(err){
+            console.error(err);
+            // Handle errors here
+          }
+        }
