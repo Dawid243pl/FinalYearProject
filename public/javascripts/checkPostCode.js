@@ -122,12 +122,17 @@ $(function(){
       var api_url_pop = `/getPopulation`;
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
+
+      var api_url_zoopla = `/zooplaAPI/${postC}`;
+      var response_zoopla = await fetch(api_url_zoopla);
+      var json_zoopla  = await response_zoopla.json(); 
       
       getQuallity(json_quall);
       //getEdu(json_edu);
       getWeather(json_weather);
       getCrime(json_crime);
       getPopulation(json_pop);
+      getZoopla(json_zoopla);
 
       } 
       catch (error) {

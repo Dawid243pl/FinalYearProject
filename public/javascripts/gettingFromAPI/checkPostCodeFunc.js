@@ -226,3 +226,47 @@ function getQuallity(json_quall){
       older[0],older[1],older[2],older[3],older[4],older[5],older[6]);
 
   }
+
+  function getZoopla(json_zoopla){
+    
+    console.log(json_zoopla);
+
+      
+      var turnover =json_zoopla.zoopla.turnover;
+      var currentSalepriceAvg = json_zoopla.zoopla.average_sold_price_1year;
+      var currentSalesNumb = json_zoopla.zoopla.number_of_sales_1year;
+      var yr3SalepriceAvg = json_zoopla.zoopla.average_sold_price_3year;
+      var yr3SalesNumb = json_zoopla.zoopla.number_of_sales_3year;
+      var yr5SalepriceAvg = json_zoopla.zoopla.average_sold_price_5year;
+      var yr5SalesNumb = json_zoopla.zoopla.number_of_sales_5year;
+      var yr7SalepriceAvg = json_zoopla.zoopla.average_sold_price_7year;
+      var yr7SalesNumb = json_zoopla.zoopla.number_of_sales_7year;
+
+          
+      var turnoverBrs =json_zoopla.zoopla_brs.areas[0].turnover;
+      var currentSalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_1year;
+      var currentSalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_1year;
+      var yr3SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_3year;
+      var yr3SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_3year;
+      var yr5SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_5year;
+      var yr5SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_5year;
+      var yr7SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_7year;
+      var yr7SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_7year;
+
+    console.log("BRS AVG",currentSalepriceAvgBrs,yr5SalepriceAvgBrs);
+    console.log("now AVG",currentSalepriceAvg,yr5SalepriceAvg);
+      
+      var turnoverOutcode =json_zoopla.zoopla_outcode.turnover;
+      var currentSalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_1year;
+      var currentSalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_1year;
+      var yr3SalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_3year;
+      var yr3SalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_3year;
+      var yr5SalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_5year;
+      var yr5SalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_5year;
+      var yr7SalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_7year;
+      var yr7SalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_7year;
+
+      zooplaChartJS("1 Year","3 Years","5 Years","7 Years",currentSalepriceAvg,yr3SalepriceAvg,yr5SalepriceAvg,
+      yr7SalepriceAvg,currentSalepriceAvgBrs,yr3SalepriceAvgBrs,yr5SalepriceAvgBrs,yr7SalepriceAvgBrs,currentSalepriceAvgOutcode,
+      yr3SalepriceAvgOutcode,yr5SalepriceAvgOutcode,yr7SalepriceAvgOutcode);
+}

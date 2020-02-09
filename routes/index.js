@@ -799,9 +799,17 @@ router.get('/zooplaAPI/:postCode', async (request, response) => {
   const zoopla_response_bristol = await fetch(zoopla_url_bristol);
   const zoopla_data_bristol = await zoopla_response_bristol.json();
 
+  const zoopla_url_outcode = `http://api.zoopla.co.uk/api/v1/average_area_sold_price.json?postcode=${ps}&output_type=outcode&api_key=prvnzm87zkdky5tkdakmv834`;
+  const zoopla_response_outcode = await fetch(zoopla_url_outcode);
+  const zoopla_data_outcode = await zoopla_response_outcode.json();
+
+
+  
+
   const data = {
     zoopla: zoopla_data,
     zoopla_brs:zoopla_data_bristol,
+    zoopla_outcode:zoopla_data_outcode
   };
   response.json(data);
 });
