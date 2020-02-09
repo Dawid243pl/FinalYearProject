@@ -784,7 +784,27 @@ request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=no2-dif
 
 
 
+router.get('/zooplaAPI/:postCode', async (request, response) => {
 
+  const ps = request.params.postCode;
+;
+  //const api_key = "prvnzm87zkdky5tkdakmv834";
+  //http://api.zoopla.co.uk/api/v1/average_sold_prices.json?postcode=bs57tw&output_type=county&area_type=towns&api_key=prvnzm87zkdky5tkdakmv834
+
+  const zoopla_url = `http://api.zoopla.co.uk/api/v1/average_area_sold_price.json?postcode=${ps}&output_type=postcode&api_key=prvnzm87zkdky5tkdakmv834`;
+  const zoopla_response = await fetch(zoopla_url);
+  const zoopla_data = await zoopla_response.json();
+
+  const zoopla_url_bristol = `http://api.zoopla.co.uk/api/v1/average_sold_prices.json?postcode=${ps}&output_type=county&area_type=towns&api_key=prvnzm87zkdky5tkdakmv834`;
+  const zoopla_response_bristol = await fetch(zoopla_url_bristol);
+  const zoopla_data_bristol = await zoopla_response_bristol.json();
+
+  const data = {
+    zoopla: zoopla_data,
+    zoopla_brs:zoopla_data_bristol,
+  };
+  response.json(data);
+});
 
 
 module.exports = router;
