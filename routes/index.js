@@ -787,10 +787,8 @@ request('https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=no2-dif
 router.get('/zooplaAPI/:postCode', async (request, response) => {
 
   const ps = request.params.postCode;
-;
   //const api_key = "prvnzm87zkdky5tkdakmv834";
-  //http://api.zoopla.co.uk/api/v1/average_sold_prices.json?postcode=bs57tw&output_type=county&area_type=towns&api_key=prvnzm87zkdky5tkdakmv834
-
+  
   const zoopla_url = `http://api.zoopla.co.uk/api/v1/average_area_sold_price.json?postcode=${ps}&output_type=postcode&api_key=prvnzm87zkdky5tkdakmv834`;
   const zoopla_response = await fetch(zoopla_url);
   const zoopla_data = await zoopla_response.json();
@@ -803,9 +801,6 @@ router.get('/zooplaAPI/:postCode', async (request, response) => {
   const zoopla_response_outcode = await fetch(zoopla_url_outcode);
   const zoopla_data_outcode = await zoopla_response_outcode.json();
 
-
-  
-
   const data = {
     zoopla: zoopla_data,
     zoopla_brs:zoopla_data_bristol,
@@ -813,6 +808,30 @@ router.get('/zooplaAPI/:postCode', async (request, response) => {
   };
   response.json(data);
 });
+
+router.get('/housing', async (request, response) => {
+  
+  const housing_size_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/household-size-and-bedrooms-2011-census-by-2016-ward/records?rows=100`;
+  const housing_size_response = await fetch(housing_size_url);
+  const housing_size_data = await housing_size_response.json();
+
+  const housing_type_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/housing-type-2011-census-by-2016-ward/records?rows=100`;
+  const housing_type_response = await fetch(housing_type_url);
+  const housing_type_data = await housing_type_response.json();
+
+  const housing_tenure_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/housing-tenure-2011-census-by-2016-ward/records?rows=100`;
+  const housing_tenure_response = await fetch(housing_tenure_url);
+  const housing_tenure_data = await housing_tenure_response.json();
+
+  const data = {
+    housing_size: housing_size_data,
+    housing_type:housing_type_data,
+    housing_tenure:housing_tenure_data
+  };
+  response.json(data);
+});
+
+
 
 
 module.exports = router;

@@ -1,109 +1,72 @@
 function getCrime(json_crime){
 
-      var newJsonArrayWrd =[];
-      var newJsonArrayBrs =[];
+  var newJsonArrayWrd =[];
+  var newJsonArrayBrs =[];
    
+  var chartJsArray=[];
+  $.each(json_crime, function(i){
+    
+    //console.log(js)
+    if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2018-19") ){
 
+        var pop = json_crime[i].population;
+        $(".popWrd").append("<h1>"+pop+"</h1>");   
+
+        var crimeStat3 = new Object();
+        crimeStat3.name = "Total crimes";
+        crimeStat3.percent = 100;
+        crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);
+        crimeStat3.wName = json_crime[i].WardName;
+    
+        var trendYears = json_crime[i].year;
+        var stat =  json_crime[i].totalCrimes;
+
+        newJsonArrayWrd.push(crimeStat3);
+
+        chartJsArray.push(trendYears,stat);
+
+        makeDonut(newJsonArrayWrd,chartWrd,"colour");
+    }
+    if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2017-18") ){
       
-  //    console.log("Crime json",json_crime);
-
-    //  console.log("Crime json",json_crime[0].bulgary);
-
-/*
-      var crimeStat1 = new Object();
-      crimeStat1.name = "Bulglary";
-      crimeStat1.percent = json_crime[0].bulgary;
-  
-      var crimeStat2 = new Object();
-      crimeStat2.name = "Sexual Offence";
-      crimeStat2.percent = json_crime[0].sexOffence;
-*/
-var chartJsArray=[];
-$.each(json_crime, function(i){
-  
-  //console.log(js)
-  if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2018-19") ){
-
-      var pop = json_crime[i].population;
-      $(".popWrd").append("<h1>"+pop+"</h1>");   
-
-      var crimeStat3 = new Object();
-      crimeStat3.name = "Total crimes";
-      crimeStat3.percent = 100;
-      crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);
-      crimeStat3.wName = json_crime[i].WardName;
-  
       var trendYears = json_crime[i].year;
       var stat =  json_crime[i].totalCrimes;
 
-      newJsonArrayWrd.push(crimeStat3);
-
       chartJsArray.push(trendYears,stat);
-
-      makeDonut(newJsonArrayWrd,chartWrd,"colour");
   }
-  if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2017-18") ){
-    
+  if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2016-17") ){
+
     var trendYears = json_crime[i].year;
     var stat =  json_crime[i].totalCrimes;
 
     chartJsArray.push(trendYears,stat);
-}
-if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2016-17") ){
-
-  var trendYears = json_crime[i].year;
-  var stat =  json_crime[i].totalCrimes;
-
-  chartJsArray.push(trendYears,stat);
- 
-}
   
-  if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2018-19") ){
-    
-      var pop = json_crime[i].population;
-      $(".popBrs").append("<h1>"+pop+"</h1>");   
-      var crimeStat1 = new Object();
-      crimeStat1.name = "Total crimes";
-      crimeStat1.percent = 100;
-      crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);
-      crimeStat1.wName = json_crime[i].WardName;
-  
-     
-      newJsonArrayBrs.push(crimeStat1);
-  
-      makeDonut(newJsonArrayBrs,chartBrs,"colour");
   }
-
-  
-
-
-
-  //makeChartJsCrime();
-
-
-  //makeDonut(newJsonArrayBrs);
+    
+    if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2018-19") ){
       
-      /*
-      $(".CrimeComponent").append(json_crime[0].bulgary+"<br>");
-      $(".CrimeComponent").append(json_crime[0].sexOffence+"<br>");
-      $(".CrimeComponent").append(json_crime[0].totalCrimes+"<br>");
-      $(".CrimeComponent").append(json_crime[0].population+"<br>");
-    */
+        var pop = json_crime[i].population;
+        $(".popBrs").append("<h1>"+pop+"</h1>");   
+        var crimeStat1 = new Object();
+        crimeStat1.name = "Total crimes";
+        crimeStat1.percent = 100;
+        crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);
+        crimeStat1.wName = json_crime[i].WardName;
+    
+      
+        newJsonArrayBrs.push(crimeStat1);
+    
+        makeDonut(newJsonArrayBrs,chartBrs,"colour");
+    }
+
   });
   
   makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5]);
-  }
+}
 
 function getQuallity(json_quall){
   
- 
-
   $.each(json_quall, function(i){
-    //console.log("Quallity Crime json",json_quall[i]);
-
-    //console.log(json_quall[i].Indicator);
-    //console.log(json_quall[i].Total);
-
    
     $(".list-group").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
 
@@ -213,11 +176,6 @@ function getQuallity(json_quall){
       }
     
     });
-    console.log("yr",yearArray);
-    console.log("workign age",workingAge);
-    console.log("children",children);
-    console.log("older",older);
-    console.log("tot",totPop);
 
     popChartJs(yearArray[0],yearArray[1],yearArray[2],yearArray[3],yearArray[4],yearArray[5],yearArray[6],
       totPop[0],totPop[1],totPop[2],totPop[3],totPop[4],totPop[5],totPop[6],
@@ -252,9 +210,6 @@ function getQuallity(json_quall){
       var yr5SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_5year;
       var yr7SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_7year;
       var yr7SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_7year;
-
-    console.log("BRS AVG",currentSalepriceAvgBrs,yr5SalepriceAvgBrs);
-    console.log("now AVG",currentSalepriceAvg,yr5SalepriceAvg);
       
       var turnoverOutcode =json_zoopla.zoopla_outcode.turnover;
       var currentSalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_1year;
@@ -269,4 +224,203 @@ function getQuallity(json_quall){
       zooplaChartJS("1 Year","3 Years","5 Years","7 Years",currentSalepriceAvg,yr3SalepriceAvg,yr5SalepriceAvg,
       yr7SalepriceAvg,currentSalepriceAvgBrs,yr3SalepriceAvgBrs,yr5SalepriceAvgBrs,yr7SalepriceAvgBrs,currentSalepriceAvgOutcode,
       yr3SalepriceAvgOutcode,yr5SalepriceAvgOutcode,yr7SalepriceAvgOutcode);
+}
+
+function getHousing(json_housing){
+
+
+  
+  var totalHouseholdsBed = 0;
+     
+  var ownedProc = 0;
+  var socialProc =  0;
+  var privateProc =  0;
+
+  var ownedNumb = 0;
+  var socialNumb =  0;
+  var privateNumb =  0;
+
+  var semiProc = 0;
+  var terracedProc =  0;
+  var detachedProc =  0;
+
+  var flat1Proc = 0;
+  var flat2Proc =  0;
+  var flat3Proc = 0;
+
+  var flatProc =  0;
+
+  var otherProc =  0;
+  var semiNumb =  0;
+  var terracedNumb =  0;
+  var detachedNumb = 0;
+  
+  var flat1Numb = 0;
+  var flat2Numb =  0;
+  var flat3Numb = 0;
+
+  var flatNumb =  0;
+
+  var otherNumb = 0;
+
+  /*spaced not actual numb*/
+  var totHouseSpaces =  0;
+
+
+  var totalHouseHoldsTenure =  0;
+
+  var oneBedProc =   0;
+  var twoBedProc =   0;
+  var threeBedProc =   0;
+  var fourPlusBedProc =   0;
+
+  var oneBedNumb =  0;
+  var twoBedNumb =   0;
+  var threeBedNumb =  0;
+  var fourPlusBedNumb =   0;
+
+  var overcrowdedHousesProc =   0;
+  var overcrowdedHousesNumb =   0;
+  
+  var avgBedPerHouse =  0;
+  var avgHouseSizePerPerson =  0;
+
+
+  var totalHouseholdsBedBrs =0;
+  
+  var oneBedProcBrs =   0;
+  var twoBedProcBrs =   0;
+  var threeBedProcBrs =   0;
+  var fourPlusBedProcBrs =   0;
+
+  var oneBedNumbBrs =  0;
+  var twoBedNumbBrs =   0;
+  var threeBedNumbBrs =  0;
+  var fourPlusBedNumbBrs =   0;
+
+  var overcrowdedHousesProcBrs =   0;
+  var overcrowdedHousesNumbBrs =   0;
+  
+  var avgBedPerHouseBrs =  0;
+  var avgHouseSizePerPersonBrs =  0;
+      
+
+  $.each(json_housing.housing_size.records, function(i){
+
+   
+    if(json_housing.housing_size.records[i].record.fields["2016_ward_name"] ==ward){
+
+      totalHouseholdsBed = json_housing.housing_size.records[i].record.fields.total_number_of_households;
+
+      oneBedProc =  json_housing.housing_size.records[i].record.fields.with_1_bedroom;
+      twoBedProc =  json_housing.housing_size.records[i].record.fields.with_2_bedrooms;
+      threeBedProc =  json_housing.housing_size.records[i].record.fields.with_3_bedrooms;
+      fourPlusBedProc =  json_housing.housing_size.records[i].record.fields.with_4_or_more_bedrooms;
+
+      oneBedNumb =  json_housing.housing_size.records[i].record.fields["1_bedroom_household"];
+      twoBedNumb =  json_housing.housing_size.records[i].record.fields["2_bedroom_household"];
+      threeBedNumb =  json_housing.housing_size.records[i].record.fields["3_bedroom_household"];
+      fourPlusBedNumb =  json_housing.housing_size.records[i].record.fields["4_or_more_bedroom_household"];
+  
+      overcrowdedHousesProc =  json_housing.housing_size.records[i].record.fields.overcrowded_households_ie_occupancy_rating_bedrooms_of_1_or_less0;
+      overcrowdedHousesNumb =  json_housing.housing_size.records[i].record.fields.overcrowded_households_ie_occupancy_rating_bedrooms_of_1_or_less;
+      
+      avgBedPerHouse =json_housing.housing_size.records[i].record.fields.average_number_of_bedrooms_per_household;
+      avgHouseSizePerPerson = json_housing.housing_size.records[i].record.fields.average_household_size_persons_per_household;
+      
+     
+    }    
+  
+
+      totalHouseholdsBedBrs = totalHouseholdsBedBrs +json_housing.housing_size.records[i].record.fields.total_number_of_households;
+
+      oneBedProcBrs =  oneBedProcBrs +json_housing.housing_size.records[i].record.fields.with_1_bedroom;
+      twoBedProcBrs =  twoBedProcBrs+ json_housing.housing_size.records[i].record.fields.with_2_bedrooms;
+      threeBedProcBrs = threeBedProcBrs+ json_housing.housing_size.records[i].record.fields.with_3_bedrooms;
+      fourPlusBedProcBrs = fourPlusBedProcBrs+ json_housing.housing_size.records[i].record.fields.with_4_or_more_bedrooms;
+
+      oneBedNumbBrs =  oneBedNumbBrs+json_housing.housing_size.records[i].record.fields["1_bedroom_household"];
+      twoBedNumbBrs = twoBedNumbBrs+ json_housing.housing_size.records[i].record.fields["2_bedroom_household"];
+      threeBedNumbBrs =  threeBedNumbBrs+json_housing.housing_size.records[i].record.fields["3_bedroom_household"];
+      fourPlusBedNumbBrs =  fourPlusBedNumbBrs+json_housing.housing_size.records[i].record.fields["4_or_more_bedroom_household"];
+  
+      overcrowdedHousesProcBrs =  overcrowdedHousesProcBrs+ json_housing.housing_size.records[i].record.fields.overcrowded_households_ie_occupancy_rating_bedrooms_of_1_or_less0;
+      overcrowdedHousesNumbBrs = overcrowdedHousesNumbBrs+ json_housing.housing_size.records[i].record.fields.overcrowded_households_ie_occupancy_rating_bedrooms_of_1_or_less;
+      
+      avgBedPerHouseBrs =avgBedPerHouseBrs+json_housing.housing_size.records[i].record.fields.average_number_of_bedrooms_per_household;
+      avgHouseSizePerPersonBrs = avgHouseSizePerPersonBrs+ json_housing.housing_size.records[i].record.fields.average_household_size_persons_per_household;
+      
+     
+
+ 
+  });
+
+
+  $.each(json_housing.housing_type.records, function(i){
+
+    //console.log(json_housing.housing_type.records);
+    if(json_housing.housing_type.records[i].record.fields["2016_ward_name"] ==ward){
+    
+      semiProc = json_housing.housing_type.records[i].record.fields.semi_detached0;
+      terracedProc = json_housing.housing_type.records[i].record.fields.terraced0;
+      detachedProc = json_housing.housing_type.records[i].record.fields.detached0;
+
+      flat1Proc =json_housing.housing_type.records[i].record.fields.flat_in_commercial_building0;
+      flat2Proc = json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits0;
+      flat3Proc = json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats0;
+
+      flatProc = flat1Proc+flat2Proc+flat3Proc;
+
+      otherProc = json_housing.housing_type.records[i].record.fields.caravan_or_other_mobile_or_temporary_structure0;
+      semiNumb = json_housing.housing_type.records[i].record.fields.semi_detached;
+      terracedNumb = json_housing.housing_type.records[i].record.fields.terraced;
+      detachedNumb = json_housing.housing_type.records[i].record.fields.detached;
+      
+      flat1Numb =json_housing.housing_type.records[i].record.fields.flat_in_commercial_building;
+      flat2Numb = json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits;
+      flat3Numb = json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats;
+
+      flatNumb = flat1Numb+ flat2Numb+flat3Numb;
+
+      otherNumb = json_housing.housing_type.records[i].record.fields.caravan_or_other_mobile_or_temporary_structure;
+
+      /*spaced not actual numb*/
+      totHouseSpaces = json_housing.housing_type.records[i].record.fields.total_number_of_household_spaces;
+     
+  }    
+
+ 
+  });
+
+  $.each(json_housing.housing_tenure.records, function(i){
+
+    //console.log(json_housing.housing_type.records);
+    if(json_housing.housing_tenure.records[i].record.fields["2016_ward_name"] ==ward){
+ 
+    totalHouseHoldsTenure = json_housing.housing_tenure.records[i].record.fields.total_number_of_households;
+     
+    ownedProc = json_housing.housing_tenure.records[i].record.fields.owned0;
+    socialProc =  json_housing.housing_tenure.records[i].record.fields.social_rented0;
+    privateProc =  json_housing.housing_tenure.records[i].record.fields.private_and_other_rented0;
+
+    ownedNumb = json_housing.housing_tenure.records[i].record.fields.owned;
+    socialNumb =  json_housing.housing_tenure.records[i].record.fields.social_rented;
+    privateNumb =  json_housing.housing_tenure.records[i].record.fields.private_and_other_rented;
+
+ 
+  }    
+
+
+
+  });
+  housing_ownedPieChartJS("Owned","Social","Private owned",ownedProc,socialProc,privateProc);  
+
+  housing_typePieChartJS("Semi","Terraced","Detached","Flat",semiProc,terracedProc,detachedProc,flatProc);
+  
+  housing_bedPieChartJS("1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",oneBedProc,twoBedProc,threeBedProc,fourPlusBedProc);
+
+  housing_totalPieChartJS("totalHouseBRS","cos",totalHouseholdsBedBrs);
+  housing_totalPieChartJS("totalHouseWard","cos",totalHouseholdsBed);
+ 
+
 }

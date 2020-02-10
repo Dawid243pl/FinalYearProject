@@ -86,11 +86,6 @@ $(function(){
           
           dateArray.push(d);
         }
-
-        console.log("date array",dateArray);
-
-       var policeDataObj = [];
-
        for(var z =0;z<dateArray.length;z++){
           
           var mm = dateArray[z].getMonth()+1;
@@ -126,6 +121,11 @@ $(function(){
       var api_url_zoopla = `/zooplaAPI/${postC}`;
       var response_zoopla = await fetch(api_url_zoopla);
       var json_zoopla  = await response_zoopla.json(); 
+
+      var api_url_housing = `/housing`;
+      var response_housing = await fetch(api_url_housing);
+      var json_housing = await response_housing.json(); 
+      
       
       getQuallity(json_quall);
       //getEdu(json_edu);
@@ -133,6 +133,7 @@ $(function(){
       getCrime(json_crime);
       getPopulation(json_pop);
       getZoopla(json_zoopla);
+      getHousing(json_housing);
 
       } 
       catch (error) {
