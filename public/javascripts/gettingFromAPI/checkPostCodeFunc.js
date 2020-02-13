@@ -3,10 +3,101 @@ function getCrime(json_crime){
   var newJsonArrayWrd =[];
   var newJsonArrayBrs =[];
    
-  var chartJsArray=[];
+  var chartJsArray1Name=[];
+  var chartJsArray2Name=[];
+  var chartJsArray3Name=[];
+
+     
+  var chartJsArray1Stat=[];
+  var chartJsArray2Stat=[];
+  var chartJsArray3Stat=[];
+
+  var chartJsArrayBrs=[];
+
+  var chartJsArrayLabels=[];
+
+  console.log(json_crime);
   $.each(json_crime, function(i){
+   
+
+
+    if( json_crime[i].year =="2018-19" ){
+
+      var wardCurrent = json_crime[i].WardName;
+      var trendYears = json_crime[i].year;
+      chartJsArrayLabels.push(trendYears);
+
+      if( json_crime[i].WardName ==ward){
+        var pop = json_crime[i].population;
+        $(".popWrd").append("<h1>"+pop+"</h1>");   
+
+        var crimeStat3 = new Object();
+        crimeStat3.name = "Total crimes";
+        crimeStat3.percent = 100;
+        crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);
+        crimeStat3.wName = json_crime[i].WardName;
     
-    //console.log(js)
+        //var trendYears = json_crime[i].year;
+    
+        newJsonArrayWrd.push(crimeStat3);
+
+        makeDonut(newJsonArrayWrd,chartWrd,"colour");
+      }
+      if(json_crime[i].WardName =="Bristol"){
+      
+        var pop = json_crime[i].population;
+        $(".popBrs").append("<h1>"+pop+"</h1>");   
+        var crimeStat1 = new Object();
+        crimeStat1.name = "Total crimes";
+        crimeStat1.percent = 100;
+        crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);
+        crimeStat1.wName = json_crime[i].WardName;
+
+        newJsonArrayBrs.push(crimeStat1);
+    
+        makeDonut(newJsonArrayBrs,chartBrs,"colour");
+    }
+
+    if(json_crime[i].WardName !="Bristol"){
+      var wardCurrent = json_crime[i].WardName;
+      var stat =  json_crime[i].totalCrimes;
+
+      chartJsArray1Name.push(wardCurrent);
+      chartJsArray1Stat.push(stat);
+    }
+    }
+
+  if(json_crime[i].year =="2017-18"){
+    if(json_crime[i].WardName !="Bristol"){
+    var wardCurrent = json_crime[i].WardName;
+    var trendYears = json_crime[i].year;
+    chartJsArrayLabels.push(trendYears);
+     
+      var stat =  json_crime[i].totalCrimes;
+
+      chartJsArray2Name.push(wardCurrent);
+      chartJsArray2Stat.push(stat);
+    }  
+  }
+  if(json_crime[i].year =="2016-17"){
+    if(json_crime[i].WardName !="Bristol"){
+    var wardCurrent = json_crime[i].WardName;
+    var trendYears = json_crime[i].year;
+    chartJsArrayLabels.push(trendYears);
+  
+    var stat =  json_crime[i].totalCrimes;
+
+    chartJsArray3Name.push(wardCurrent);
+    chartJsArray3Stat.push(stat);
+    }
+}
+
+//label: 'Total Crimes 3 Year Trend',
+    //backgroundColor: 'rgb(255, 99, 132)',
+    //borderColor: '#000000',
+    //data: [dataset1,dataset2,dataset3]
+
+/*
     if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2018-19") ){
 
         var pop = json_crime[i].population;
@@ -27,6 +118,8 @@ function getCrime(json_crime){
 
         makeDonut(newJsonArrayWrd,chartWrd,"colour");
     }
+    */
+   /*
     if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2017-18") ){
       
       var trendYears = json_crime[i].year;
@@ -53,15 +146,80 @@ function getCrime(json_crime){
         crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);
         crimeStat1.wName = json_crime[i].WardName;
     
-      
+   
+
+        var stat =  json_crime[i].totalCrimes;
+
+        chartJsArrayBrs.push(stat);
+
         newJsonArrayBrs.push(crimeStat1);
     
         makeDonut(newJsonArrayBrs,chartBrs,"colour");
     }
 
+    
+    if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2017-18") ){
+  
+      var stat =  json_crime[i].totalCrimes;
+  
+      chartJsArrayBrs.push(stat);
+  }
+  
+  if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2016-17") ){
+   
+    var stat =  json_crime[i].totalCrimes;
+
+    chartJsArrayBrs.push(stat);
+}
+
+*/
   });
   
-  makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5]);
+console.log(chartJsArray1Stat,chartJsArray2Stat,chartJsArray3Stat,chartJsArray1Name,chartJsArray2Name,chartJsArray3Name);
+
+var makeJSONarr=[];
+for(xy=0;xy<chartJsArray1Stat.length;xy++){
+
+  var someObj = new Object();
+  someObj.label = chartJsArray1Name[xy];
+  someObj.data = [chartJsArray1Stat[xy],chartJsArray2Stat[xy]];
+  someObj.backgroundColor =  "rgb(255, 99, 132)";
+  someObj.borderColor = '#000000';
+  someObj.fill = false;
+
+  makeJSONarr.push(someObj);
+}
+
+
+console.log(makeJSONarr);
+
+makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr);  
+
+/*
+   datasets: [{
+            label: 'Total Crimes 3 Year Trend',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: '#000000',
+            data: [dataset1,dataset2,dataset3]
+        },{
+            label: 'Total Crimes 3 Year Trend',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: '#000000',
+            data: [dataset1,dataset2,dataset3]
+        
+        }
+    ]
+*/
+
+ // console.log(chartJsArray1,chartJsArray2,chartJsArray3);
+
+  //makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],);  
+
+  //chartJsArray1[1],chartJsArray1[3],chartJsArray1[5],chartJsArray1[7],chartJsArray1[9],chartJsArray1[11],chartJsArray1[13],chartJsArray1[15],chartJsArray1[17],chartJsArray1[19],chartJsArray1[21],chartJsArray1[23]
+  //chartJsArray1[24],chartJsArray1[25]
+
+  //makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5],chartJsArrayBrs[0],chartJsArrayBrs[1],chartJsArrayBrs[2]);
+  //console.log("0",chartJsArrayBrs[0],"1",chartJsArrayBrs[1],"2",chartJsArrayBrs[2]);
 }
 
 function getQuallity(json_quall){
