@@ -1,6 +1,6 @@
-function housing_typePieChartJS(label1,label2,label3,label4,data1,data2,data3,data4){
-   
-    var ctx = document.getElementById('housing_typePieChart').getContext('2d');
+function housing_typePieChartJS(div,label1,label2,label3,label4,data1,data2,data3,data4){
+	console.log(div,label1,label2,label3,label4,data1,data2,data3,data4);
+    var ctx = document.getElementById(div).getContext('2d');
     var chart = new Chart(ctx, {  
 			type: 'doughnut',
 			data: {

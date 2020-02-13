@@ -16,7 +16,6 @@ function getCrime(json_crime){
 
   var chartJsArrayLabels=[];
 
-  console.log(json_crime);
   $.each(json_crime, function(i){
    
 
@@ -175,26 +174,31 @@ function getCrime(json_crime){
 */
   });
   
-console.log(chartJsArray1Stat,chartJsArray2Stat,chartJsArray3Stat,chartJsArray1Name,chartJsArray2Name,chartJsArray3Name);
+//console.log(chartJsArray1Stat,chartJsArray2Stat,chartJsArray3Stat,chartJsArray1Name,chartJsArray2Name,chartJsArray3Name);
+
+//Find top Contrys with the biigest crime + current ward
+
 
 var makeJSONarr=[];
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
   var someObj = new Object();
   someObj.label = chartJsArray1Name[xy];
-  someObj.data = [chartJsArray1Stat[xy],chartJsArray2Stat[xy]];
+  someObj.data = [chartJsArray3Stat[xy],chartJsArray2Stat[xy],chartJsArray1Stat[xy]];
   someObj.backgroundColor =  "rgb(255, 99, 132)";
   someObj.borderColor = '#000000';
   someObj.fill = false;
+  //someObj.pointRadius = 10;
+  //someObj.pointHoverRadius=15;
+  //someObj.showLine= false;
 
   makeJSONarr.push(someObj);
 }
 
-
 console.log(makeJSONarr);
 
 makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr);  
-
+ 
 /*
    datasets: [{
             label: 'Total Crimes 3 Year Trend',
@@ -386,10 +390,10 @@ function getQuallity(json_quall){
 
 function getHousing(json_housing){
 
-
   
-  var totalHouseholdsBed = 0;
-     
+  /*---------Owned-----------------*/
+  var totalHouseHoldsTenure =  0;
+
   var ownedProc = 0;
   var socialProc =  0;
   var privateProc =  0;
@@ -397,6 +401,23 @@ function getHousing(json_housing){
   var ownedNumb = 0;
   var socialNumb =  0;
   var privateNumb =  0;
+
+  
+  /*---------Owned BRS-----------------*/
+  var totalHouseHoldsTenureBRS =  0;
+
+  var ownedProcBRS = 0;
+  var socialProcBRS =  0;
+  var privateProcBRS =  0;
+
+  var ownedNumbBRS = 0;
+  var socialNumbBRS =  0;
+  var privateNumbBRS =  0;
+
+
+  /*---------Type-----------------*/
+  /*spaced not actual numb*/
+  var totHouseSpaces =  0;
 
   var semiProc = 0;
   var terracedProc =  0;
@@ -421,11 +442,37 @@ function getHousing(json_housing){
 
   var otherNumb = 0;
 
-  /*spaced not actual numb*/
-  var totHouseSpaces =  0;
+  
 
+  /*---------TYPE BRS-----------------*/
 
-  var totalHouseHoldsTenure =  0;
+  var totHouseSpacesBRS =  0;
+
+  var semiProcBRS = 0;
+  var terracedProcBRS =  0;
+  var detachedProcBRS =  0;
+
+  var flat1ProcBRS = 0;
+  var flat2ProcBRS =  0;
+  var flat3ProcBRS = 0;
+
+  var flatProcBRS =  0;
+
+  var otherProcBRS =  0;
+  var semiNumbBRS =  0;
+  var terracedNumbBRS =  0;
+  var detachedNumbBRS = 0;
+  
+  var flat1NumbBRS = 0;
+  var flat2NumbBRS =  0;
+  var flat3NumbBRS = 0;
+
+  var flatNumbBRS =  0;
+
+  var otherNumbBRS = 0;
+
+  /*---------BED-----------------*/
+  var totalHouseholdsBed = 0;
 
   var oneBedProc =   0;
   var twoBedProc =   0;
@@ -444,6 +491,7 @@ function getHousing(json_housing){
   var avgHouseSizePerPerson =  0;
 
 
+  /*---------BED- BRS----------------*/
   var totalHouseholdsBedBrs =0;
   
   var oneBedProcBrs =   0;
@@ -463,9 +511,11 @@ function getHousing(json_housing){
   var avgHouseSizePerPersonBrs =  0;
       
 
+
+  var counter =0;
   $.each(json_housing.housing_size.records, function(i){
 
-   
+    
     if(json_housing.housing_size.records[i].record.fields["2016_ward_name"] ==ward){
 
       totalHouseholdsBed = json_housing.housing_size.records[i].record.fields.total_number_of_households;
@@ -510,10 +560,10 @@ function getHousing(json_housing){
       
      
 
- 
+    counter++;
   });
 
-
+  
   $.each(json_housing.housing_type.records, function(i){
 
     //console.log(json_housing.housing_type.records);
@@ -523,6 +573,7 @@ function getHousing(json_housing){
       terracedProc = json_housing.housing_type.records[i].record.fields.terraced0;
       detachedProc = json_housing.housing_type.records[i].record.fields.detached0;
 
+     
       flat1Proc =json_housing.housing_type.records[i].record.fields.flat_in_commercial_building0;
       flat2Proc = json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits0;
       flat3Proc = json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats0;
@@ -531,7 +582,7 @@ function getHousing(json_housing){
 
       otherProc = json_housing.housing_type.records[i].record.fields.caravan_or_other_mobile_or_temporary_structure0;
       semiNumb = json_housing.housing_type.records[i].record.fields.semi_detached;
-      terracedNumb = json_housing.housing_type.records[i].record.fields.terraced;
+      terracedNumb =  parseInt(json_housing.housing_type.records[i].record.fields.terraced);
       detachedNumb = json_housing.housing_type.records[i].record.fields.detached;
       
       flat1Numb =json_housing.housing_type.records[i].record.fields.flat_in_commercial_building;
@@ -546,9 +597,40 @@ function getHousing(json_housing){
       totHouseSpaces = json_housing.housing_type.records[i].record.fields.total_number_of_household_spaces;
      
   }    
+      semiProcBRS = semiProcBRS+json_housing.housing_type.records[i].record.fields.semi_detached0;
+      terracedProcBRS = terracedProcBRS + json_housing.housing_type.records[i].record.fields.terraced0;
+      
+      detachedProcBRS = detachedProcBRS+json_housing.housing_type.records[i].record.fields.detached0;
 
+      flat1ProcBRS =flat1ProcBRS+json_housing.housing_type.records[i].record.fields.flat_in_commercial_building0;
+      flat2ProcBRS = flat2ProcBRS+json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits0;
+      flat3ProcBRS = flat3ProcBRS+json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats0;
+
+      flatProcBRS = flat1ProcBRS+flat2ProcBRS+flat3ProcBRS;
+
+      
+      otherProcBRS = otherProcBRS + json_housing.housing_type.records[i].record.fields.caravan_or_other_mobile_or_temporary_structure0;
+      
+      semiNumbBRS = semiNumbBRS + json_housing.housing_type.records[i].record.fields.semi_detached;
+      
+      terracedNumbBRS =  terracedNumbBRS+ parseInt(json_housing.housing_type.records[i].record.fields.terraced);
+
+      //console.log("tera",terracedNumbBRS,"+",parseInt(json_housing.housing_type.records[i].record.fields.terraced));
+
+      detachedNumbBRS = detachedNumbBRS+json_housing.housing_type.records[i].record.fields.detached;
+      
+      flat1NumbBRS = flat1NumbBRS+json_housing.housing_type.records[i].record.fields.flat_in_commercial_building;
+      flat2NumbBRS = flat2NumbBRS+json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits;
+      flat3NumbBRS = flat3NumbBRS+parseInt(json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats);
+
+      otherNumbBRS = otherNumbBRS+json_housing.housing_type.records[i].record.fields.caravan_or_other_mobile_or_temporary_structure;
+
+      /*spaced not actual numb*/
+      totHouseSpacesBRS = totHouseSpacesBRS+json_housing.housing_type.records[i].record.fields.total_number_of_household_spaces;
  
   });
+
+  flatNumbBRS = flat1NumbBRS+ flat2NumbBRS+flat3NumbBRS;
 
   $.each(json_housing.housing_tenure.records, function(i){
 
@@ -568,17 +650,58 @@ function getHousing(json_housing){
  
   }    
 
+  totalHouseHoldsTenureBRS = totalHouseHoldsTenureBRS+json_housing.housing_tenure.records[i].record.fields.total_number_of_households;
+     
+    ownedProcBRS = ownedProcBRS + json_housing.housing_tenure.records[i].record.fields.owned0;
+    socialProcBRS = socialProcBRS + json_housing.housing_tenure.records[i].record.fields.social_rented0;
+    privateProcBRS = privateProcBRS + json_housing.housing_tenure.records[i].record.fields.private_and_other_rented0;
 
+    ownedNumbBRS =ownedNumbBRS + json_housing.housing_tenure.records[i].record.fields.owned;
+    socialNumbBRS =socialNumbBRS + json_housing.housing_tenure.records[i].record.fields.social_rented;
+    privateNumbBRS =privateNumbBRS + json_housing.housing_tenure.records[i].record.fields.private_and_other_rented;
 
   });
-  housing_ownedPieChartJS("Owned","Social","Private owned",ownedProc,socialProc,privateProc);  
+  housing_ownedPieChartJS("housing_ownedPieChart","Owned","Social","Private owned",ownedProc,socialProc,privateProc);  
 
-  housing_typePieChartJS("Semi","Terraced","Detached","Flat",semiProc,terracedProc,detachedProc,flatProc);
+  housing_typePieChartJS("housing_typePieChart","Semi","Terraced","Detached","Flat",semiProc,terracedProc,detachedProc,flatProc);
   
-  housing_bedPieChartJS("1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",oneBedProc,twoBedProc,threeBedProc,fourPlusBedProc);
+  housing_bedPieChartJS("housing_bedPieChart","1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",oneBedProc,twoBedProc,threeBedProc,fourPlusBedProc);
+
+  
+  var calcAVG_owned_Brs = oneDcm(ownedNumbBRS / totalHouseHoldsTenureBRS * 100);
+  var calcAVG_social_Brs = oneDcm(socialNumbBRS / totalHouseHoldsTenureBRS * 100);
+  var calcAVG_privateBrs = oneDcm(privateNumbBRS / totalHouseHoldsTenureBRS * 100);
+
+  var calcAVG_semi_Brs = oneDcm(semiNumbBRS / totHouseSpacesBRS * 100);
+  var calcAVG_terraced_Brs = oneDcm(terracedNumbBRS / totHouseSpacesBRS * 100);
+  var calcAVG_detached_Brs = oneDcm(detachedNumbBRS / totHouseSpacesBRS * 100);
+  var calcAVG_flat_Brs = oneDcm(flatNumbBRS / totHouseSpacesBRS * 100);
+
+  var calcAVG_Bed_1_Brs = oneDcm(oneBedNumbBrs / totalHouseholdsBedBrs * 100);
+  var calcAVG_Bed_2_Brs = oneDcm(twoBedNumbBrs / totalHouseholdsBedBrs * 100);
+  var calcAVG_Bed_3_Brs = oneDcm(threeBedNumbBrs / totalHouseholdsBedBrs * 100);
+  var calcAVG_Bed_4_Brs = oneDcm(fourPlusBedProcBrs / totalHouseholdsBedBrs * 100);
+
+
+  
+
+  //console.log("avg semi etc",semiNumbBRS,terracedNumbBRS,detachedNumbBRS,flatNumbBRS);
+  console.log("avg semi etc",calcAVG_semi_Brs,calcAVG_terraced_Brs,calcAVG_detached_Brs,calcAVG_flat_Brs);
+
+  housing_ownedPieChartJS("housing_ownedPieChartBRS","Owned","Social","Private owned",calcAVG_owned_Brs,calcAVG_social_Brs,calcAVG_privateBrs);  
+
+  housing_typePieChartJS("housing_typePieChartBRS","Semi","Terraced","Detached","Flat",calcAVG_semi_Brs,calcAVG_terraced_Brs,calcAVG_detached_Brs,calcAVG_flat_Brs);
+  
+  housing_bedPieChartJS("housing_bedPieChartBRS","1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",calcAVG_Bed_1_Brs,calcAVG_Bed_2_Brs,calcAVG_Bed_3_Brs,calcAVG_Bed_4_Brs);
+
 
   housing_totalPieChartJS("totalHouseBRS","cos",totalHouseholdsBedBrs);
   housing_totalPieChartJS("totalHouseWard","cos",totalHouseholdsBed);
  
+  
+  var calculateBRSoverCrowded =overcrowdedHousesProcBrs / counter;
+
+ // console.log(counter);
+  console.log("BRS",overcrowdedHousesNumbBrs,calculateBRSoverCrowded.toFixed(2),"Ward",overcrowdedHousesNumb,overcrowdedHousesProc)
 
 }

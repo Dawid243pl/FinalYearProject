@@ -81,6 +81,10 @@ function checkBristol(pCode){
   
 };
 
+function oneDcm(calc){
+  var calculation = Math.round(calc * 10 ) / 10;
+  return calculation;
+}
 
 $(".viewAll").click(function() {
   $(this).parent().find(".hiddenCont").slideToggle( "slow");

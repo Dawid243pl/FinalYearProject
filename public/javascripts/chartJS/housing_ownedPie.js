@@ -1,6 +1,6 @@
-function housing_ownedPieChartJS(label1,label2,label3,data1,data2,data3){
+function housing_ownedPieChartJS(div,label1,label2,label3,data1,data2,data3){
 
-    var ctx = document.getElementById('housing_ownedPieChart').getContext('2d');
+    var ctx = document.getElementById(div).getContext('2d');
     var chart = new Chart(ctx, {  
 			type: 'doughnut',
 			data: {

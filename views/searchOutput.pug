@@ -142,6 +142,7 @@ block content
           | Crime in the last 3 Months
           .latestCrime
         canvas#myChart
+        canvas#myChart2
       btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
 
@@ -222,10 +223,18 @@ block content
                   canvas#housing_typePieChart
                 .col-sm-6 
                   canvas#housing_bedPieChart
+                .col-sm-6 
+                  canvas#housing_ownedPieChartBRS
+                .col-sm-6 
+                  canvas#housing_typePieChartBRS
+                .col-sm-6 
+                  canvas#housing_bedPieChartBRS
+
+
             hr.my-4
             p.lead
               | House price in the last 12 Months
-
+            hr.my-4
             p.lead
               | Average house prices in the last 7 Years
             canvas#zooplaChart  
