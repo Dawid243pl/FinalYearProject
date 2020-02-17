@@ -28,8 +28,9 @@ function getCrime(json_crime){
 
       if( json_crime[i].WardName ==ward){
         var pop = json_crime[i].population;
-        $(".popWrd").append("<h1>"+pop+"</h1>");   
-
+        //$(".popWrd").append("<h1>"+pop+"</h1>");   
+        housing_totalPieChartJS("totalpopWard","test",pop); 
+       
         var crimeStat3 = new Object();
         crimeStat3.name = "Total crimes";
         crimeStat3.percent = 100;
@@ -45,7 +46,8 @@ function getCrime(json_crime){
       if(json_crime[i].WardName =="Bristol"){
       
         var pop = json_crime[i].population;
-        $(".popBrs").append("<h1>"+pop+"</h1>");   
+        //$(".popBrs").append("<h1>"+pop+"</h1>");  
+        housing_totalPieChartJS("totalpopBRS","test",pop);
         var crimeStat1 = new Object();
         crimeStat1.name = "Total crimes";
         crimeStat1.percent = 100;
@@ -193,6 +195,7 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   //someObj.showLine= false;
 
   makeJSONarr.push(someObj);
+
 }
 
 console.log(makeJSONarr);
@@ -279,6 +282,13 @@ function getQuallity(json_quall){
     var older =[];
     var totPop =[];
 
+    var yearArrayAll =[];
+    var workingAgeAll =[];
+    var childrenAll =[];
+    var olderAll =[];
+    var totPopAll =[];
+    var wardsAll=[];
+
     $.each(json_pop, function(i){
 
       if(json_pop[i].WardName ==ward){
@@ -336,8 +346,30 @@ function getQuallity(json_quall){
         }
   
       }
-    
+
+      if(json_pop[i].Year == "2018"){
+
+        var yr = json_pop[i].Year;
+        var wAge = json_pop[i].wAgeNumb;
+        var childrenz = json_pop[i].childrenNumb;
+        var elderly = json_pop[i].olderPNumb;
+        var totP = json_pop[i].totalPop;
+        var wNamez = json_pop[i].WardName;
+
+        wardsAll.push(wNamez);
+        yearArrayAll.push(yr);
+        workingAgeAll.push(wAge);
+        childrenAll.push(childrenz);
+        olderAll.push(elderly);
+        totPopAll.push(totP);
+      }
+   
+
+
+
     });
+
+
 
     popChartJs(yearArray[0],yearArray[1],yearArray[2],yearArray[3],yearArray[4],yearArray[5],yearArray[6],
       totPop[0],totPop[1],totPop[2],totPop[3],totPop[4],totPop[5],totPop[6],
@@ -345,6 +377,80 @@ function getQuallity(json_quall){
       children[0],children[1],children[2],children[3],children[4],children[5],children[6],
       older[0],older[1],older[2],older[3],older[4],older[5],older[6]);
 
+    var makeJSONarrpop=[];
+
+    var d1Obj = new Object();
+    var d2Obj = new Object();
+    var d3Obj = new Object();
+    var wardObj = new Object();
+
+    var d1Holder =[];
+    var d2Holder =[];
+    var d3Holder =[];
+    var wardHolder =[];
+    for(xy=0;xy<wardsAll.length;xy++){
+
+      //var someObj = new Object();
+      
+     
+
+      //someObj.backgroundColor =  "red";
+      //someObj.borderColor = '#000000';
+      //someObj.fill = false;
+      //someObj.pointRadius = 10;
+      //someObj.pointHoverRadius=15;
+      //someObj.showLine= false;
+
+      d1Holder.push(workingAgeAll[xy]);
+      d2Holder.push(childrenAll[xy]);
+      d3Holder.push(olderAll[xy]);
+      wardHolder.push(wardsAll[xy]);
+    }
+    /*
+    d1Obj.label =  "Working age";
+    d1Obj.backgroundColor =  "red";
+    
+    d2Obj.label =  "Children";
+    d2Obj.backgroundColor =  "blue";
+    
+    d3Obj.label =  "Elderly";
+    d3Obj.backgroundColor =  "yellow";
+*/
+
+    //d1Obj.data = [d1Holder];
+    //d2Obj.data = [d2Holder];
+    //d3Obj.data = [d3Holder];
+    //wardObj.data = [wardHolder];
+
+    //var finalObj = new Object();
+    //finalObj.labels = [wardHolder]
+    //finalObj = [d1Obj,d2Obj,d3Obj];
+
+    var barChartData = {
+      labels: wardHolder,
+      datasets: [{
+          label: 'Working age',
+          backgroundColor: "red",
+          data: d1Holder
+      }, {
+          label: 'Children',
+          backgroundColor: "blue",
+          data: d2Holder
+  
+      }, {
+          label: 'Elderly',
+          backgroundColor: "green",
+          data:d3Holder
+      }]
+  };
+
+    makeStacked("popBar",barChartData)
+
+    //console.log("test",finalObj);
+
+
+
+    
   }
 
   function getZoopla(json_zoopla){

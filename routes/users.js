@@ -169,6 +169,92 @@ router.post('/logout',(req,res) =>{
 });
 
  
+router.post('/rateArea',(req,res) =>{
+ 
+  console.log(req.body);
+
+ 
+  var mail = req.session.userEmail; 
+  console.log("CHECK!!!!!!!!!!!!!!!!!!!!!!!!!1",mail);
+  const connection = getConnection();
+
+  const queryString = "SELECT * FROM users WHERE email =?"; 
+
+  connection.query(queryString,[mail], (err,result,fields) =>{
+  if(result.length > 0){
+
+    console.log(result);
+
+    console.log("email found");
+    //console.log("yes or no",result.Rated);
+
+    console.log("yes or no 1",result[0].Rated);
+        
+    if(result[0].Rated =="No"){
+      console.log("Not voted yet");
+      
+      //console.log(req.body.q1);
+      //console.log(req.body.q2);
+      //console.log(req.body.q3);
+
+      //const queryString = "INSERT INTO RATING (Question,Email,Response) VALUES (?,?,?)"; 
+
+      var sql = "REPLACE INTO RATING (Question,Email,Response) VALUES ?";
+      var values = [
+          ['test1', mail, req.body.q1],
+          ['test2', mail, req.body.q2],
+          ['test3', mail, req.body.q3]
+      ];
+      console.log(values);
+      connection.query(sql, [values], function(err) {
+          if (err) throw err;
+          connection.end();
+      });
+      
+      connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
+        if (err) throw err;
+        connection.end();
+    });
+   
+
+
+    }else{
+      
+    }
+
+  }else{
+    console.log("email not found");
+  }
+
+});
+
+});
+router.get('/ratingQuestions', (req,res)=>{
+/* 
+  const connection = getConnection();
+  
+  const queryString = "SELECT * FROM users WHERE id =?";
+  const userId = req.params.id;
+
+  connection.query(queryString,[req.params.id],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+    const users = rows.map((row)=> {
+      return {firstName: row.first_name,lastName: row.last_name}
+    })
+
+    res.json(users);
+
+  })
+  //res.end();
+  */
+});
 
 
 

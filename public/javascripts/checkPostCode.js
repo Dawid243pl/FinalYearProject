@@ -76,7 +76,7 @@ $(function(){
 
         
         //console.log(d.toLocaleDateString());
-        
+        /*
         var dateArray=[];
 
         for(var y =0;y<3;y++){
@@ -113,7 +113,7 @@ $(function(){
           });
           
           }
-
+*/
       var api_url_pop = `/getPopulation`;
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
@@ -138,8 +138,8 @@ $(function(){
       } 
       catch (error) {
         console.error(error);
-        air = { value: -1 };
-        document.getElementById('aq_value').textContent = 'NO READING';
+        //air = { value: -1 };
+        //document.getElementById('aq_value').textContent = 'NO READING';
       }
 
 });

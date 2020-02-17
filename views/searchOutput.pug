@@ -67,32 +67,22 @@ block content
       // /.col-lg-4
       .col-sm-4.col-lg-2.text-center#sr
         svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
-          title Services
+          title Health
           rect(width='100%', height='100%', fill='#777')
           text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
-        h2 Services
+        h2 Health
         p
           | kox
         p
           a.btn.btn-secondary(href='#', role='button') View details »
       // /.col-lg-4
       .col-sm-4.col-lg-2.text-center#pop
-        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
-          title Population
-          rect(width='100%', height='100%', fill='#777')
-          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
-        h2 Population
-        p
-          | kox
-        p
-          a.btn.btn-secondary(href='#', role='button') View details »
-    
-      .col-sm-4.col-lg-2.text-center#uscr
-        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
-          title User Score
-          rect(width='100%', height='100%', fill='#777')
-          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
-        h2 User Score
+        .donut-container(style="background: #9C0;")
+          .donut-inner
+            .donut-label 
+              title Population
+        h2
+          a(href='#popz') Population
         p
           | kox
         p
@@ -110,6 +100,16 @@ block content
           a.btn.btn-secondary(href='#', role='button') View details »
       // /.col-lg-4
 
+      .col-sm-4.col-lg-2.text-center#uscr
+              svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
+                title User Score
+                rect(width='100%', height='100%', fill='#777')
+                text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
+              h2 User Score
+              p
+                | kox
+              p
+                a.btn.btn-secondary(href='#', role='button') View details »
   .container
     .titContainer 
       a.btn.btn-primary.btn-lg#Crimez(href="#" role="button") Crime
@@ -142,7 +142,6 @@ block content
           | Crime in the last 3 Months
           .latestCrime
         canvas#myChart
-        canvas#myChart2
       btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
 
@@ -155,12 +154,13 @@ block content
         .widget.bg-dark
           .header.bg-info Total Population
           .header_sub.bg-danger
-            //.cont-h#brs
-            //.cont-h#wrd 
-          //div#chartBrs.chart-container
-          //div#chartWrd.chart-container
-          .popBrs
-          .popWrd
+            .cont-h#brs
+            .cont-h#wrd 
+          .row
+            .col-sm-6 
+              canvas#totalpopBRS
+            .col-sm-6 
+              canvas#totalpopWard
         p.lead
           | #INFO
         .hiddenCont  
@@ -172,6 +172,7 @@ block content
           p.lead
           | Crime in the last 3 Months  
           p.CrimeComponent  
+          canvas#popBar
           hr.my-4
           ul.list-group
           hr.my-4
@@ -212,23 +213,29 @@ block content
             p.lead
               a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
             p.lead
-            | Crime in the last 3 Months  
-            p.CrimeComponent  
+            | Housing information
+            p.CrimeComponent
+            .header_sub.bg-danger
+              .cont-h#brs
+              .cont-h#wrd   
             hr.my-4
             .container
               .row
-                .col-sm-6 
+                .col-sm-12.col-lg-6 
+                  canvas#housing_ownedPieChartBRS   
+                .col-sm-12.col-lg-6 
                   canvas#housing_ownedPieChart
-                .col-sm-6 
+              
+                .col-sm-12.col-lg-6  
+                  canvas#housing_typePieChartBRS  
+                .col-sm-12.col-lg-6 
                   canvas#housing_typePieChart
-                .col-sm-6 
-                  canvas#housing_bedPieChart
-                .col-sm-6 
-                  canvas#housing_ownedPieChartBRS
-                .col-sm-6 
-                  canvas#housing_typePieChartBRS
-                .col-sm-6 
+                
+                .col-sm-12.col-lg-6 
                   canvas#housing_bedPieChartBRS
+                .col-sm-12.col-lg-6  
+                  canvas#housing_bedPieChart
+              
 
 
             hr.my-4
@@ -239,20 +246,55 @@ block content
               | Average house prices in the last 7 Years
             canvas#zooplaChart  
           btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
-
-          //Average price paid
-            £205,500
-            
-            Sales
-            2
-            
-            Current average value
-            £209,992
-            Zoopla estimate 
-            Value change
-            £3,679
-            ▲ 1.78%
-
+  if typeof userMail === 'undefined'
+    .container
+      .titContainer 
+        a.btn.btn-primary.btn-lg#Houz(href="#" role="button") User Rating
+      .jumbotron
+        p.lead
+          | Please log in to rate this area
+                  
+  else
+    .container
+        .titContainer 
+          a.btn.btn-primary.btn-lg#Houz(href="#" role="button") User Rating
+        .jumbotron
+          p.lead
+            | Loged in
+          .responseForm
+            form#ratings(action="/users/rateArea" method="POST")
+              .form-row
+              | Please answer the following Questions
+              hr    
+              .form-group.col-sm-12
+                  label(for='customRadio1') Would you recommend this area for someone to move into?
+                  .custom-control.custom-radio
+                    input#customRadio1.custom-control-input(type='radio', name='q1' value="Yes")
+                    label.custom-control-label(for='customRadio1') Yes
+                  .custom-control.custom-radio
+                    input#customRadio2.custom-control-input(type='radio', name='q1' value="No")
+                    label.custom-control-label(for='customRadio2') No
+              hr        
+              .form-group.col-sm-12
+                  label(for='customRadio3') Would you agree your area is safe?
+                  .custom-control.custom-radio
+                    input#customRadio3.custom-control-input(type='radio', name='q2' value="Yes")
+                    label.custom-control-label(for='customRadio3') Yes
+                  .custom-control.custom-radio
+                    input#customRadio4.custom-control-input(type='radio', name='q2' value="No")
+                    label.custom-control-label(for='customRadio4') No
+              hr  
+              .form-group.col-sm-12
+                  label(for='customRadio4') Is there enoguh space for parking?
+                  .custom-control.custom-radio
+                    input#customRadio5.custom-control-input(type='radio', name='q3' value="Yes")
+                    label.custom-control-label(for='customRadio5') Yes
+                  .custom-control.custom-radio
+                    input#customRadio6.custom-control-input(type='radio', name='q3' value="No")
+                    label.custom-control-label(for='customRadio6') No
+              .form-group.col-sm-12    
+                  button#subUser.btn.btn-primary.float-right(type='submit') Rate Area
+   
   script
     //include ../public/javascripts/makeMap.js
     include ../public/javascripts/mainFunc.js
@@ -266,6 +308,7 @@ block content
     include ../public/javascripts/ChartJs/housing_typePie.js
     include ../public/javascripts/ChartJs/housing_bedPie.js
     include ../public/javascripts/ChartJs/totalHouse.js
-    include ../public/javascripts/ChartJs/testChartJS.js
+    include ../public/javascripts/ChartJs/stackedChartJs.js
+    include ../public/javascripts/ChartJs/testChartJs.js
 
     //include ../public/javascripts/updtDatabase.js

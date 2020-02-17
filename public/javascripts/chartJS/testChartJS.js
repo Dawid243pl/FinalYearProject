@@ -1,22 +1,59 @@
-function test(label1,label2,label3,makeJSONarr){
-    var ctx = document.getElementById('myChart2').getContext('2d');
-var chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: [label1,label2,label3],
-            datasets: makeJSONarr
-        },
+/*
+var barChartData = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [{
+        label: 'Dataset 1',
+        backgroundColor: "red",
+        data: [
+          1,
+          2,
+          3
+        ]
+    }, {
+        label: 'Dataset 2',
+        backgroundColor: "blue",
+        data: [
+           4,
+           5,
+           6
+
+        ]
+    }, {
+        label: 'Dataset 3',
+        backgroundColor: "green",
+        data: [
+            7,
+            8,
+            9
+        ]
+    }]
+
+};
+console.log("see",barChartData);
+window.onload = function() {
+    var ctx = document.getElementById('canvasTest').getContext('2d');
+    window.myBar = new Chart(ctx, {
+        
+        type: 'bar',
+        data: barChartData,
         options: {
-            responsive: true,
             title: {
                 display: true,
-                text: 'Point Style: ' + 'circle'
+                text: 'Chart.js Bar Chart - Stacked'
             },
-            legend: {
-                display: false
+            tooltips: {
+                mode: 'index',
+                intersect: false
             },
-            
+            responsive: true,
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true
+                }
+            }
         }
-    });;
-}
-
+    });
+};*/
