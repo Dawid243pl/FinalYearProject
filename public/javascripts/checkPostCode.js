@@ -9,6 +9,8 @@ $(function(){
         const response = await fetch(api_url);
         const json = await response.json();
 
+      
+
         //weather = json.weather.currently;
         //air = json.air_quality.results[0].measurements[0];
 
@@ -19,6 +21,8 @@ $(function(){
         northing = json.postcode.result.northings;
         ward = json.postcode.result.admin_ward;
 
+        //set value of hidden field
+        $("#wardNamezHidden").val(ward);
          //to redirect to home page if ward does not exist
 
         const api_url_ward = `listWards`;

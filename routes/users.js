@@ -173,57 +173,64 @@ router.post('/rateArea',(req,res) =>{
  
   console.log(req.body);
 
+  console.log(req.body.wardName);
  
   var mail = req.session.userEmail; 
-  console.log("CHECK!!!!!!!!!!!!!!!!!!!!!!!!!1",mail);
+ 
+
   const connection = getConnection();
 
-  const queryString = "SELECT * FROM users WHERE email =?"; 
+  const queryString = "SELECT * FROM rating WHERE email =?"; 
 
   connection.query(queryString,[mail], (err,result,fields) =>{
   if(result.length > 0){
 
-    console.log(result);
+    const queryString = "SELECT * FROM rating WHERE WardName =?"; 
 
-    console.log("email found");
-    //console.log("yes or no",result.Rated);
-
-    console.log("yes or no 1",result[0].Rated);
-        
-    if(result[0].Rated =="No"){
-      console.log("Not voted yet");
+    connection.query(queryString,[req.body.wardName], (err,result,fields) =>{
+      if(result.length > 0){
+        console.log("already voted for this ward")
+      }else{
+        console.log("Not voted yet");
       
-      //console.log(req.body.q1);
-      //console.log(req.body.q2);
-      //console.log(req.body.q3);
-
-      //const queryString = "INSERT INTO RATING (Question,Email,Response) VALUES (?,?,?)"; 
-
-      var sql = "REPLACE INTO RATING (Question,Email,Response) VALUES ?";
-      var values = [
-          ['test1', mail, req.body.q1],
-          ['test2', mail, req.body.q2],
-          ['test3', mail, req.body.q3]
-      ];
-      console.log(values);
-      connection.query(sql, [values], function(err) {
+        //console.log(req.body.q1);
+        //console.log(req.body.q2);
+        //console.log(req.body.q3);
+  
+        //const queryString = "INSERT INTO RATING (Question,Email,Response) VALUES (?,?,?)"; 
+  
+        var sql = "REPLACE INTO RATING (Email,WardName,q1,q2,q3) VALUES ?";
+        var values = [
+            [mail,req.body.wardName,req.body.q1,req.body.q2,req.body.q3]
+        ];
+        console.log(values);
+        connection.query(sql, [values], function(err) {
+            if (err) throw err;
+            connection.end();
+        });
+        
+        connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
           if (err) throw err;
           connection.end();
       });
-      
-      connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
+      }
+    });
+  }else{
+   
+    var sql = "REPLACE INTO RATING (Email,WardName,q1,q2,q3) VALUES ?";
+    var values = [
+      [mail,req.body.wardName,req.body.q1,req.body.q2,req.body.q3]
+    ];
+    console.log(values);
+    connection.query(sql, [values], function(err) {
         if (err) throw err;
         connection.end();
     });
-   
-
-
-    }else{
-      
-    }
-
-  }else{
-    console.log("email not found");
+    
+    connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
+      if (err) throw err;
+      connection.end();
+  });
   }
 
 });
