@@ -851,6 +851,8 @@ var Ques2YesCount =0;
 var Ques3NoCount =0;
 var Ques3YesCount =0;
 
+
+console.log("WAD",recordResponse);
 for(xy=0;xy<recordResponse.length;xy++){
 
 
@@ -869,6 +871,7 @@ for(xy=0;xy<recordResponse.length;xy++){
   }else{
     Ques3YesCount++;
   }
+
 }
 
 QuesArry.push([Ques1NoCount,Ques1YesCount],[Ques2NoCount,Ques2YesCount],[Ques3NoCount,Ques3YesCount]);

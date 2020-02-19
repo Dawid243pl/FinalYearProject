@@ -82,8 +82,8 @@ function checkBristol(pCode){
 };
 
 function resetForm(){
-  document.getElementById("ratings").reset();
-  
+  //document.getElementById("ratings").reset();
+  setTimeout(function(){ document.getElementById("ratings").reset(); }, 3000);  
   console.log("cleared")
 
 
