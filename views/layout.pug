@@ -24,8 +24,12 @@ html
               span.sr-only (current)
           li.nav-item
             a.nav-link(href='#') Link
-          li.nav-item
-            a.nav-link.disabled(href='#') Disabled
+          if typeof userMail === 'undefined'
+           li.nav-item
+              a.nav-link.disabled(href='#') My Account
+          else  
+            li.nav-item
+              a.nav-link(href='users/myAccount') My Account
         ul.navbar-nav.ml-auto
           if typeof userMail === 'undefined'
             li.nav-item#lgIn

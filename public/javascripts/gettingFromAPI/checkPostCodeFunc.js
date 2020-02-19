@@ -811,3 +811,143 @@ function getHousing(json_housing){
   console.log("BRS",overcrowdedHousesNumbBrs,calculateBRSoverCrowded.toFixed(2),"Ward",overcrowdedHousesNumb,overcrowdedHousesProc)
 
 }
+
+
+function getUserReview(json_review){
+
+  var countVotes =0;
+  var recordResponse=[];
+  var questionArr=[];
+ 
+  $.each(json_review.review, function(i){
+
+    var tempArray=[];
+    if(json_review.review[i].WardName == ward){
+      
+      tempArray.push(json_review.review[i].q1,json_review.review[i].q2,json_review.review[i].q3);  
+      countVotes++;
+      recordResponse.push(tempArray);
+    }
+    
+
+  });
+  $.each(json_review.question, function(i){
+
+    var tempArray=[];
+      
+      tempArray.push(json_review.question[i].Question);  
+    
+      questionArr.push(tempArray);
+  });
+
+var color =["red","blue","green"];
+
+var QuesArry=[]
+
+var Ques1NoCount =0;
+var Ques1YesCount =0;
+var Ques2NoCount =0;
+var Ques2YesCount =0;
+var Ques3NoCount =0;
+var Ques3YesCount =0;
+
+for(xy=0;xy<recordResponse.length;xy++){
+
+
+  if (recordResponse[xy][0] == "No"){
+    Ques1NoCount++;
+  }else{
+    Ques1YesCount++;
+  }
+  if (recordResponse[xy][1] == "No"){
+    Ques2NoCount++;
+  }else{
+    Ques2YesCount++;
+  }
+  if (recordResponse[xy][2] == "No"){
+    Ques3NoCount++;
+  }else{
+    Ques3YesCount++;
+  }
+}
+
+QuesArry.push([Ques1NoCount,Ques1YesCount],[Ques2NoCount,Ques2YesCount],[Ques3NoCount,Ques3YesCount]);
+
+
+/*
+var totCount = Ques1NoCount + Ques1YesCount;
+
+
+if(Ques1NoCount > 0){
+  var q1noPer = Ques1NoCount * 100/totCount;
+}else{
+  var q1noPer = 0;
+}
+
+if(Ques1YesCount > 0){
+  var q1yesPer = Ques1YesCount * 100/totCount;
+}else{
+  var q1yesPer = 0;
+}
+
+if(Ques2NoCount > 0){
+  var q2noPer = Ques2NoCount * 100/totCount;
+}else{
+  var q2noPer = 0;
+}
+
+if(Ques2YesCount > 0){
+  var q2yesPer = Ques2YesCount * 100/totCount;
+}else{
+  var q2yesPer = 0;
+}
+
+if(Ques3NoCount > 0){
+  var q3noPer = Ques3NoCount * 100/totCount;
+}else{
+  var q3noPer = 0;
+}
+
+if(Ques3YesCount > 0){
+  var q3yesPer = Ques3YesCount * 100/totCount;
+}else{
+  var q3yesPer = 0;
+}
+*/
+//console.log(Ques3NoCount,Ques3YesCount)
+
+
+var makePlainDonutJson=[];
+
+for(xy=0;xy<QuesArry.length;xy++){
+
+  var someObj = new Object();
+  someObj.label = questionArr[xy];
+  someObj.data = [QuesArry[xy][0],QuesArry[xy][1]];
+  someObj.backgroundColor =  ["green","red"]
+
+  makePlainDonutJson.push(someObj);
+
+}
+
+//3 charts each % yes/no
+
+  //NEED QUESTIONS#labels
+  testarr=[];
+  testarr.push(makePlainDonutJson[0]);
+  testarr2=[];
+  testarr2.push(makePlainDonutJson[1]);
+  testarr3=[];
+  testarr3.push(makePlainDonutJson[2]);
+  //
+  console.log("plain",makePlainDonutJson);
+  plainDonut("userDrivenChart",questionArr[0],testarr);
+  plainDonut("userDrivenChart1",questionArr[1],testarr2);
+  plainDonut("userDrivenChart2",questionArr[2],testarr3);
+  
+  
+  //console.log(recordResponse);
+  //console.log(countVotes);
+  //console.log(makePlainDonutJson);
+ // console.log(questionArr);
+}

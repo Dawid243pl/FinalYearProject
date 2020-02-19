@@ -128,9 +128,17 @@ $(function(){
 */
       var api_url_housing = `/housing`;
       var response_housing = await fetch(api_url_housing);
+      var json_housing = await response_housing.json();
+      
+      var api_url_housing = `/housing`;
+      var response_housing = await fetch(api_url_housing);
       var json_housing = await response_housing.json(); 
+
+      var api_url_review = `/users/reviewStats`;
+      var response_review = await fetch(api_url_review);
+      var json_review = await response_review.json(); 
       
-      
+      getUserReview(json_review);
       getQuallity(json_quall);
       //getEdu(json_edu);
       getWeather(json_weather);
@@ -138,6 +146,7 @@ $(function(){
       getPopulation(json_pop);
       //getZoopla(json_zoopla);
       getHousing(json_housing);
+      
 
       } 
       catch (error) {

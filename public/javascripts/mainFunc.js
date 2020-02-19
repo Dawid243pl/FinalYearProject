@@ -81,6 +81,14 @@ function checkBristol(pCode){
   
 };
 
+function resetForm(){
+  document.getElementById("ratings").reset();
+  
+  console.log("cleared")
+
+
+};
+
 function oneDcm(calc){
   var calculation = Math.round(calc * 10 ) / 10;
   return calculation;

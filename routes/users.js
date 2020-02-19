@@ -9,7 +9,8 @@ const pool = mysql.createPool({
 
   host:'localhost',
   user:'root',
-  database:'postcodeapi'
+  database:'postcodeapi',
+  multipleStatements: true
 
 })
 
@@ -23,9 +24,21 @@ const redirectHome = (req,res,next) =>{
   if(req.session.userEmail){
     res.redirect("/");
   }else{
-    next()
+    next();
   }
 }
+
+
+const redirectHome2 = (req,res,next) =>{
+
+  if(!req.session.userEmail){
+    res.redirect("/");
+  }else{
+    next();
+  }
+}
+
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -122,6 +135,7 @@ router.post('/auth', function(req,res){
         console.log(password," vs ",result[0].Password);
         // res == true
         if (err){
+          console.log("error");
           /*
           return res.status(401).json({
             message: 'Auth Failed'
@@ -168,15 +182,17 @@ router.post('/logout',(req,res) =>{
   })
 });
 
- 
 router.post('/rateArea',(req,res) =>{
+
+ 
+  var mail = req.session.userEmail; 
  
   console.log(req.body);
 
   console.log(req.body.wardName);
- 
-  var mail = req.session.userEmail; 
- 
+   
+
+  console.log(mail);
 
   const connection = getConnection();
 
@@ -189,7 +205,10 @@ router.post('/rateArea',(req,res) =>{
 
     connection.query(queryString,[req.body.wardName], (err,result,fields) =>{
       if(result.length > 0){
-        console.log("already voted for this ward")
+        console.log("already voted for this ward");
+        //res.redirect("/");
+        //redirect error
+        res.status(204).send();
       }else{
         console.log("Not voted yet");
       
@@ -213,7 +232,12 @@ router.post('/rateArea',(req,res) =>{
           if (err) throw err;
           connection.end();
       });
+      //res.end();
+      //res.redirect("/");
+      res.status(204).send();
+      //redirect success
       }
+
     });
   }else{
    
@@ -236,6 +260,11 @@ router.post('/rateArea',(req,res) =>{
 });
 
 });
+
+
+
+
+
 router.get('/ratingQuestions', (req,res)=>{
 /* 
   const connection = getConnection();
@@ -264,6 +293,51 @@ router.get('/ratingQuestions', (req,res)=>{
 });
 
 
+router.get('/reviewStats', (req,res)=>{
+ 
+  const connection = getConnection();
+  
+  const queryString = "SELECT * FROM rating";
+
+  connection.query('SELECT * FROM rating; SELECT * FROM questions',function(err, rows) {
+    if (err) throw err;
+
+    res.json({
+      review: rows[0],
+      question:rows[1]
+  });
+     //res.json(review,ques);
+  });
+/*
+  connection.query(queryString,(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for data"+err)
+      res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    //custom format for json response
+    const review = rows.map((row)=> {
+      return {Email: row.Email,Question1: row.q1,Question2: row.q2,Question3: row.q3,WardName: row.WardName}
+    })
+/*
+    const data = {
+      reviewz: review,
+      questionz: question
+    };
+    */
+    //response.json(data);
+  //  res.json(review);
+
+  //})
+  //res.end();
+});
+
+router.get('/myAccount',redirectHome2, (req,res)=>{
+
+  res.render('account', {userMail:req.session.userEmail});
+});
 
 
 

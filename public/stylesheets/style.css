@@ -160,11 +160,11 @@ li.my-list.list-group-item.d-flex.justify-content-between.align-items-center{
 .donut-container {
 	width: 150px;
 	height: 150px;
-	float: left;
+	margin: auto;
 	-webkit-border-radius: 75px;
 	-moz-border-radius: 75px;
 	border-radius: 75px;
-	margin-right: 20px;
+
 }
 
 .donut-inner {

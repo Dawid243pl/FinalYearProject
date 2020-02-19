@@ -246,55 +246,61 @@ block content
               | Average house prices in the last 7 Years
             canvas#zooplaChart  
           btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
-  if typeof userMail === 'undefined'
-    .container
-      .titContainer 
-        a.btn.btn-primary.btn-lg#Houz(href="#" role="button") User Rating
-      .jumbotron
-        p.lead
-          | Please log in to rate this area
-                  
-  else
-    .container
-        .titContainer 
-          a.btn.btn-primary.btn-lg#Houz(href="#" role="button") User Rating
-        .jumbotron
-          p.lead
-            | Loged in
-          .responseForm
-            form#ratings(action="/users/rateArea" method="POST")
-              .form-row
-              | Please answer the following Questions
-              hr    
-              .form-group.col-sm-12
-                  label(for='customRadio1') Would you recommend this area for someone to move into?
-                  .custom-control.custom-radio
-                    input#customRadio1.custom-control-input(type='radio', name='q1' value="Yes")
-                    label.custom-control-label(for='customRadio1') Yes
-                  .custom-control.custom-radio
-                    input#customRadio2.custom-control-input(type='radio', name='q1' value="No")
-                    label.custom-control-label(for='customRadio2') No
-              hr        
-              .form-group.col-sm-12
-                  label(for='customRadio3') Would you agree your area is safe?
-                  .custom-control.custom-radio
-                    input#customRadio3.custom-control-input(type='radio', name='q2' value="Yes")
-                    label.custom-control-label(for='customRadio3') Yes
-                  .custom-control.custom-radio
-                    input#customRadio4.custom-control-input(type='radio', name='q2' value="No")
-                    label.custom-control-label(for='customRadio4') No
-              hr  
-              .form-group.col-sm-12
-                  label(for='customRadio4') Is there enoguh space for parking?
-                  .custom-control.custom-radio
-                    input#customRadio5.custom-control-input(type='radio', name='q3' value="Yes")
-                    label.custom-control-label(for='customRadio5') Yes
-                  .custom-control.custom-radio
-                    input#customRadio6.custom-control-input(type='radio', name='q3' value="No")
-                    label.custom-control-label(for='customRadio6') No
-                    input(type="hidden" id="wardNamezHidden" name="wardName")      
-              .form-group.col-sm-12    
-                  button#subUser.btn.btn-primary.float-right(type='submit') Rate Area
+
+  .container
+          .titContainer 
+            a.btn.btn-primary.btn-lg#Houz(href="#" role="button") User Rating
+          .jumbotron
+            p#dispMessage.lead
+            hr
+            .row
+              .col-sm-12.col-lg-6 
+                canvas#userDrivenChart
+              .col-sm-12.col-lg-6 
+                canvas#userDrivenChart1
+              .col-sm-12.col-lg-6   
+                canvas#userDrivenChart2
+            hr
+            if typeof userMail === 'undefined'
+              p.lead
+                | Please log in to rate this area    
+            else
+              p.lead
+                | Loged in    
+              .responseForm
+                form#ratings(action="/users/rateArea" method="POST" onSubmit="return resetForm()")
+                  .form-row
+                  | Please answer the following Questions
+                  hr    
+                  .form-group.col-sm-12
+                      label(for='customRadio1') Would you recommend this area for someone to move into?
+                      .custom-control.custom-radio
+                        input#customRadio1.custom-control-input(type='radio', name='q1' value="Yes")
+                        label.custom-control-label(for='customRadio1') Yes
+                      .custom-control.custom-radio
+                        input#customRadio2.custom-control-input(type='radio', name='q1' value="No")
+                        label.custom-control-label(for='customRadio2') No
+                  hr        
+                  .form-group.col-sm-12
+                      label(for='customRadio3') Would you agree your area is safe?
+                      .custom-control.custom-radio
+                        input#customRadio3.custom-control-input(type='radio', name='q2' value="Yes")
+                        label.custom-control-label(for='customRadio3') Yes
+                      .custom-control.custom-radio
+                        input#customRadio4.custom-control-input(type='radio', name='q2' value="No")
+                        label.custom-control-label(for='customRadio4') No
+                  hr  
+                  .form-group.col-sm-12
+                      label(for='customRadio4') Is there enoguh space for parking?
+                      .custom-control.custom-radio
+                        input#customRadio5.custom-control-input(type='radio', name='q3' value="Yes")
+                        label.custom-control-label(for='customRadio5') Yes
+                      .custom-control.custom-radio
+                        input#customRadio6.custom-control-input(type='radio', name='q3' value="No")
+                        label.custom-control-label(for='customRadio6') No
+                        input(type="hidden" id="wardNamezHidden" name="wardName")      
+                  .form-group.col-sm-12    
+                      button#subUser.btn.btn-primary.float-right(type='submit') Rate Area
    
   script
     //include ../public/javascripts/makeMap.js
@@ -310,6 +316,7 @@ block content
     include ../public/javascripts/ChartJs/housing_bedPie.js
     include ../public/javascripts/ChartJs/totalHouse.js
     include ../public/javascripts/ChartJs/stackedChartJs.js
-    include ../public/javascripts/ChartJs/testChartJs.js
+    include ../public/javascripts/ChartJs/plainDonut.js
+    //include ../public/javascripts/ChartJs/testChartJs.js
 
     //include ../public/javascripts/updtDatabase.js
