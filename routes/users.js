@@ -260,13 +260,14 @@ router.get('/reviewCount/:ward', (req,res)=>{
   //console.log(req.params);
   
 
-  connection.query('SELECT SUM(q1="YES") AS q1Yes, SUM(q2="YES") AS q2Yes, SUM(q3="YES") As q3Yes, SUM(q1="No") As q1No, SUM(q2="No") As q2No, SUM(q3="No") As q3No FROM rating WHERE WardName =?;SELECT * FROM questions',[ward],function(err, rows) {
+  connection.query('SELECT SUM(q1="YES") AS q1Yes, SUM(q2="YES") AS q2Yes, SUM(q3="YES") As q3Yes, SUM(q1="No") As q1No, SUM(q2="No") As q2No, SUM(q3="No") As q3No FROM rating WHERE WardName =?;SELECT * FROM questions;SELECT WardName,SUM(q1="YES") AS q1Yes, SUM(q2="YES") AS q2Yes, SUM(q3="YES") As q3Yes, SUM(q1="No") As q1No, SUM(q2="No") As q2No, SUM(q3="No") As q3No FROM rating GROUP BY WardName',[ward],function(err, rows) {
     if (err) throw err;
 
 
     res.json({
       review: rows[0],
-      question:rows[1]
+      question:rows[1],
+      allReview:rows[2]
   });
   });
 

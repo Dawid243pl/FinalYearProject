@@ -182,6 +182,7 @@ function getCrime(json_crime){
 
 
 var makeJSONarr=[];
+var makeJSONbar=[];
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
   var someObj = new Object();
@@ -194,13 +195,24 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   //someObj.pointHoverRadius=15;
   //someObj.showLine= false;
 
+
+  var barObj = new Object();
+  barObj.label = chartJsArray1Name[xy];
+  barObj.data = [chartJsArray1Stat[xy]];
+  barObj.backgroundColor =  "rgb(255, 99, 132)";
+  barObj.borderColor = '#000000';
+  barObj.fill = false;
+
   makeJSONarr.push(someObj);
+  makeJSONbar.push(barObj);
 
 }
 
 console.log(makeJSONarr);
+console.log(makeJSONbar);
 
-makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr);  
+makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr); 
+barChart("barCrime",makeJSONbar); 
  
 /*
    datasets: [{
