@@ -196,14 +196,9 @@ router.post('/rateArea',(req,res) =>{
 
   const connection = getConnection();
 
-  const queryString = "SELECT * FROM rating WHERE email =?"; 
+    const queryString = "SELECT * FROM rating WHERE WardName =? AND Email =?"; 
 
-  connection.query(queryString,[mail], (err,result,fields) =>{
-  if(result.length > 0){
-
-    const queryString = "SELECT * FROM rating WHERE WardName =?"; 
-
-    connection.query(queryString,[req.body.wardName], (err,result,fields) =>{
+    connection.query(queryString,[req.body.wardName,mail], (err,result,fields) =>{
       if(result.length > 0){
         console.log("already voted for this ward");
         //res.redirect("/");
@@ -225,13 +220,15 @@ router.post('/rateArea',(req,res) =>{
         console.log(values);
         connection.query(sql, [values], function(err) {
             if (err) throw err;
-            connection.end();
+            //connection.end();
         });
         
+        /*
         connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
           if (err) throw err;
           connection.end();
       });
+      */
       //res.end();
       //res.redirect("/");
       res.status(204).send();
@@ -239,25 +236,9 @@ router.post('/rateArea',(req,res) =>{
       }
 
     });
-  }else{
-   
-    var sql = "REPLACE INTO RATING (Email,WardName,q1,q2,q3) VALUES ?";
-    var values = [
-      [mail,req.body.wardName,req.body.q1,req.body.q2,req.body.q3]
-    ];
-    console.log(values);
-    connection.query(sql, [values], function(err) {
-        if (err) throw err;
-        connection.end();
-    });
-    
-    connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
-      if (err) throw err;
-      connection.end();
-  });
-  }
 
-});
+
+
 
 });
 
@@ -265,74 +246,6 @@ router.post('/rateArea',(req,res) =>{
 
 
 
-router.get('/ratingQuestions', (req,res)=>{
-/* 
-  const connection = getConnection();
-  
-  const queryString = "SELECT * FROM users WHERE id =?";
-  const userId = req.params.id;
-
-  connection.query(queryString,[req.params.id],(err,rows,fields)=>{
-    if (err){
-      console.log("failed to query for users"+err)
-      res.end()
-      return
-    }
-    console.log("i think we fetched sucessfuly");
-
-    //custom format for json response
-    const users = rows.map((row)=> {
-      return {firstName: row.first_name,lastName: row.last_name}
-    })
-
-    res.json(users);
-
-  })
-  //res.end();
-  */
-});
-
-
-router.get('/reviewStats', (req,res)=>{
- 
-  const connection = getConnection();
-  
-  const queryString = "SELECT * FROM rating";
-
-  connection.query('SELECT * FROM rating; SELECT * FROM questions',function(err, rows) {
-    if (err) throw err;
-
-    res.json({
-      review: rows[0],
-      question:rows[1]
-  });
-     //res.json(review,ques);
-  });
-/*
-  connection.query(queryString,(err,rows,fields)=>{
-    if (err){
-      console.log("failed to query for data"+err)
-      res.end()
-      return
-    }
-    console.log("i think we fetched sucessfuly");
-
-    //custom format for json response
-    const review = rows.map((row)=> {
-      return {Email: row.Email,Question1: row.q1,Question2: row.q2,Question3: row.q3,WardName: row.WardName}
-    })
-/*
-    const data = {
-      reviewz: review,
-      questionz: question
-    };
-    */
-    //response.json(data);
-  //  res.json(review);
-
-  //})
-  //res.end();
-});
 
 router.get('/myAccount',redirectHome2, (req,res)=>{
 
@@ -340,5 +253,23 @@ router.get('/myAccount',redirectHome2, (req,res)=>{
 });
 
 
+router.get('/reviewCount/:ward', (req,res)=>{
+ 
+  const connection = getConnection();
+  const ward = req.params.ward;
+  //console.log(req.params);
+  
+
+  connection.query('SELECT SUM(q1="YES") AS q1Yes, SUM(q2="YES") AS q2Yes, SUM(q3="YES") As q3Yes, SUM(q1="No") As q1No, SUM(q2="No") As q2No, SUM(q3="No") As q3No FROM rating WHERE WardName =?;SELECT * FROM questions',[ward],function(err, rows) {
+    if (err) throw err;
+
+
+    res.json({
+      review: rows[0],
+      question:rows[1]
+  });
+  });
+
+});
 
 module.exports = router;
