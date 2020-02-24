@@ -11,6 +11,8 @@ function checkSite(){
     $("#sBox").remove();
   }
 };
+
+
 checkSite();
 
 function avgTwoNumb(x,y){

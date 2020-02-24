@@ -145,6 +145,7 @@ router.post('/auth', function(req,res){
         if (result2){
           req.session.loggedin = true;
           req.session.userEmail =email;
+          //req.session.user = "normal";
           res.redirect('/');
           /*
           return res.status(200).json({
@@ -250,7 +251,7 @@ router.post('/rateArea',(req,res) =>{
 
 router.get('/myAccount',redirectHome2, (req,res)=>{
 
-  res.render('account', {userMail:req.session.userEmail});
+  res.render('account', {userMail:req.session.userEmail,accPage:'Yes'});
 });
 
 
@@ -298,6 +299,9 @@ router.get('/userInfo', (req,res)=>{
   })
 }); 
   
+
+
+
 
 
 router.get('/reviewCount/:ward', (req,res)=>{

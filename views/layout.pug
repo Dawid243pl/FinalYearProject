@@ -11,44 +11,63 @@ html
     block scripts
       script(src='https://d3js.org/d3.v3.min.js')
       script(src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0")
+      userMail=userMail
     body
     nav.navbar.navbar-expand-md.navbar-dark.fixed-top.bg-dark
-      a.navbar-brand(href='/') Find My PostCode
-      button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
-        span.navbar-toggler-icon
-      #navbarCollapse.collapse.navbar-collapse
-        ul.navbar-nav.mr-auto
-          li.nav-item.active
-            a.nav-link(href='#')
-              | Home 
-              span.sr-only (current)
-          li.nav-item
-            a.nav-link(href='#') Link
-          if typeof userMail === 'undefined'
-           li.nav-item
-              a.nav-link.disabled(href='#') My Account
-          else  
+      if typeof accPage === 'undefined'   
+        a.navbar-brand(href='/') Find My PostCode
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarCollapse.collapse.navbar-collapse
+          ul.navbar-nav.mr-auto
+            li.nav-item.active
+              a.nav-link(href='#')
+                | Home 
+                span.sr-only (current)
             li.nav-item
-              a.nav-link(href='users/myAccount') My Account
-        ul.navbar-nav.ml-auto
-          if typeof userMail === 'undefined'
-            li.nav-item#lgIn
-              a.nav-link(href='/users/login')
-                button.btn.btn-lg.btn-primary.btn-block log In
-          else
-            li.nav-item#lgOut
-                //a.nav-link(href='users/logout') Log Out  
-                form(method="POST", action="users/logout") 
-                  button.btn.btn-lg.btn-primary.btn-block log Out
-          li.nav-item
-            #sBox          
-              form#locationForm.form-inline.mt-2.mt-md-0(action = "/findArea", method = "POST" onSubmit="return val()") 
-                input#inputPostC.form-control.mr-sm-2(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
-                button#locBtnPscode.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search   
-        //form.form-inline.mt-2.mt-md-0#sBox
-          input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
-          button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+              a.nav-link(href='#') Link
+            if typeof userMail === 'undefined'
+              li.nav-item
+                  a.nav-link.disabled(href='#') My Account
+            else  
+              li.nav-item
+                a.nav-link(href='users/myAccount') My Account
+          ul.navbar-nav.ml-auto
+            if typeof userMail === 'undefined'
+              li.nav-item#lgIn
+                a.nav-link(href='/users/login')
+                  button.btn.btn-lg.btn-primary.btn-block log In
+            else
+              li.nav-item#lgOut
+                  //a.nav-link(href='users/logout') Log Out  
+                  form(method="POST", action="users/logout") 
+                    button.btn.btn-lg.btn-primary.btn-block log Out
+            li.nav-item
+              #sBox          
+                form#locationForm.form-inline.mt-2.mt-md-0(action = "/findArea", method = "POST" onSubmit="return val()") 
+                  input#inputPostC.form-control.mr-sm-2(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
+                  button#locBtnPscode.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search   
+          //form.form-inline.mt-2.mt-md-0#sBox
+            input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
+            button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+      else
+        a.navbar-brand(href='/') Find My PostCode
+        button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarCollapse', aria-controls='navbarCollapse', aria-expanded='false', aria-label='Toggle navigation')
+          span.navbar-toggler-icon
+        #navbarCollapse.collapse.navbar-collapse
+          ul.navbar-nav.ml-auto
+              li.nav-item#lgOut
+                  //a.nav-link(href='users/logout') Log Out  
+                  form(method="POST", action="users/logout") 
+                    button.btn.btn-lg.btn-primary.btn-block log Out
+              li.nav-item
+              a.nav-link(href='#')
+                  span.sr-only 
+                  p= userMail
 
+     
+
+      
     block content
     script
       //var lon = '#{long}';
