@@ -247,10 +247,57 @@ router.post('/rateArea',(req,res) =>{
 
 
 
+
 router.get('/myAccount',redirectHome2, (req,res)=>{
 
   res.render('account', {userMail:req.session.userEmail});
 });
+
+
+router.get('/accountRating', (req,res)=>{
+  
+  const connection = getConnection();
+
+  var mail = req.session.userEmail; 
+  
+  console.log("Mail?",mail);
+
+  const queryString = "SELECT * FROM rating WHERE Email=?"; 
+ 
+  connection.query(queryString,[mail],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      //res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    res.json(rows);
+
+  })
+  
+});
+router.get('/userInfo', (req,res)=>{
+  
+  const connection = getConnection();
+
+  var mail = req.session.userEmail; 
+  
+  const queryString = "SELECT * FROM users WHERE Email=?"; 
+ 
+  connection.query(queryString,[mail],(err,rows,fields)=>{
+    if (err){
+      console.log("failed to query for users"+err)
+      //res.end()
+      return
+    }
+    console.log("i think we fetched sucessfuly");
+
+    res.json(rows);
+
+  })
+}); 
+  
 
 
 router.get('/reviewCount/:ward', (req,res)=>{

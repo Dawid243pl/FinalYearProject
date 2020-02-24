@@ -95,6 +95,29 @@ function oneDcm(calc){
 }
 
 $(".viewAll").click(function() {
-  $(this).parent().find(".hiddenCont").slideToggle( "slow");
+  $(this).parent().find(".hiddenCont").slideToggle("slow");
+  $(this).text(function(i, text){
+    return text === "View Less" ? "View More" : "View Less";
+})
+
+
 });
 
+function colourCoding(actual,average){
+
+  //if bigger than 20% of the average red
+  if(actual >= (average * 1.2) ){
+    console.log("BIGGER RED");
+    return "red";
+  //else if it is less than 20% of the average green  
+  }else if(actual <= (average * 0.8) ){
+    console.log("SMALLER Amber");
+    return "orange";
+
+  //else its average amber
+  }else{
+    console.log("Medium GREEN")
+    return "green";
+  }
+
+}

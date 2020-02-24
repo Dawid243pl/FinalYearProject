@@ -245,8 +245,14 @@ function getQuallity(json_quall){
   
   $.each(json_quall, function(i){
    
-    $(".list-group").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
+    console.log("THEMEEEEEEEEEEEEEEEEe",json_quall[i].Theme);
+    if(json_quall[i].Theme =="Crime & Safety"){
+      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex align-items-center'><span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span>%"+json_quall[i].Indicator+"</div>");
+    }
 
+    if(json_quall[i].Theme =="Transport"){
+      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
+    }
   });
   
   }
@@ -812,6 +818,8 @@ function getHousing(json_housing){
   
   housing_bedPieChartJS("housing_bedPieChartBRS","1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",calcAVG_Bed_1_Brs,calcAVG_Bed_2_Brs,calcAVG_Bed_3_Brs,calcAVG_Bed_4_Brs);
 
+
+  console.log(colourCoding(totalHouseholdsBed,totalHouseholdsBedBrs/34));
 
   housing_totalPieChartJS("totalHouseBRS","cos",totalHouseholdsBedBrs);
   housing_totalPieChartJS("totalHouseWard","cos",totalHouseholdsBed);

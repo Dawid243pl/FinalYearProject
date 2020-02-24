@@ -80,7 +80,7 @@ $(function(){
 
         
         //console.log(d.toLocaleDateString());
-        /*
+        
         var dateArray=[];
 
         for(var y =0;y<3;y++){
@@ -117,15 +117,15 @@ $(function(){
           });
           
           }
-*/
+
       var api_url_pop = `/getPopulation`;
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
-/*
+
       var api_url_zoopla = `/zooplaAPI/${postC}`;
       var response_zoopla = await fetch(api_url_zoopla);
       var json_zoopla  = await response_zoopla.json(); 
-*/
+
       var api_url_housing = `/housing`;
       var response_housing = await fetch(api_url_housing);
       var json_housing = await response_housing.json();
@@ -144,7 +144,7 @@ $(function(){
       getWeather(json_weather);
       getCrime(json_crime);
       getPopulation(json_pop);
-      //getZoopla(json_zoopla);
+      getZoopla(json_zoopla);
       getHousing(json_housing);
       
 

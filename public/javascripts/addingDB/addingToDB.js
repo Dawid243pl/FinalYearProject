@@ -66,11 +66,6 @@ $(function(){
         const response_crime = await fetch(api_url_crime);
         const json_crime = await response_crime.json();
 
-
-        const api_url_edu = `education/${ward}`;
-        const response_edu = await fetch(api_url_edu);
-        const json_edu = await response_edu.json();
-
         const api_url_pop = `population`;
         const response_pop = await fetch(api_url_pop);
         const json_pop = await response_pop.json();

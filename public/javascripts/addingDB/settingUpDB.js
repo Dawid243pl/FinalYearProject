@@ -108,6 +108,34 @@ function getCrime(json_crime){
 
     });
 
+
+
+    $.each(json_quall.transportQ.records, function(i){
+
+      var wrd = json_quall.transportQ.records[i].record.fields.ward_name;
+      var up = json_quall.transportQ.records[i].record.fields.upper_confidence_limit;
+      var indicator = json_quall.transportQ.records[i].record.fields.indicator;
+      var low = json_quall.transportQ.records[i].record.fields.lower_confidence_limit;
+      var theme = json_quall.transportQ.records[i].record.fields.theme;
+
+      var total = avgTwoNumb(low,up);  
+      if (total == null){
+          total = 0;
+      }  
+        
+      var indicator = String(indicator);
+      var indicator = indicator.replace('% ','');
+      var indicator = indicator.replace('/','');
+
+
+      addquallityOfLifeToDb(wrd,indicator,theme,total);
+
+
+    });
+
+
+
+
     /*
     $.each(json_quall.all_wards.records, function(i){
      

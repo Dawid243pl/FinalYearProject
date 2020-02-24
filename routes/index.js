@@ -637,12 +637,18 @@ router.get('/Quallity/:wardName', async (request, response) => {
   const specific_crime_quallity_response = await fetch(specific_crime_quallity);
   const crime_quallity_of_life = await specific_crime_quallity_response.json();
 
+  const specific_transport = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/quality-of-life-2018-19-ward/records?refine=theme_indicator:Transport&select=indicator,%20theme,%20ward_name,%20upper_confidence_limit,%20lower_confidence_limit&refine=ward_name:${crimes}`;
+  console.log(specific_transport );
+  
+  const specific_transport_response = await fetch(specific_transport );
+  const transport = await specific_transport_response.json();
   
 
   const data = {
     //health: health_data,
     //all_wards: all_wards_data,
-    crimeQ:crime_quallity_of_life
+    crimeQ:crime_quallity_of_life,
+    transportQ:transport
   };
   response.json(data);
 });
