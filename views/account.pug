@@ -33,7 +33,8 @@ block content
                 canvas#graphicOftop3
         .row
             .col-lg-12
-                canvas#someStats
+                h2 Your rating chart
+                canvas#ratingStats
         .row
             .col-lg-6.col-sm-12
                 h2 Your rating information
@@ -48,7 +49,7 @@ block content
                         tbody.tBodyUserRate     
             .col-lg-6.col-sm-12
                 h2 Account Details
-                 .userDetailsForm
+                .userDetailsForm
                     form#userDetailsForm(action="/users/update_user" method="POST")
                         .form-row  
                             .form-group.col-sm-6
@@ -57,12 +58,10 @@ block content
                             .form-group.col-sm-6   
                                 label(for='validationDefault02') Last name
                                 input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
-                            hr        
                             .form-group.col-sm-6
                                 label(for='inputEmail4') Email
                                 input#inputEmail4.form-control(type='email', placeholder='Email', name='email')
-                            hr      
-                            .form-group.col-sm-6
+                            .form-group.col-sm-6 
                                 label(for='inputAddress') Address
                                 input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address')
                             .form-group.col-sm-6
@@ -71,11 +70,29 @@ block content
                             .form-group.col-sm-6
                                 label(for='inputCity') City
                                 input#inputCity.form-control(type='text' name='city')
-                            input(type="hidden" id="wardName" name="wardName" value="")
                             .form-group.col-sm-12    
-                                button#subUser.btn.btn-primary.float-right(type='submit') Update      
+                                button#subUser.btn.btn-primary.float-right(type='submit') Update   
 
-        
+                .button#changePsw.btn.btn-primary Change My Password    
+
+                .row#ChngPasw 
+                    .col-lg-12.col-sm-12  
+                        form#userDetailsFormPassword(action="/users/update_user_password" method="POST")
+                            .form-row  
+                                .form-group.col-lg-12
+                                    label(for='inputPassword4') Password
+                                    input#inputPassword4.form-control(type='password', placeholder='Password', name='password') 
+                                .form-group.col-lg-12    
+                                    button#subUserPassword.btn.btn-primary.float-right(type='submit') Update   
+                .row
+                     .col-lg-12.col-sm-12  
+                        button#container.btn.btn-primary.float-right(type='submit') Reveal
+                        #containerz
+                            #exampleModal.reveal-modal
+                                | ........
+                                a(href='#') Close Modal
+
+
     script
         include ../public/javascripts/mainFunc.js  
         include ../public/javascripts/users/user_func.js        

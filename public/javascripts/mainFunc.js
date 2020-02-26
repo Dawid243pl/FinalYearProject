@@ -102,9 +102,23 @@ $(".viewAll").click(function() {
     return text === "View Less" ? "View More" : "View Less";
 })
 
-
 });
 
+$("#changePsw").click(function() {
+ 
+  $("#ChngPasw").slideToggle("slow");
+  
+});
+
+$("#containerz").click(function() {
+ 
+  $("#containerz").slideToggle("slow");
+  
+});
+
+
+
+containerz
 function colourCoding(actual,average){
 
   average = average /34;

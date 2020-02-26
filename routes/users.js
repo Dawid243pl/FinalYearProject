@@ -173,7 +173,111 @@ router.post('/auth', function(req,res){
   
 });
 
+router.post('/update_user',(req,res) =>{
+  var mail = req.session.userEmail; 
+ 
   
+  const email = req.body.email;
+  const firstName = req.body.fName;
+  const lastName = req.body.lName;
+  //const password = hash;
+  const address = req.body.address;
+  const pCode = req.body.postCode;
+  const city = req.body.city;
+
+  const connection = getConnection();
+
+    const queryString = "SELECT Email FROM users WHERE Email =?"; 
+
+    connection.query(queryString,[email], (err,result,fields) =>{
+      if(result.length > 0){
+
+        ///VS/DAVID MY ACTUAl
+        console.log(result[0].Email," vs ",mail);
+        if(result[0].Email == mail){
+          console.log("Can change to the same one ");
+          connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
+            if (err) throw err;
+            console.log("user Updated");
+          });
+
+        }else{
+          console.log("Can not change as this is someone elses email");
+        }
+
+        //res.redirect("/");
+        //redirect error
+        res.status(204).send();
+      }else{
+        console.log("Not voted yet");
+
+        connection.query('UPDATE users SET Email = ?,fName =?,lName=?,Address=?,PostCode?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
+          if (err) throw err;
+          console.log("user Updated");
+        });
+        res.status(204).send();
+      //redirect success
+      }
+
+    });
+
+  /*
+  var currentUserMail = req.body.email;
+  console.log(currentUserMail);
+
+  const email = req.body.email;
+  const firstName = req.body.fName;
+  const lastName = req.body.lName;
+  //const password = hash;
+  const address = req.body.address;
+  const pCode = req.body.postCode;
+  const city = req.body.city;
+
+  console.log(email,firstName,lastName,address,pCode,city);  
+
+  const queryString = "SELECT * FROM users WHERE Email =?";
+
+  connection.query(queryString,[currentUserMail],(err,rows,fields)=>{
+    if (rows.length > 0){
+
+      console.log(rows);
+      res.status(204).send();
+    
+    }
+
+  });
+  */
+/*
+  console.log(email,firstName,lastName,address,pCode,city);  
+    
+  const queryString = "SELECT * FROM users WHERE email =?";
+
+  connection.query(queryString,[currentUserMail],(err,rows,fields)=>{
+    if (rows.length > 0){
+      console.log("Error this email already exists");
+      res.status(204).send();
+      
+
+    }else{
+      console.log("Updated");
+      res.status(204).send();
+      /*
+      connection.query('UPDATE users SET Email = ?,fName =?,lName=?,Address=?,PostCode?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,currentUserMail], function(err) {
+        if (err) throw err;
+        console.log("user Updated");
+        //res.redirect("/");
+        //redirect error
+        res.status(204).send();
+      });
+      */
+    //}
+
+  //});
+
+
+  
+
+});
   
 router.post('/logout',(req,res) =>{
  

@@ -223,8 +223,6 @@ router.get('/listCrime/:id', (req,res)=>{
    
     const users = rows.map((row)=> {
       return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population,year:row.year}
-  
-
     })
 
     res.json(users);
