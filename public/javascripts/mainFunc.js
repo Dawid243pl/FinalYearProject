@@ -107,19 +107,30 @@ $(".viewAll").click(function() {
 
 function colourCoding(actual,average){
 
+  average = average /34;
+  console.log(actual,"vs",average);
   //if bigger than 20% of the average red
   if(actual >= (average * 1.2) ){
     console.log("BIGGER RED");
-    return "red";
+    return "danger";
   //else if it is less than 20% of the average green  
   }else if(actual <= (average * 0.8) ){
     console.log("SMALLER Amber");
-    return "orange";
+    return "success";
 
   //else its average amber
   }else{
     console.log("Medium GREEN")
-    return "green";
+    return "secondary";
   }
 
+}
+function isEmpty(obj) {
+  for(var prop in obj) {
+    if(obj.hasOwnProperty(prop)) {
+      return false;
+    }
+  }
+
+  return JSON.stringify(obj) === JSON.stringify({});
 }

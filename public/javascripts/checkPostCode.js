@@ -130,10 +130,6 @@ $(function(){
       var response_housing = await fetch(api_url_housing);
       var json_housing = await response_housing.json();
       
-      var api_url_housing = `/housing`;
-      var response_housing = await fetch(api_url_housing);
-      var json_housing = await response_housing.json(); 
-
       var api_url_review = `/users/reviewCount/${ward}`;
       var response_review = await fetch(api_url_review);
       var json_review = await response_review.json(); 

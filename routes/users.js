@@ -298,12 +298,9 @@ router.get('/userInfo', (req,res)=>{
 
   })
 }); 
+
+
   
-
-
-
-
-
 router.get('/reviewCount/:ward', (req,res)=>{
  
   const connection = getConnection();
