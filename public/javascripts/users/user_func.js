@@ -2,10 +2,10 @@
   
       function getCrimeUserLevel(json_crime,wrd,ratingArrr){
 
-        var newJsonArrayWrd =[];     
+        
         var chartJsArrayLabels=[];
         var colourCheckerArray=[];  
-
+        var additionalWards=[];
         $.each(json_crime, function(i){
     
           if( json_crime[i].year =="2018-19" ){
@@ -38,18 +38,102 @@
               colourCheckerArray.push(json_crime[i].population,json_crime[i].totalCrimes);
            }
 
-           /*
+           
            for (var zx=0;zx < ratingArrr.length;zx++){
             if( json_crime[i].WardName ==ratingArrr[zx]){
-
+              
+              var tempArr=[];
+              tempArr.push(json_crime[i].population,json_crime[i].totalCrimes);
+              additionalWards.push(tempArr);
             }
            }
-          */
+          
+        }
+        if( json_crime[i].year =="2017-18" ){
+      
+          for (var zx=0;zx < ratingArrr.length;zx++){
+            if( json_crime[i].WardName ==ratingArrr[zx]){
+              
+              var tempArr=[];
+              tempArr.push(json_crime[i].population,json_crime[i].totalCrimes);
+              additionalWards.push(tempArr);
+            }
+           }
+        }
+        if( json_crime[i].year =="2016-17" ){
+          
+
+          for (var zx=0;zx < ratingArrr.length;zx++){
+            if( json_crime[i].WardName ==ratingArrr[zx]){
+              
+              var tempArr=[];
+              tempArr.push(json_crime[i].population,json_crime[i].totalCrimes);
+              additionalWards.push(tempArr);
+            }
+           }
         }
         });
+
+        var parsePopAddtionalWards =[];
+
+        var parseCrimeAddtionalWards =[];
+
+        for (p =0;p <additionalWards;p++){
+          
+         
+          //jsonObj.percent = 100;
+          //jsonObj.actual =  numberWithCommas(json_crime[i].totalCrimes);
+          //jsonObj.wName = json_crime[i].WardName;
+
+
+         // parsePopAddtionalWards.push(additionalWards[p]);
+         // parseCrimeAddtionalWards.push();
+        }
+        /*
+        var jsonObj = new Object();
+        jsonObj.label = "Total Population";
+        jsonObj.backgroundColor = "red";
+        jsonObj.borderColor =  "red";
+        jsonObj.borderWidth= 1;
+        jsonObj.data =;
+*/
+        /*
+        datasets: [{
+          label: 'Dataset 1',
+          backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
+          borderColor: window.chartColors.red,
+          borderWidth: 1,
+          data: [
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor()
+          ]
+      }, {
+          label: 'Dataset 2',
+          backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
+          borderColor: window.chartColors.blue,
+          borderWidth: 1,
+          data: [
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor(),
+              randomScalingFactor()
+          ]
+      }]
+      */
+        
+        console.log("ADDDWARDS",additionalWards);
         //console.log(colourCheckerArray);
 
         //mainFuncGet(colourCheckerArray[2],colourCheckerArray[3]);
+
 
         var userPopColour = colourCoding(colourCheckerArray[2],colourCheckerArray[0]);
         var userCrimeColour = colourCoding(colourCheckerArray[3],colourCheckerArray[1]);
@@ -175,6 +259,7 @@
 
       console.log("rating awards",ratingArrr);
 
+      console.log(crimeARR[2],crimeARR[3],houseARR);
       radarData(crimeARR[2],crimeARR[3],houseARR);
       
       //lindeData(ratingArrr);

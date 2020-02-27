@@ -345,7 +345,7 @@ router.post('/findArea', function(req, res){
       //document.getElementById("#lgOut").style.visibility = 'hidden';
     }
     
-    res.render('searchOutput', { title: '',userMail:req.session.userEmail,accountType:req.session.userType});
+    res.render('searchOutput', { title: area,userMail:req.session.userEmail,accountType:req.session.userType});
    
 
 });

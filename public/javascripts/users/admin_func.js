@@ -1,14 +1,9 @@
       async function fetchAdminData()  {
     try{
-      //let response = await fetch(`crime_create/${ward}/${bulglary}/${sexOffence}/${allCrimes}/${totalPop}/${year}`);
-
-
+    
       const api_url_userDetails = `userInfo`;
       const response_userDetails = await fetch(api_url_userDetails);
       const json_userDetails = await response_userDetails.json();
-
-     console.log(json_userDetails);
-      var usersPostcode = json_userDetails.User[0].PostCode;
          
          
       if(json_userDetails.length == 0) {
