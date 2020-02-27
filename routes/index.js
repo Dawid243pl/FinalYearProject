@@ -19,13 +19,15 @@ router.get('/', function(req, res, next) {
   console.log(req.session);
 
   if (req.session.loggedin){
+    console.log("Account type,"+req.session.userType+'!');
     console.log("WElcome back,"+req.session.userEmail+'!');
+
     //document.getElementById("#lgIn").style.visibility = 'hidden';
   }else{
     console.log("Please log in");
     //document.getElementById("#lgOut").style.visibility = 'hidden';
   }
-  res.render('index', { title: '',userMail:req.session.userEmail});
+  res.render('index', { title: '',userMail:req.session.userEmail,accountType:req.session.userType});
 
 
 });
@@ -343,8 +345,8 @@ router.post('/findArea', function(req, res){
       //document.getElementById("#lgOut").style.visibility = 'hidden';
     }
     
-    res.render('searchOutput', { title:area,userMail:req.session.userEmail});
-  
+    res.render('searchOutput', { title: '',userMail:req.session.userEmail,accountType:req.session.userType});
+   
 
 });
 

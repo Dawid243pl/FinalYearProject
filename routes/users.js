@@ -133,6 +133,7 @@ router.post('/auth', function(req,res){
       bcryptjs.compare(password, result[0].Password, function(err, result2) {
         console.log("B CRYPTE RES",result2);
         console.log(password," vs ",result[0].Password);
+        var accountType = result[0].AccountType;
         // res == true
         if (err){
           console.log("error");
@@ -145,7 +146,7 @@ router.post('/auth', function(req,res){
         if (result2){
           req.session.loggedin = true;
           req.session.userEmail =email;
-          //req.session.user = "normal";
+          req.session.userType = accountType;
           res.redirect('/');
           /*
           return res.status(200).json({
@@ -193,7 +194,7 @@ router.post('/update_user',(req,res) =>{
       if(result.length > 0){
 
         ///VS/DAVID MY ACTUAl
-        console.log(result[0].Email," vs ",mail);
+        
         if(result[0].Email == mail){
           console.log("Can change to the same one ");
           connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
@@ -220,65 +221,43 @@ router.post('/update_user',(req,res) =>{
       }
 
     });
+});
 
-  /*
-  var currentUserMail = req.body.email;
-  console.log(currentUserMail);
 
-  const email = req.body.email;
-  const firstName = req.body.fName;
-  const lastName = req.body.lName;
-  //const password = hash;
-  const address = req.body.address;
-  const pCode = req.body.postCode;
-  const city = req.body.city;
+  
+router.post('/update_user_password',(req,res)=>{
 
-  console.log(email,firstName,lastName,address,pCode,city);  
+  const connection = getConnection();
 
-  const queryString = "SELECT * FROM users WHERE Email =?";
-
-  connection.query(queryString,[currentUserMail],(err,rows,fields)=>{
-    if (rows.length > 0){
-
-      console.log(rows);
-      res.status(204).send();
-    
-    }
-
-  });
-  */
-/*
-  console.log(email,firstName,lastName,address,pCode,city);  
-    
-  const queryString = "SELECT * FROM users WHERE email =?";
-
-  connection.query(queryString,[currentUserMail],(err,rows,fields)=>{
-    if (rows.length > 0){
-      console.log("Error this email already exists");
-      res.status(204).send();
-      
-
+  var mail = req.session.userEmail; 
+  
+  bcryptjs.hash(req.body.password,10,(err,hash)=>{
+    if (err){
+      return res.status(500).json({
+        error:err
+      }) 
     }else{
-      console.log("Updated");
-      res.status(204).send();
-      /*
-      connection.query('UPDATE users SET Email = ?,fName =?,lName=?,Address=?,PostCode?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,currentUserMail], function(err) {
-        if (err) throw err;
-        console.log("user Updated");
-        //res.redirect("/");
-        //redirect error
+
+      const password = hash;
+     
+
+      //console.log(email,firstName,lastName,password,pCode,address,city);
+      
+      
+      connection.query('UPDATE users SET Password = ? WHERE Email = ?', [password,mail], function(err) {
+        if (err){
+          console.log("failed to change password"+err)
+          return
+        }
+        console.log("Password changed");
         res.status(204).send();
       });
-      */
-    //}
 
-  //});
-
-
-  
+    }
+  });
 
 });
-  
+
 router.post('/logout',(req,res) =>{
  
   req.session.destroy(function (err) {
@@ -355,7 +334,8 @@ router.post('/rateArea',(req,res) =>{
 
 router.get('/myAccount',redirectHome2, (req,res)=>{
 
-  res.render('account', {userMail:req.session.userEmail,accPage:'Yes'});
+  res.render('account', {userMail:req.session.userEmail,accPage:'Yes',accountType:req.session.userType});
+  
 });
 
 
@@ -388,7 +368,7 @@ router.get('/userInfo', (req,res)=>{
 
   var mail = req.session.userEmail; 
   
-  const queryString = "SELECT * FROM users WHERE Email=?"; 
+  const queryString = "SELECT * FROM users WHERE Email=?;SELECT * FROM users;SELECT SUM(AccountType ='Standard') AS Standard, SUM(AccountType ='Admin') AS Admin FROM users";
  
   connection.query(queryString,[mail],(err,rows,fields)=>{
     if (err){
@@ -398,8 +378,12 @@ router.get('/userInfo', (req,res)=>{
     }
     console.log("i think we fetched sucessfuly");
 
-    res.json(rows);
-
+    res.json({
+      User: rows[0],
+      Users:rows[1],
+      Total:rows[2],
+      
+  });
   })
 }); 
 

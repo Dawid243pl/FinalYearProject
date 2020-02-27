@@ -105,14 +105,14 @@
       const json_userDetails = await response_userDetails.json();
 
 
-      var usersPostcode = json_userDetails[0].PostCode;
+      var usersPostcode = json_userDetails.User[0].PostCode;
          
-      $("input#inputEmail4").val(json_userDetails[0].Email);
-      $("input#validationDefault01").val(json_userDetails[0].fName);
-      $("input#validationDefault02").val(json_userDetails[0].lName);
-      $("input#inputAddress").val(json_userDetails[0].Address);
-      $("input#inputZip").val(json_userDetails[0].PostCode);
-      $("input#inputCity").val(json_userDetails[0].City);
+      $("input#inputEmail4").val(json_userDetails.User[0].Email);
+      $("input#validationDefault01").val(json_userDetails.User[0].fName);
+      $("input#validationDefault02").val(json_userDetails.User[0].lName);
+      $("input#inputAddress").val(json_userDetails.User[0].Address);
+      $("input#inputZip").val(json_userDetails.User[0].PostCode);
+      $("input#inputCity").val(json_userDetails.User[0].City);
 
 
       const api_url = `../postCode/${usersPostcode}`;

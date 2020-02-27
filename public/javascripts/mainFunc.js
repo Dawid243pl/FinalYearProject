@@ -110,15 +110,20 @@ $("#changePsw").click(function() {
   
 });
 
-$("#containerz").click(function() {
+
+$("#openPassw").click(function() {
  
-  $("#containerz").slideToggle("slow");
+  $("#myModalz").toggle("slow");
   
 });
 
 
+$(".closez").click(function() {
+ 
+  $("#myModalz").toggle("slow");
+  
+});
 
-containerz
 function colourCoding(actual,average){
 
   average = average /34;
