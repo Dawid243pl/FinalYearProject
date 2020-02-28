@@ -195,7 +195,6 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   //someObj.pointHoverRadius=15;
   //someObj.showLine= false;
 
-
   var barObj = new Object();
   barObj.label = chartJsArray1Name[xy];
   barObj.data = [chartJsArray1Stat[xy]];
@@ -210,6 +209,8 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
 console.log(makeJSONarr);
 console.log(makeJSONbar);
+
+console.log("CHART LABELS",chartJsArrayLabels);
 
 makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr); 
 barChart("barCrime",makeJSONbar); 

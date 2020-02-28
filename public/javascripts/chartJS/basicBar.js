@@ -1,13 +1,13 @@
-function basicBarChart(div,makeJSONarr){
+function basicBarChart(div,label1,label2,label3,makeJSONarr){
     
     var ctx = document.getElementById(div).getContext('2d');
     var chart = new Chart(ctx, {
         // The type of chart we want to create
-        type: 'bar',
+        type: 'line',
     
         // The data for our dataset
         data: {
-            labels:["cos"],
+            labels:[label1,label2,label3],
             datasets: makeJSONarr
         },
     

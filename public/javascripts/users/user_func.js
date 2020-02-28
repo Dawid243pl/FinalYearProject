@@ -6,6 +6,19 @@
         var chartJsArrayLabels=[];
         var colourCheckerArray=[];  
         var additionalWards=[];
+
+        var wardArr1=[];
+        var crimzArr1=[];
+        var popzzArr1=[];
+
+        var wardArr2=[];
+        var crimzArr2=[];
+        var popzzArr2=[];
+
+        var wardArr3=[];
+        var crimzArr3=[];
+        var popzzArr3=[];
+
         $.each(json_crime, function(i){
     
           if( json_crime[i].year =="2018-19" ){
@@ -28,6 +41,7 @@
               $("#crimeStatUser").append(json_crime[i].totalCrimes);
 
               colourCheckerArray.push(json_crime[i].population,json_crime[i].totalCrimes);
+
               //var trendYears = json_crime[i].year;
           
               //newJsonArrayWrd.push(crimeStat3);
@@ -35,16 +49,19 @@
               //makeDonut(newJsonArrayWrd,chartWrd,"colour");
             }
             if(json_crime[i].WardName =="Bristol"){
+             
+             
               colourCheckerArray.push(json_crime[i].population,json_crime[i].totalCrimes);
            }
 
            
            for (var zx=0;zx < ratingArrr.length;zx++){
             if( json_crime[i].WardName ==ratingArrr[zx]){
-              
-              var tempArr=[];
-              tempArr.push(json_crime[i].population,json_crime[i].totalCrimes);
-              additionalWards.push(tempArr);
+      
+              wardArr1.push(json_crime[i].WardName);
+              crimzArr1.push(json_crime[i].totalCrimes);
+              popzzArr1.push(json_crime[i].population);
+
             }
            }
           
@@ -54,9 +71,9 @@
           for (var zx=0;zx < ratingArrr.length;zx++){
             if( json_crime[i].WardName ==ratingArrr[zx]){
               
-              var tempArr=[];
-              tempArr.push(json_crime[i].population,json_crime[i].totalCrimes);
-              additionalWards.push(tempArr);
+              wardArr2.push(json_crime[i].WardName);
+              crimzArr2.push(json_crime[i].totalCrimes);
+              popzzArr2.push(json_crime[i].population);
             }
            }
         }
@@ -66,74 +83,47 @@
           for (var zx=0;zx < ratingArrr.length;zx++){
             if( json_crime[i].WardName ==ratingArrr[zx]){
               
-              var tempArr=[];
-              tempArr.push(json_crime[i].population,json_crime[i].totalCrimes);
-              additionalWards.push(tempArr);
+              wardArr3.push(json_crime[i].WardName);
+              crimzArr3.push(json_crime[i].totalCrimes);
+              popzzArr3.push(json_crime[i].population);
             }
            }
+
+           
         }
+        
         });
 
-        var parsePopAddtionalWards =[];
-
-        var parseCrimeAddtionalWards =[];
-
-        for (p =0;p <additionalWards;p++){
-          
-         
-          //jsonObj.percent = 100;
-          //jsonObj.actual =  numberWithCommas(json_crime[i].totalCrimes);
-          //jsonObj.wName = json_crime[i].WardName;
-
-
-         // parsePopAddtionalWards.push(additionalWards[p]);
-         // parseCrimeAddtionalWards.push();
-        }
-        /*
-        var jsonObj = new Object();
-        jsonObj.label = "Total Population";
-        jsonObj.backgroundColor = "red";
-        jsonObj.borderColor =  "red";
-        jsonObj.borderWidth= 1;
-        jsonObj.data =;
-*/
-        /*
-        datasets: [{
-          label: 'Dataset 1',
-          backgroundColor: color(window.chartColors.red).alpha(0.5).rgbString(),
-          borderColor: window.chartColors.red,
-          borderWidth: 1,
-          data: [
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor()
-          ]
-      }, {
-          label: 'Dataset 2',
-          backgroundColor: color(window.chartColors.blue).alpha(0.5).rgbString(),
-          borderColor: window.chartColors.blue,
-          borderWidth: 1,
-          data: [
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor(),
-              randomScalingFactor()
-          ]
-      }]
-      */
+        var labels =  ['2016-17', '2017-18','2018-19'];
+        var objArray =[];
+        var objArray2 =[];
         
-        console.log("ADDDWARDS",additionalWards);
-        //console.log(colourCheckerArray);
+        for (p =0;p <ratingArrr.length;p++){//loop2
 
-        //mainFuncGet(colourCheckerArray[2],colourCheckerArray[3]);
+          var someObj = new Object();
+          someObj.label = ratingArrr[p];
+          someObj.data = [popzzArr3[p],popzzArr2[p],popzzArr1[p]];
+          //someObj.data = [[popzzArr3[p],popzzArr2[p],popzzArr1[p]],[crimzArr1[p],crimzArr2[p],crimzArr3[p]]];
+          someObj.backgroundColor =  "rgb(255, 99, 132)";
+          someObj.borderColor = '#000000';
+          someObj.fill = false;
 
+          objArray.push(someObj);
+
+          var someObj2 = new Object();
+          someObj2.label = ratingArrr[p];
+          someObj2.data = [crimzArr3[p],crimzArr2[p],crimzArr1[p]];
+          //someObj.data = [[popzzArr3[p],popzzArr2[p],popzzArr1[p]],[crimzArr1[p],crimzArr2[p],crimzArr3[p]]];
+          someObj2.backgroundColor =  "rgb(255, 99, 132)";
+          someObj2.borderColor = '#000000';
+          someObj2.fill = false;
+          
+          objArray2.push(someObj2);
+        }
+    
+        basicBarChart("ratingStats",labels[0],labels[1],labels[2],objArray); 
+
+        console.log("THIS SHIT",objArray);
 
         var userPopColour = colourCoding(colourCheckerArray[2],colourCheckerArray[0]);
         var userCrimeColour = colourCoding(colourCheckerArray[3],colourCheckerArray[1]);
