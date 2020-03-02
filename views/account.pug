@@ -35,7 +35,13 @@ block content
             .row
                 .col-lg-12
                     h2 Your rating chart
-                    canvas#ratingStats
+                    .table-responsive
+                        canvas#ratingStats.table(max-height='500px')
+                    
+                    select#type
+                        option(value="line") Line
+                        option(value="bar") Bar
+                    button#update.btn.btn-primary update    
             .row
                 .col-lg-6.col-sm-12
                     h2 Your rating information
@@ -102,40 +108,122 @@ block content
     else if accountType == 'Admin'   
         .container.marketing
             .row
-                .col-lg-6.col-sm-12
+                .col-lg-12
                     h2 The Number of users
-                    ul.list-group.mb-3
+                .col-lg-4
+                    ul.list-group.mb-12
                         li.list-group-item.d-flex.justify-content-between.lh-condensed
                             div
                                 h6.my-0 Users
                                 small.text-muted Total User Number
                             buttton#totUser
+                .col-lg-4
+                    ul.list-group.mb-3    
                         li.list-group-item.d-flex.justify-content-between.lh-condensed
                             div
                                 h6.my-0 Admins
                                 small.text-muted Total Admin Number
                             buttton#totAdmin
+                .col-lg-4
+                    ul.list-group.mb-3    
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Wards
+                                small.text-muted Total Wards Number
+                            buttton#totWard 
                 .col-lg-6.col-sm-12
                     canvas#userVsadmin
-                .row
-                    .col-lg-12
-                        h2 Users
-                        .table-responsive.m-auto
-                            table.table.table-striped.table-sm
-                                thead
-                                    tr
-                                        th Email
-                                        th First Name
-                                        th Last Name
-                                        th Address
-                                        th PostCode
-                                        th City
-                                        th Account Type
-                                tbody.tBodyAdminUsers         
+               
+                h2 Users
+                .table-responsive
+                    table.table.table-striped
+                        thead
+                            tr
+                                th.th-lg(scope='row') Email
+                                th.th-lg(scope='row')  First Name
+                                th.th-lg(scope='row')  Last Name
+                                th.th-lg(scope='row')  Address
+                                th.th-lg(scope='row')  PostCode
+                                th.th-lg(scope='row')  City
+                                th.th-lg(scope='row')  Account Type
+                                th.th-lg(scope='row')  Select User
+                        tbody.tBodyAdminUsers   
+                .table-responsive
+                    // Table
+                    table.table
+                        // Table head
+                        thead
+                            tr
+                                th #
+                                th.th-lg Lorem ipsum dolor
+                                th.th-lg Lorem ipsum dolor
+                                th.th-lg Lorem ipsum dolor
+                        // Table head
+                        // Table body
+                        tbody
+                            tr
+                                td(scope='row') 1
+                                td Lorem ipsum dolor
+                                td Lorem ipsum dolor
+                                td Lorem ipsum dolor
+                            tr
+                                td(scope='row') 2
+                                td Lorem ipsum dolor
+                                td Lorem ipsum dolor
+                                td Lorem ipsum dolor
+                            tr
+                                td(scope='row') 3
+                                td Lorem ipsum dolor
+                                td Lorem ipsum dolor
+                                td dupa
+
+
+                        .col-lg-12
+                            #formHolder
+                                form#locationForm(action = "/users/delUser", method = "POST")
+                                    input(type="hidden" id="editUserMail" name="userMail" value="")
+                                    |                                 
+                                    button#delUSer.btn.btn-primary.float-right(type='submit') Delete User    
+                        .row
+                            .col-lg-12
+                                button#openPassw.btn.btn-primary.float-right Edit User
+                                // The Modal
+                                #myModalz.modalz
+                                    .row
+                                        .form-group.col-lg-6  
+                                            // Modal content
+                                            .modal-contentz
+                                                span.closez ×
+                                                .userDetailsForm
+                                                    form#userDetailsForm(action="/users/update_user2" method="POST")
+                                                        .form-row  
+                                                            .form-group.col-sm-6
+                                                                label(for='validationDefault01') First name
+                                                                input#validationDefault01.form-control(type='text', placeholder='First name', required='',name='fName')
+                                                            .form-group.col-sm-6   
+                                                                label(for='validationDefault02') Last name
+                                                                input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
+                                                            .form-group.col-sm-6
+                                                                label(for='inputEmail4') Email
+                                                                input#inputEmail4.form-control(type='email', placeholder='Email', name='email')
+                                                            .form-group.col-sm-6 
+                                                                label(for='inputAddress') Address
+                                                                input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address')
+                                                            .form-group.col-sm-6
+                                                                label(for='inputZip') PostCode
+                                                                input#inputZip.form-control(type='text', name='postCode')
+                                                            .form-group.col-sm-6
+                                                                label(for='inputCity') City
+                                                                input#inputCity.form-control(type='text' name='city')
+                                                                input#mailOld(type="hidden" name="mailOld")    
+                                                            .form-group.col-sm-12    
+                                                                button#subUser.btn.btn-primary.float-right(type='submit') Update 
+   
+
                 .row
                     .col-lg-6
                         h2 Add user
-                        form#addUser(action="/users/add_user" method="POST")
+                        form#addUser(action="/users/user_create2" method="POST")
                             .form-row  
                                 .form-group.col-sm-6
                                     label(for='validationDefault01') First name
@@ -159,16 +247,7 @@ block content
                                     label(for='inputPassword4') Password
                                     input#inputPassword4.form-control(type='password', placeholder='Password', name='password') 
                                 .form-group.col-sm-12    
-                                    button#addUSer.btn.btn-primary.float-right(type='submit') Add user         
-                    .col-lg-6
-                        h2 Remove User
-                        form#addUser(action="/users/remove_user" method="POST")
-                            .form-row  
-                                .form-group.col-lg-8.m-auto
-                                    select.custom-select(required)
-                                        option(value="") Open this select menu
-                                .form-group.col-sm-12        
-                                    button#removeUser.btn.btn-primary.float-right(type='submit') Remove User                    
+                                    button#addUSer.btn.btn-primary.float-right(type='submit') Add user                             
 
         script
             include ../public/javascripts/mainFunc.js  

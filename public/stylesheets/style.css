@@ -204,6 +204,15 @@ li.my-list.list-group-item.d-flex.justify-content-between.align-items-center{
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 
+table th {
+  text-align: center; 
+}
+
+.userTable {
+  margin: auto;
+  width: 50% !important; 
+}
+
 /* Modal Content */
 .modal-contentz {
   background-color: #fefefe;
@@ -227,3 +236,5 @@ li.my-list.list-group-item.d-flex.justify-content-between.align-items-center{
   text-decoration: none;
   cursor: pointer;
 }
+
+/**/

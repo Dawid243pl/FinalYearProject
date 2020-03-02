@@ -1,4 +1,20 @@
-      async function fetchAdminData()  {
+  $(function(){
+
+
+  
+  $("#delUSer").click(function () {
+  
+    var selectedUser = $('input[name="userz"]:checked').val();
+    $("#editUserMail").val(selectedUser);
+
+
+  });
+
+  });
+
+  
+  
+  async function fetchAdminData()  {
     try{
     
       const api_url_userDetails = `userInfo`;
@@ -14,13 +30,38 @@
             
         $.each(json_userDetails.Users, function(i){
    
-            $(".tBodyAdminUsers").append("<tr><td>"+json_userDetails.Users[i].Email+"</td/><td>"+json_userDetails.Users[i].fName+"</td><td>"+json_userDetails.Users[i].lName+"</td><td>"+json_userDetails.Users[i].Address+"</td><td>"+json_userDetails.Users[i].PostCode+"</td><td>"+json_userDetails.Users[i].City+"</td><td>"+json_userDetails.Users[i].AccountType+"</td></tr>");
+            $(".tBodyAdminUsers").append("<tr scope='row' class='user'><td class='uMail'>"+json_userDetails.Users[i].Email+"</td/><td  scope='row' class='uFname'td>"+json_userDetails.Users[i].fName+"</td><td  scope='row' class='uLname'>"+json_userDetails.Users[i].lName+"</td><td  scope='row' class='uAddress'>"+json_userDetails.Users[i].Address+"</td><td  scope='row' class='uPostCode'td>"+json_userDetails.Users[i].PostCode+"</td><td  scope='row' class='uCity'>"+json_userDetails.Users[i].City+"</td><td  scope='row'>"+json_userDetails.Users[i].AccountType+"</td><td  scope='row'><input type='radio' class='uzerz' name='userz' value='"+json_userDetails.Users[i].Email+"'></td></tr>");
            
           });
           $("#totUser").append(json_userDetails.Total[0].Standard);
           $("#totAdmin").append(json_userDetails.Total[0].Admin);
+          $("#totWard").append(json_userDetails.Total[0].Ward);
       }
 
+
+      $("#openPassw").click(function () {
+      
+        console.log($('input[name="userz"]:checked').val());
+      
+        //console.log($('input[name="userz"]:checked').val());
+        $.each(json_userDetails.Users, function(i){
+   
+          if(json_userDetails.Users[i].Email == $('input[name="userz"]:checked').val()){
+
+            $("input#validationDefault01").val(json_userDetails.Users[i].fName);
+            $("input#validationDefault02").val(json_userDetails.Users[i].lName);
+            $("input#inputEmail4").val(json_userDetails.Users[i].Email);
+            $("input#mailOld").val(json_userDetails.Users[i].Email);
+            $("input#inputZip").val( json_userDetails.Users[i].PostCode);
+            $("input#inputAddress").val(json_userDetails.Users[i].Address);
+            $("input#inputCity").val(json_userDetails.Users[i].City);
+          }
+                    
+        });
+     
+    
+      });
+    
 
     }catch(err){
       console.error(err);

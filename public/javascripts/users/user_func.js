@@ -95,30 +95,33 @@
         });
 
         var labels =  ['2016-17', '2017-18','2018-19'];
+        var colourArray=[["red","blue","green","yellow","grey","orange"],["#cf000f","#1f3a93","#00b16a","#f7ca18","#e87e04","#abb7b7"]];
         var objArray =[];
         var objArray2 =[];
         
+
+
         for (p =0;p <ratingArrr.length;p++){//loop2
 
           var someObj = new Object();
-          someObj.label = ratingArrr[p];
+          someObj.label = ratingArrr[p]+" Total Population";
           someObj.data = [popzzArr3[p],popzzArr2[p],popzzArr1[p]];
           //someObj.data = [[popzzArr3[p],popzzArr2[p],popzzArr1[p]],[crimzArr1[p],crimzArr2[p],crimzArr3[p]]];
-          someObj.backgroundColor =  "rgb(255, 99, 132)";
-          someObj.borderColor = '#000000';
+          someObj.backgroundColor =  colourArray[0][p];
+          someObj.borderColor = colourArray[0][p];
           someObj.fill = false;
 
           objArray.push(someObj);
 
           var someObj2 = new Object();
-          someObj2.label = ratingArrr[p];
+          someObj2.label = ratingArrr[p] +" Total Crime";
           someObj2.data = [crimzArr3[p],crimzArr2[p],crimzArr1[p]];
           //someObj.data = [[popzzArr3[p],popzzArr2[p],popzzArr1[p]],[crimzArr1[p],crimzArr2[p],crimzArr3[p]]];
-          someObj2.backgroundColor =  "rgb(255, 99, 132)";
-          someObj2.borderColor = '#000000';
+          someObj2.backgroundColor =  colourArray[1][p];
+          someObj2.borderColor = colourArray[1][p];
           someObj2.fill = false;
           
-          objArray2.push(someObj2);
+          objArray.push(someObj2);
         }
     
         basicBarChart("ratingStats",labels[0],labels[1],labels[2],objArray); 

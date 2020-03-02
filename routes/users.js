@@ -115,6 +115,61 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
 
 });
 
+router.post('/user_create2',(req,res)=>{
+  //to decrypt
+  /*
+  bcryptjs.compare(myPlaintextPassword, hash, function(err, res) {
+    // res == true
+});
+*/
+const connection = getConnection();
+
+const queryString = "SELECT * FROM users WHERE email =?";
+const userEmail = req.body.email;
+    
+connection.query(queryString,[userEmail],(err,rows,fields)=>{
+  if (rows.length > 0){
+    console.log("user found");
+    console.log(rows);
+  }else{
+  
+  console.log("user not found");
+    console.log(rows);
+    bcryptjs.hash(req.body.password,10,(err,hash)=>{
+      if (err){
+        return res.status(500).json({
+          error:err
+        }) 
+      }else{
+        const email = req.body.email;
+        const firstName = req.body.fName;
+        const lastName = req.body.lName;
+        const password = hash;
+        const address = req.body.address;
+        const pCode = req.body.postCode;
+        const city = req.body.city;
+  
+        //console.log(email,firstName,lastName,password,pCode,address,city);
+        
+        
+        const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City) VALUES (?,?,?,?,?,?,?)"; 
+  
+        connection.query(queryString,[email,firstName,lastName,password,pCode,address,city], (err,result,fields) =>{
+  
+          if (err){
+            console.log("failed to insert new user"+err)
+            return
+          }
+          res.redirect('/users/myAccount');
+
+        })
+      }
+    });
+  }
+
+});
+
+});
 
 router.post('/auth', function(req,res){
   
@@ -208,7 +263,7 @@ router.post('/update_user',(req,res) =>{
 
         //res.redirect("/");
         //redirect error
-        res.status(204).send();
+        res.redirect("/users/myAccount");
       }else{
         console.log("Not voted yet");
 
@@ -216,13 +271,47 @@ router.post('/update_user',(req,res) =>{
           if (err) throw err;
           console.log("user Updated");
         });
-        res.status(204).send();
+        res.redirect("/users/myAccount");
       //redirect success
       }
 
     });
 });
 
+router.post('/update_user2',(req,res) =>{
+  const oldMail = req.body.mailOld;
+
+  const email = req.body.email;
+  const firstName = req.body.fName;
+  const lastName = req.body.lName;
+  const address = req.body.address;
+  const pCode = req.body.postCode;
+  const city = req.body.city;
+
+  const connection = getConnection();
+
+    const queryString = "SELECT Email FROM users WHERE Email =?"; 
+
+    connection.query(queryString,[oldMail], (err,result,fields) =>{
+      if(result.length > 0){
+          connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,oldMail], function(err) {
+            if (err) throw err;
+            console.log("user Updated");
+          });
+
+        res.redirect("/users/myAccount");
+      }else{
+
+        connection.query('UPDATE users SET Email = ?,fName =?,lName=?,Address=?,PostCode?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,oldMail], function(err) {
+          if (err) throw err;
+          console.log("user Updated");
+        });
+        res.redirect("/users/myAccount");
+
+      }
+
+    });
+});
 
   
 router.post('/update_user_password',(req,res)=>{
@@ -265,6 +354,23 @@ router.post('/logout',(req,res) =>{
     res.redirect('/');
   })
 });
+
+
+router.post('/delUser',(req,res) =>{
+  const connection = getConnection();
+
+  console.log("taken mail",req.body.userMail);
+ 
+  var sql = "DELETE FROM users WHERE Email =?";
+  
+  connection.query(sql,[req.body.userMail], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records deleted: " + result.affectedRows);
+    res.redirect("/users/myAccount");
+  });
+
+});
+
 
 router.post('/rateArea',(req,res) =>{
 
@@ -408,5 +514,7 @@ router.get('/reviewCount/:ward', (req,res)=>{
   });
 
 });
+
+
 
 module.exports = router;
