@@ -110,200 +110,197 @@ block content
                 | kox
               p
                 a.btn.btn-secondary(href='#', role='button') View details »
+  
   .container
     .titContainer 
-      a.btn.btn-primary.btn-lg#Crimez(href="#" role="button") Crime
-  
-    .jumbotron
-      h1.display-4
-      .widget.bg-dark
-        .header.bg-info Total Crime 2018/2019
-        .header_sub.bg-danger
-          .cont-h#brs
-          .cont-h#wrd 
-        div#chartBrs.chart-container
-        div#chartWrd.chart-container
-
-      p.lead
-        | #INFO
-      .hiddenCont  
-        hr.my-4
-        p
-          | It uses utility classes for typography and spacing to space content out within the larger container.
-        p.lead
-          a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
-        p.lead
-        | Crime in the last 3 Months  
-        p.CrimeComponent  
-        hr.my-4
-        ul.list-group.crimez
-        hr.my-4
-        p.lead
-          | Crime in the last 3 Months
-          .latestCrime
-        canvas#myChart
-        canvas#barCrime
-      btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
-
-
-  .container
-      .titContainer 
-        a.btn.btn-primary.btn-lg#popz(href="#" role="button") Population
-    
-      .jumbotron
-        h1.display-4
-        .widget.bg-dark
-          .header.bg-info Total Population
-          .header_sub.bg-danger
-            .cont-h#brs
-            .cont-h#wrd 
-          .row
-            .col-sm-6 
-              canvas#totalpopBRS
-            .col-sm-6 
-              canvas#totalpopWard
-        p.lead
-          | #INFO
-        .hiddenCont  
-          hr.my-4
-          p
-            | It uses utility classes for typography and spacing to space content out within the larger container.
-          p.lead
-            a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
-          p.lead
-          | Crime in the last 3 Months  
-          p.CrimeComponent  
-          canvas#popBar
-          hr.my-4
-          ul.list-group.popz
-          hr.my-4
-          p.lead
-            | Crime in the last 3 Months
-          canvas#popChart  
-        btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
-
-  .container
-        .titContainer 
-          a.btn.btn-primary.btn-lg#Houz(href="#" role="button") Housing
-      
+      a.btn.btn-primary.btn-lg#crimez(href="#" role="button" rel="crimeContainer") Crime
+      a.btn.btn-primary.btn-lg#popz(href="#" role="button" rel="populationContainer") Population
+      a.btn.btn-primary.btn-lg#houz(href="#" role="button"  rel="housingContainer") Housing
+      a.btn.btn-primary.btn-lg#ratez(href="#" role="button" rel="ratingContainer") User Rating
+     
+      .container.crimeContainer#crimez
         .jumbotron
           h1.display-4
           .widget.bg-dark
-            .header.bg-info Total Number of Households
+            .header.bg-info Total Crime 2018/2019
             .header_sub.bg-danger
               .cont-h#brs
               .cont-h#wrd 
-            .row
-              .col-sm-6 
-                canvas#totalHouseBRS
-              .col-sm-6 
-                canvas#totalHouseWard
-          
-              //.cont-h#brs
-              //.cont-h#wrd 
-            //div#chartBrs.chart-container
-            //div#chartWrd.chart-container
-            .houseBrs
-            .houseWrd
+            div#chartBrs.chart-container
+            div#chartWrd.chart-container
+
           p.lead
             | #INFO
-          .hiddenCont
-            ul.list-group.houz
+          .hiddenCont  
             hr.my-4
             p
               | It uses utility classes for typography and spacing to space content out within the larger container.
             p.lead
               a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
             p.lead
-            | Housing information
-            p.CrimeComponent
-            .header_sub.bg-danger
-              .cont-h#brs
-              .cont-h#wrd   
+            | Crime in the last 3 Months  
+            p.CrimeComponent  
             hr.my-4
-            .container
-              .row
-                .col-sm-12.col-lg-6 
-                  canvas#housing_ownedPieChartBRS   
-                .col-sm-12.col-lg-6 
-                  canvas#housing_ownedPieChart
-              
-                .col-sm-12.col-lg-6  
-                  canvas#housing_typePieChartBRS  
-                .col-sm-12.col-lg-6 
-                  canvas#housing_typePieChart
-                
-                .col-sm-12.col-lg-6 
-                  canvas#housing_bedPieChartBRS
-                .col-sm-12.col-lg-6  
-                  canvas#housing_bedPieChart
-              
-
-
+            ul.list-group.crimez
             hr.my-4
             p.lead
-              | House price in the last 12 Months
-            hr.my-4
-            p.lead
-              | Average house prices in the last 7 Years
-            canvas#zooplaChart  
+              | Crime in the last 3 Months
+              .latestCrime
+            canvas#myChart
+            canvas#barCrime
           btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
-  .container
-          .titContainer 
-            a.btn.btn-primary.btn-lg#Houz(href="#" role="button") User Rating
+
+      .container.populationContainer#popz  
           .jumbotron
-            p#dispMessage.lead
-            hr
-            .row
-              .col-sm-12.col-lg-6 
-                canvas#userDrivenChart
-              .col-sm-12.col-lg-6 
-                canvas#userDrivenChart1
-              .col-sm-12.col-lg-6   
-                canvas#userDrivenChart2
-            hr
-            if typeof userMail === 'undefined'
+            h1.display-4
+            .widget.bg-dark
+              .header.bg-info Total Population
+              .header_sub.bg-danger
+                .cont-h#brs
+                .cont-h#wrd 
+              .row
+                .col-sm-6 
+                  canvas#totalpopBRS
+                .col-sm-6 
+                  canvas#totalpopWard
+            p.lead
+              | #INFO
+            .hiddenCont  
+              hr.my-4
+              p
+                | It uses utility classes for typography and spacing to space content out within the larger container.
               p.lead
-                | Please log in to rate this area    
-            else
+                a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
               p.lead
-                | Loged in    
-              .responseForm
-                form#ratings(action="/users/rateArea" method="POST" onSubmit="return resetForm()")
-                  .form-row
-                  | Please answer the following Questions
-                  hr    
-                  .form-group.col-sm-12
-                      label(for='customRadio1') Would you recommend this area for someone to move into?
-                      .custom-control.custom-radio
-                        input#customRadio1.custom-control-input(type='radio', name='q1' value="Yes")
-                        label.custom-control-label(for='customRadio1') Yes
-                      .custom-control.custom-radio
-                        input#customRadio2.custom-control-input(type='radio', name='q1' value="No")
-                        label.custom-control-label(for='customRadio2') No
-                  hr        
-                  .form-group.col-sm-12
-                      label(for='customRadio3') Would you agree your area is safe?
-                      .custom-control.custom-radio
-                        input#customRadio3.custom-control-input(type='radio', name='q2' value="Yes")
-                        label.custom-control-label(for='customRadio3') Yes
-                      .custom-control.custom-radio
-                        input#customRadio4.custom-control-input(type='radio', name='q2' value="No")
-                        label.custom-control-label(for='customRadio4') No
-                  hr  
-                  .form-group.col-sm-12
-                      label(for='customRadio4') Is there enoguh space for parking?
-                      .custom-control.custom-radio
-                        input#customRadio5.custom-control-input(type='radio', name='q3' value="Yes")
-                        label.custom-control-label(for='customRadio5') Yes
-                      .custom-control.custom-radio
-                        input#customRadio6.custom-control-input(type='radio', name='q3' value="No")
-                        label.custom-control-label(for='customRadio6') No
-                        input(type="hidden" id="wardNamezHidden" name="wardName")      
-                  .form-group.col-sm-12    
-                      button#subUser.btn.btn-primary.float-right(type='submit') Rate Area
-   
+              | Crime in the last 3 Months  
+              p.CrimeComponent  
+              canvas#popBar
+              hr.my-4
+              ul.list-group.popz
+              hr.my-4
+              p.lead
+                | Crime in the last 3 Months
+              canvas#popChart  
+            btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
+
+      .container.housingContainer#houz
+            .jumbotron
+              h1.display-4
+              .widget.bg-dark
+                .header.bg-info Total Number of Households
+                .header_sub.bg-danger
+                  .cont-h#brs
+                  .cont-h#wrd 
+                .row
+                  .col-sm-6 
+                    canvas#totalHouseBRS
+                  .col-sm-6 
+                    canvas#totalHouseWard
+              
+                  //.cont-h#brs
+                  //.cont-h#wrd 
+                //div#chartBrs.chart-container
+                //div#chartWrd.chart-container
+                .houseBrs
+                .houseWrd
+              p.lead
+                | #INFO
+              .hiddenCont
+                ul.list-group.houz
+                hr.my-4
+                p
+                  | It uses utility classes for typography and spacing to space content out within the larger container.
+                p.lead
+                  a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
+                p.lead
+                | Housing information
+                p.CrimeComponent
+                .header_sub.bg-danger
+                  .cont-h#brs
+                  .cont-h#wrd   
+                hr.my-4
+                .container
+                  .row
+                    .col-sm-12.col-lg-6 
+                      canvas#housing_ownedPieChartBRS   
+                    .col-sm-12.col-lg-6 
+                      canvas#housing_ownedPieChart
+                  
+                    .col-sm-12.col-lg-6  
+                      canvas#housing_typePieChartBRS  
+                    .col-sm-12.col-lg-6 
+                      canvas#housing_typePieChart
+                    
+                    .col-sm-12.col-lg-6 
+                      canvas#housing_bedPieChartBRS
+                    .col-sm-12.col-lg-6  
+                      canvas#housing_bedPieChart
+                  
+
+
+                hr.my-4
+                p.lead
+                  | House price in the last 12 Months
+                hr.my-4
+                p.lead
+                  | Average house prices in the last 7 Years
+                canvas#zooplaChart  
+              btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
+
+      .container.ratingContainer#ratez
+              .jumbotron
+                p#dispMessage.lead
+                hr
+                .row
+                  .col-sm-12.col-lg-6 
+                    canvas#userDrivenChart
+                  .col-sm-12.col-lg-6 
+                    canvas#userDrivenChart1
+                  .col-sm-12.col-lg-6   
+                    canvas#userDrivenChart2
+                hr
+                if typeof userMail === 'undefined'
+                  p.lead
+                    | Please log in to rate this area    
+                else
+                  p.lead
+                    | Loged in    
+                  .responseForm
+                    form#ratings(action="/users/rateArea" method="POST" onSubmit="return resetForm()")
+                      .form-row
+                      | Please answer the following Questions
+                      hr    
+                      .form-group.col-sm-12
+                          label(for='customRadio1') Would you recommend this area for someone to move into?
+                          .custom-control.custom-radio
+                            input#customRadio1.custom-control-input(type='radio', name='q1' value="Yes")
+                            label.custom-control-label(for='customRadio1') Yes
+                          .custom-control.custom-radio
+                            input#customRadio2.custom-control-input(type='radio', name='q1' value="No")
+                            label.custom-control-label(for='customRadio2') No
+                      hr        
+                      .form-group.col-sm-12
+                          label(for='customRadio3') Would you agree your area is safe?
+                          .custom-control.custom-radio
+                            input#customRadio3.custom-control-input(type='radio', name='q2' value="Yes")
+                            label.custom-control-label(for='customRadio3') Yes
+                          .custom-control.custom-radio
+                            input#customRadio4.custom-control-input(type='radio', name='q2' value="No")
+                            label.custom-control-label(for='customRadio4') No
+                      hr  
+                      .form-group.col-sm-12
+                          label(for='customRadio4') Is there enoguh space for parking?
+                          .custom-control.custom-radio
+                            input#customRadio5.custom-control-input(type='radio', name='q3' value="Yes")
+                            label.custom-control-label(for='customRadio5') Yes
+                          .custom-control.custom-radio
+                            input#customRadio6.custom-control-input(type='radio', name='q3' value="No")
+                            label.custom-control-label(for='customRadio6') No
+                            input(type="hidden" id="wardNamezHidden" name="wardName")      
+                      .form-group.col-sm-12    
+                          button#subUser.btn.btn-primary.float-right(type='submit') Rate Area
+    
   script
     //include ../public/javascripts/makeMap.js
     include ../public/javascripts/mainFunc.js

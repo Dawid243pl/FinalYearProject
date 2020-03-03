@@ -40,10 +40,9 @@ html
                   button.btn.btn-lg.btn-primary.btn-block log In
             else
               li.nav-item#lgOut
-                  //a.nav-link(href='users/logout') Log Out  
-                  form(method="POST", action="/users/logout") 
-                    button.btn.btn-lg.btn-primary.btn-block log Out
-            li.nav-item
+                form(method="POST", action="/users/logout") 
+                  button.btn.btn-lg.btn-primary.btn-block log Out
+            li.nav-item.ml-2
               #sBox          
                 form#locationForm.form-inline.mt-2.mt-md-0(action = "/findArea", method = "POST" onSubmit="return val()") 
                   input#inputPostC.form-control.mr-sm-2(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')

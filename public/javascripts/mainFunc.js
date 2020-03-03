@@ -120,9 +120,32 @@ $("#openPassw").click(function() {
 
 $(".closez").click(function() {
  
-  $("#myModalz").toggle("slow");
+  //$("#myModalz").toggle("slow");
+  $(this).parent().parent().parent().parent().toggle("slow");
+});
+
+/*
+$('a').on('click', function(){
+  var target = $(this).attr('rel');
+  $("#"+target).show().siblings("div").hide();
+});
+*/
+$('a.btn').on('click', function(){
+
+  $("a.btn").removeClass("btn-warning");
+  $(this).addClass("btn-warning");
+
+
+  console.log("clicked");
+
+  var target = $(this).attr('rel');
+
+  console.log("target",target);
+
+  $("."+target).show().siblings("div").hide();
   
 });
+
 
 function colourCoding(actual,average){
 
