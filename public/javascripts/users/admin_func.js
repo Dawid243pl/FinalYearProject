@@ -45,11 +45,19 @@
       }
 
 
-      $("#openPassw").click(function () {
+      $("#openEdit").click(function () {
       
         console.log($('input[name="userz"]:checked').val());
       
         //console.log($('input[name="userz"]:checked').val());
+
+        if($('input[name="userz"]:checked').val() == null){
+
+          alert("please select a user to edit");
+
+        }else{
+
+        $("#myModalz").toggle("slow");
         $.each(json_userDetails.Users, function(i){
    
           if(json_userDetails.Users[i].Email == $('input[name="userz"]:checked').val()){
@@ -64,7 +72,7 @@
           }
                     
         });
-     
+      }
         
 
       });

@@ -33,7 +33,7 @@ function basicBarChart(div,label1,label2,label3,makeJSONarr){
 function init() {
     // Chart declaration:
     var chartType = document.getElementById('type').value; 
-    myBarChart = new Chart(ctx, {
+    chart = new Chart(ctx, {
       type: chartType,
       data: {
         labels:[label1,label2,label3],
@@ -57,8 +57,6 @@ function init() {
 
         chart.destroy();
         
-        this.ChartType=(this.ChartType =='bar') ? 'line' :'bar';
-
         init();
     });
   
