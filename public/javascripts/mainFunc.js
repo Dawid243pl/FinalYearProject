@@ -41,6 +41,37 @@ function checkPostCode(postcode) {
     return regex.test(postcode);
 }
 
+
+
+function val2(){
+  var lat =$("#latti").val();
+  var long = $("#longi").val();
+
+  console.log(lat,long);
+  if(!latti){
+     alert("Please enter a valid Postcode")
+      return false;
+  }
+  else{
+    console.log(lat,long);
+    checkBristol2(lat,long);
+    //console.log(cityCheck);
+      //return true;
+      /*
+      var cityCheck = checkBristol(pCode);
+      console.log(cityCheck);
+      if (cityCheck === "Bristol"){
+        console.log("true");
+        return true;
+      }else{
+        console.log("false");
+        return false;
+      }
+      */
+     return false;
+  }
+}
+
 function val(){
 
     var pCode = $("#inputPostC").val();
@@ -80,9 +111,29 @@ function checkBristol(pCode){
     }
 });
 
+
   
 };
+function checkBristol2(lat,long){
 
+  //console.log('../postCode2/'+long+'/'+lat);
+  var txt = '/postCode2/'+long+'/'+lat;
+  console.log("txt",txt)
+  $.getJSON('/postCode2/'+long+'/'+lat, function(data) {
+    console.log(txt);
+    if (data.postcode.result[0].primary_care_trust == "Bristol"){
+      console.log(data);
+      //document.getElementById("locationForm2").submit();
+      return true;
+
+    }else{
+      return false;
+    }
+});
+
+
+  
+};
 function resetForm(){
   //document.getElementById("ratings").reset();
   setTimeout(function(){ document.getElementById("ratings").reset(); }, 100);  

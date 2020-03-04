@@ -345,7 +345,7 @@ router.post('/findArea', function(req, res){
       //document.getElementById("#lgOut").style.visibility = 'hidden';
     }
     
-    res.render('searchOutput', { title: area,userMail:req.session.userEmail,accountType:req.session.userType});
+    res.render('searchOutput', { title: area,userMail:req.session.userEmail,accountType:req.session.userType,latz:lat,longz:long});
    
 
 });
@@ -492,6 +492,23 @@ router.get('/postCode/:ps', async (request, response) => {
   response.json(data);
 });
 
+
+
+router.get('/postCode2/:lat/:long', async (request, response) => {
+
+  const lat = request.params.lat;
+  const long = request.params.long;
+  
+  const postcode_url = `https://api.postcodes.io/postcodes?lon=${lat}&lat=${long}`;
+  const postcode_response = await fetch(postcode_url);
+  const postcode_data = await postcode_response.json();
+
+  const data = {
+    postcode: postcode_data,
+
+  };
+  response.json(data);
+});
 
 
 

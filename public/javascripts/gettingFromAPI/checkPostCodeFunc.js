@@ -1,4 +1,4 @@
-function getCrime(json_crime){
+function getCrime(json_crime,ward){
 
   var newJsonArrayWrd =[];
   var newJsonArrayBrs =[];
@@ -292,7 +292,7 @@ function getQuallity(json_quall){
   */
   }
 
-  function getPopulation(json_pop){
+  function getPopulation(json_pop,ward){
   
     //var brsAvg
     var yearArray =[];
@@ -472,7 +472,7 @@ function getQuallity(json_quall){
     
   }
 
-  function getZoopla(json_zoopla){
+  function getZoopla(json_zoopla,ward){
     
     console.log(json_zoopla);
 
@@ -567,7 +567,7 @@ function getQuallity(json_quall){
       yr3SalepriceAvgOutcode,yr5SalepriceAvgOutcode,yr7SalepriceAvgOutcode);
 }
 
-function getHousing(json_housing){
+function getHousing(json_housing,ward){
 
   
   /*---------Owned-----------------*/

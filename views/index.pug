@@ -4,20 +4,31 @@ block content
     //script.
       var userMail = "#{userMail}"
     #formHolder
-    form#locationForm.form-signin.text-white(action = "/findArea", method = "POST" onSubmit="return val()")
-      img.mb-4(src='../images/map.png', alt='', width='72', height='72')
-      |   
-      h1.h3.mb-3.font-weight-normal Please find PostCode
-      |    
-      input#inputPostC.form-control(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
-      |   
-      input(type="hidden" id="lat" name="lat" value="")
-      |  
-      input(type="hidden" id="long" name="long" value="")
-      |   
-      button#locBtnPscode.btn.btn-lg.btn-primary.btn-block(type='submit') Find Postcode
-      |   
-      p.mt-5.mb-3.text-white &copy; Dawid Koleczko
+      form#locationForm.form-signin.text-white(action = "/findArea", method = "POST" onSubmit="return val()")
+        img.mb-4(src='../images/map.png', alt='', width='72', height='72')
+        |   
+        h1.h3.mb-3.font-weight-normal Please find PostCode
+        |    
+        input#inputPostC.form-control(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
+        |   
+        //input(type="hidden" id="lat" name="lat" value="")
+        |  
+        //input(type="hidden" id="long" name="long" value="")
+        |   
+        button#locBtnPscode.btn.btn-lg.btn-primary.btn-block(type='submit') Find Postcode
+        |   
+        p.mt-5.mb-3.text-white &copy; Dawid Koleczko  
+    #formHolder
+      form#locationForm2.form-signin2.text-white(action = "/findArea", method = "POST" onSubmit="return val2()")
+        h1.h3.mb-3.font-weight-normal Or Simply Find Current Location
+        |     
+        input(type="hidden" id="latti" name="lat" value="")
+        |  
+        input(type="hidden" id="longi" name="long" value="")
+        |   
+        input#inputPostC.form-control(type="hidden", name = 'say')
+        |
+        button#locBtn.btn.btn-lg.btn-primary.btn-block(type='submit') Find Current Location
     script
       include ../public/javascripts/getLoc.js
       include ../public/javascripts/mainFunc.js

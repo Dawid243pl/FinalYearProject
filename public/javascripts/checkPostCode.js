@@ -6,21 +6,57 @@ $(function(){
 
       try {
 
-        const api_url = `postCode/${postcode}`;
-        const response = await fetch(api_url);
-        const json = await response.json();
+        var text= "";
 
-      
+        var postC =  "";
+        var latz = "";
+        var longz = "";
+        var easting = "";
+        var northing = "";
+        var ward = "";
 
+        if(postcode == ""){
+
+          text = `postCode2/${long}/${lat}`;
+          console.log(text);
+
+          const api_url = text;
+          const response = await fetch(api_url);
+          const json = await response.json();
+          console.log(json);
+
+          postC =  json.postcode.result[0].postcode;
+          latz = json.postcode.result[0].latitude;
+          longz = json.postcode.result[0].longitude;
+          easting = json.postcode.result[0].eastings;
+          northing = json.postcode.result[0].northings;
+          ward = json.postcode.result[0].admin_ward;
+
+          console.log("WARD# 1",ward);
+
+        }else{
+          text = `postCode/${postcode}`
+
+          const api_url = text;
+          const response = await fetch(api_url);
+          const json = await response.json();
+          console.log(json);
+
+          postC =  json.postcode.result.postcode;
+          latz = json.postcode.result.latitude;
+          longz = json.postcode.result.longitude;
+          easting = json.postcode.result.eastings;
+          northing = json.postcode.result.northings;
+          ward = json.postcode.result.admin_ward;
+          
+        }
+
+        console.log("WARD# 2",ward);
+     
         //weather = json.weather.currently;
         //air = json.air_quality.results[0].measurements[0];
 
-        postC =  json.postcode.result.postcode;
-        lat = json.postcode.result.latitude;
-        long = json.postcode.result.longitude;
-        easting = json.postcode.result.eastings;
-        northing = json.postcode.result.northings;
-        ward = json.postcode.result.admin_ward;
+    
 
         //set value of hidden field
         $("#wardNamezHidden").val(ward);
@@ -63,7 +99,7 @@ $(function(){
         const json_crime = await response_crime.json();
    
 
-        const api_url_weather = `weather/${lat}/${long}`;
+        const api_url_weather = `weather/${latz}/${longz}`;
         const response_weather = await fetch(api_url_weather);
         const json_weather = await response_weather.json();
 
@@ -139,10 +175,10 @@ $(function(){
       getQuallity(json_quall);
       //getEdu(json_edu);
       getWeather(json_weather);
-      getCrime(json_crime);
-      getPopulation(json_pop);
-      getZoopla(json_zoopla);
-      getHousing(json_housing);
+      getCrime(json_crime,ward);
+      getPopulation(json_pop,ward);
+      getZoopla(json_zoopla,ward);
+      getHousing(json_housing,ward);
       
 
       } 
