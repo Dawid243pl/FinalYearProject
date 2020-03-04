@@ -5,6 +5,7 @@ block content
     
   script.
     var postcode = '#{title}';
+    
     //var longz = '#{test2}';
     //var easting = '#{ea}';
     //var northing = '#{no}';
@@ -118,7 +119,7 @@ block content
       a.btn.btn-primary.btn-lg#houz(href="#" role="button"  rel="housingContainer") Housing
       a.btn.btn-primary.btn-lg#ratez(href="#" role="button" rel="ratingContainer") User Rating
      
-      .container.crimeContainer#crimez
+      .crimeContainer#crimez
         .jumbotron
           h1.display-4
           .widget.bg-dark
@@ -241,7 +242,47 @@ block content
 
                 hr.my-4
                 p.lead
-                  | House price in the last 12 Months
+                  | Market Acrivity in the last 12 Months
+                .col-12-lg
+                   ul.list-group.mb-3
+                        li.list-group-item.d-flex.justify-content-between.bg-light
+                            .text-info
+                                h6.my-0.wr
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Average Price Paid
+                                small.text-muted
+                            buttton#avgPaidPrice
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Total Sales
+                                small.text-muted
+                            buttton#Sales
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Value Change Compared to 3 Years
+                                small.text-muted
+                            buttton#valueChange
+                        li.list-group-item.d-flex.justify-content-between.bg-light
+                          .text-info
+                              h6.my-0 Bristol
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Average Price Paid
+                                small.text-muted
+                            buttton#avgPaidPriceBrs
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Total Sales
+                                small.text-muted
+                            buttton#SalesBrs
+                        li.list-group-item.d-flex.justify-content-between.lh-condensed
+                            div
+                                h6.my-0 Value Change Compared to 3 Years
+                                small.text-mutedBristol
+                            buttton#valueChangeBrs
+                        
+
                 hr.my-4
                 p.lead
                   | Average house prices in the last 7 Years

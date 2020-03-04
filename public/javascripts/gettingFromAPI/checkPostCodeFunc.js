@@ -487,7 +487,31 @@ function getQuallity(json_quall){
       var yr7SalepriceAvg = json_zoopla.zoopla.average_sold_price_7year;
       var yr7SalesNumb = json_zoopla.zoopla.number_of_sales_7year;
 
-          
+      $(".wr").append(ward);
+      var numbComma = numberWithCommas(currentSalesNumb);
+      $("#Sales").append(numbComma);
+      $("#avgPaidPrice").append("£"+currentSalepriceAvg);
+      
+      var calculateIncDec = currentSalepriceAvg - yr3SalepriceAvg;
+
+      var calculateIncDecProc =calculateIncDec /currentSalepriceAvg *100;
+
+      var text ="";
+      
+      if(calculateIncDec < 0){
+        text="Decrease £";
+        calculateIncDec = Math.abs(calculateIncDec);
+        calculateIncDecProc = Math.abs(calculateIncDecProc);
+        $("#valueChange").addClass("text-danger");
+      }else {
+        text="Increase £";
+        $("#valueChange").addClass("text-success");
+      }
+
+      calculateIncDec = numberWithCommas(calculateIncDec);
+      $("#valueChange").append(text+calculateIncDec+" ("+"% "+Math.round(calculateIncDecProc * 100) / 100+")");
+
+    
       var turnoverBrs =json_zoopla.zoopla_brs.areas[0].turnover;
       var currentSalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_1year;
       var currentSalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_1year;
@@ -497,7 +521,37 @@ function getQuallity(json_quall){
       var yr5SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_5year;
       var yr7SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_7year;
       var yr7SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_7year;
+
       
+      var numbCommaBrs = numberWithCommas(currentSalesNumbBrs);
+
+      $("#SalesBrs").append(numbCommaBrs);
+      
+      $("#avgPaidPriceBrs").append("£"+currentSalepriceAvgBrs);
+      
+      var calculateIncDecBrs = currentSalepriceAvgBrs - yr3SalepriceAvgBrs;
+
+      var calculateIncDecProcBrs =calculateIncDecBrs /currentSalepriceAvgBrs *100;
+
+      var calculateIncDecProcBrs = Math.round(calculateIncDecProcBrs * 100) / 100;
+
+      var textBrs ="";
+      
+      if(calculateIncDecBrs < 0){
+        textBrs="Decrease £";
+        calculateIncDecBrs = Math.abs(calculateIncDecBrs);
+        calculateIncDecProcBrs = Math.abs(calculateIncDecProcBrs);
+        $("#valueChangeBrs").addClass("text-danger");
+      }else {
+        textBrs="Increase £";
+        $("#valueChangeBrs").addClass("text-success");
+      }
+
+      calculateIncDecBrs = numberWithCommas(calculateIncDecBrs);
+      $("#valueChangeBrs").append(textBrs+calculateIncDecBrs+" ("+"% "+calculateIncDecProcBrs+")");
+
+  
+
       var turnoverOutcode =json_zoopla.zoopla_outcode.turnover;
       var currentSalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_1year;
       var currentSalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_1year;

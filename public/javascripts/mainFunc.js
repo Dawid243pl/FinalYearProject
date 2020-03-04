@@ -130,6 +130,9 @@ $('a').on('click', function(){
   $("#"+target).show().siblings("div").hide();
 });
 */
+
+$('a.btn#crimez').addClass("btn-warning");
+
 $('a.btn').on('click', function(){
 
   $("a.btn").removeClass("btn-warning");

@@ -6,8 +6,6 @@ $(function(){
 
       try {
 
-        console.log("PS",postcode);
-
         const api_url = `postCode/${postcode}`;
         const response = await fetch(api_url);
         const json = await response.json();
