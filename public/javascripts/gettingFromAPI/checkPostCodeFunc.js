@@ -185,12 +185,16 @@ var makeJSONarr=[];
 var makeJSONbar=[];
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
-  var someObj = new Object();
-  someObj.label = chartJsArray1Name[xy];
-  someObj.data = [chartJsArray3Stat[xy],chartJsArray2Stat[xy],chartJsArray1Stat[xy]];
-  someObj.backgroundColor =  "rgb(255, 99, 132)";
-  someObj.borderColor = '#000000';
-  someObj.fill = false;
+  console.log(chartJsArray1Name[xy]," vs ",ward);
+  if (chartJsArray1Name[xy] == ward){
+    var someObj = new Object();
+    someObj.label = chartJsArray1Name[xy];
+    someObj.data = [chartJsArray3Stat[xy],chartJsArray2Stat[xy],chartJsArray1Stat[xy]];
+    someObj.backgroundColor =  "rgb(255, 99, 132)";
+    someObj.borderColor = '#000000';
+    someObj.fill = false;
+    makeJSONarr.push(someObj);
+  }
   //someObj.pointRadius = 10;
   //someObj.pointHoverRadius=15;
   //someObj.showLine= false;
@@ -202,7 +206,7 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   barObj.borderColor = '#000000';
   barObj.fill = false;
 
-  makeJSONarr.push(someObj);
+
   makeJSONbar.push(barObj);
 
 }

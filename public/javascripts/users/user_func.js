@@ -99,7 +99,8 @@
         var objArray =[];
         var objArray2 =[];
         
-        for (p =0;p <ratingArrr.length;p++){//loop2
+        console.log("ppoz1",popzzArr1);
+        for (p =0;p <ratingArrr.length;p++){
 
           var someObj = new Object();
           someObj.label = ratingArrr[p]+" Total Population";
