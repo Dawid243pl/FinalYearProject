@@ -63,6 +63,10 @@ router.post('/user_create',(req,res)=>{
     // res == true
 });
 */
+     
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
 const connection = getConnection();
 
 const queryString = "SELECT * FROM users WHERE email =?";
@@ -70,11 +74,9 @@ const userEmail = req.body.email;
     
 connection.query(queryString,[userEmail],(err,rows,fields)=>{
   if (rows.length > 0){
-    console.log("user found");
+    console.log("user found error");
     console.log(rows);
   }else{
-  
-  console.log("user not found");
     console.log(rows);
     bcryptjs.hash(req.body.password,10,(err,hash)=>{
       if (err){
@@ -91,21 +93,40 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
         const city = req.body.city;
   
         //console.log(email,firstName,lastName,password,pCode,address,city);
-        
-        
-        const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City) VALUES (?,?,?,?,?,?,?)"; 
+   
+
+        const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City,TimeStamp) VALUES (?,?,?,?,?,?,?,?)"; 
   
-        connection.query(queryString,[email,firstName,lastName,password,pCode,address,city], (err,result,fields) =>{
-  
+        connection.query(queryString,[email,firstName,lastName,password,address,pCode,city,date], (err,result,fields) =>{
+          
+
           if (err){
             console.log("failed to insert new user"+err)
             return
           }
-  
           console.log("inserted a new user with the id",result.insertId);
-          req.session.loggedin = true;
-          req.session.userEmail =email;
-          res.redirect('/');
+
+          const queryString = "SELECT * FROM users WHERE email =?";
+          connection.query(queryString,[email],(err,rows,fields)=>{
+            if (rows.length > 0){
+              console.log("user found");
+              console.log(rows);
+
+              req.session.loggedin = true;
+              req.session.userEmail =email;
+              req.session.userType = rows[0].AccountType;
+              res.redirect('/');
+
+            }else{
+
+            }
+
+          })
+         
+  
+        
+       
+
         })
       }
     });
@@ -122,6 +143,9 @@ router.post('/user_create2',(req,res)=>{
     // res == true
 });
 */
+var today = new Date();
+var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+
 const connection = getConnection();
 
 const queryString = "SELECT * FROM users WHERE email =?";
@@ -152,9 +176,9 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
         //console.log(email,firstName,lastName,password,pCode,address,city);
         
         
-        const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City) VALUES (?,?,?,?,?,?,?)"; 
+        const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City,TimeStamp) VALUES (?,?,?,?,?,?,?,?)"; 
   
-        connection.query(queryString,[email,firstName,lastName,password,pCode,address,city], (err,result,fields) =>{
+        connection.query(queryString,[email,firstName,lastName,password,pCode,address,city,date], (err,result,fields) =>{
   
           if (err){
             console.log("failed to insert new user"+err)

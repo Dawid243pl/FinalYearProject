@@ -12,11 +12,27 @@
 
   });
 
+  function convertDate(dateString){
+    var p = dateString.split(/\D/g)
+    return [p[2],p[1],p[0] ].join("-")
+  }
   
+  function getOccurrence(array, value) {
+    var count = 0;
+    array.forEach((v) => (v === value && count++));
+    return count;
+}
   
   async function fetchAdminData()  {
     try{
-    
+      
+      var stampUserHolder =[];
+      var stampUserTimeArr=[];
+      var stampUserMailArr=[];
+      var stampCounted =[];
+      var timeSeparate =[];
+      var labelSeparate=[];
+
       const api_url_userDetails = `userInfo`;
       const response_userDetails = await fetch(api_url_userDetails);
       const json_userDetails = await response_userDetails.json();
@@ -24,8 +40,58 @@
       const api_url_ward = `../listWards`;
       const response_ward = await fetch(api_url_ward);
       const json_ward = await response_ward.json();
-         
-         
+
+
+
+      $.each(json_userDetails.Users, function(i){
+   
+        var stampTime =json_userDetails.Users[i].TimeStamp;
+        var stampMail =json_userDetails.Users[i].Email;
+
+        var d = new Date(stampTime);
+      
+        var d = d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+   
+        stampUserTimeArr.push(d);
+        stampUserMailArr.push(stampMail);
+  
+      });
+      
+      
+    let unique = [...new Set(stampUserTimeArr)]; 
+    
+    
+    unique.sort(function (a, b) {
+      // '01/03/2014'.split('/')
+      // gives ["01", "03", "2014"]
+      // gives ["2014","03","01"]
+      a = a.split('-');
+      b = b.split('-');
+   
+      return a[2] - b[2] || a[1] - b[1] || a[0] - b[0];            
+  });
+
+
+
+    for (var zi =0;zi < unique.length;zi++){
+      
+      var count = getOccurrence(stampUserTimeArr, unique[zi])
+      
+      var stampObj = new Object();
+      stampObj.x = unique[zi];
+      stampObj.y =count;
+      
+      stampCounted.push(stampObj);
+      
+    }
+    
+
+
+
+    console.log(unique);
+    timeChart("userStamp",unique,stampCounted); 
+
+
       console.log(json_ward.wards.total_count);
       if(json_userDetails.length == 0) {
         

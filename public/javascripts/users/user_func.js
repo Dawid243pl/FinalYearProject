@@ -99,8 +99,6 @@
         var objArray =[];
         var objArray2 =[];
         
-
-
         for (p =0;p <ratingArrr.length;p++){//loop2
 
           var someObj = new Object();
@@ -125,8 +123,6 @@
         }
     
         basicBarChart("ratingStats",labels[0],labels[1],labels[2],objArray); 
-
-        console.log("THIS SHIT",objArray);
 
         var userPopColour = colourCoding(colourCheckerArray[2],colourCheckerArray[0]);
         var userCrimeColour = colourCoding(colourCheckerArray[3],colourCheckerArray[1]);
