@@ -255,11 +255,11 @@ function getQuallity(json_quall){
   $.each(json_quall, function(i){
    
     if(json_quall[i].Theme =="Crime & Safety"){
-      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn-primary'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
+      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn btn-primary btn-sm'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
     }
 
     if(json_quall[i].Theme =="Transport"){
-      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn-primary'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
+      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn btn-primary btn-sm'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
     }
   });
   
@@ -477,8 +477,9 @@ function getQuallity(json_quall){
       var yr5SalesNumb = json_zoopla.zoopla.number_of_sales_5year;
       var yr7SalepriceAvg = json_zoopla.zoopla.average_sold_price_7year;
       var yr7SalesNumb = json_zoopla.zoopla.number_of_sales_7year;
+      var postZoopla = json_zoopla.zoopla.postcode;
 
-      $(".wr").append(ward);
+      $(".wr").append(postZoopla);
       var numbComma = numberWithCommas(currentSalesNumb);
       $("#Sales").append(numbComma);
       $("#avgPaidPrice").append("£"+currentSalepriceAvg);
@@ -513,35 +514,6 @@ function getQuallity(json_quall){
       var yr7SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_7year;
       var yr7SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_7year;
 
-      
-      var numbCommaBrs = numberWithCommas(currentSalesNumbBrs);
-
-      $("#SalesBrs").append(numbCommaBrs);
-      
-      $("#avgPaidPriceBrs").append("£"+currentSalepriceAvgBrs);
-      
-      var calculateIncDecBrs = currentSalepriceAvgBrs - yr3SalepriceAvgBrs;
-
-      var calculateIncDecProcBrs =calculateIncDecBrs /currentSalepriceAvgBrs *100;
-
-      var calculateIncDecProcBrs = Math.round(calculateIncDecProcBrs * 100) / 100;
-
-      var textBrs ="";
-      
-      if(calculateIncDecBrs < 0){
-        textBrs="Decrease £";
-        calculateIncDecBrs = Math.abs(calculateIncDecBrs);
-        calculateIncDecProcBrs = Math.abs(calculateIncDecProcBrs);
-        $("#valueChangeBrs").addClass("text-danger");
-      }else {
-        textBrs="Increase £";
-        $("#valueChangeBrs").addClass("text-success");
-      }
-
-      calculateIncDecBrs = numberWithCommas(calculateIncDecBrs);
-      $("#valueChangeBrs").append(textBrs+calculateIncDecBrs+" ("+"% "+calculateIncDecProcBrs+")");
-
-  
 
       var turnoverOutcode =json_zoopla.zoopla_outcode.turnover;
       var currentSalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_1year;
@@ -552,6 +524,37 @@ function getQuallity(json_quall){
       var yr5SalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_5year;
       var yr7SalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_7year;
       var yr7SalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_7year;
+      var zooplaPostcodeOutCode = json_zoopla.zoopla_outcode.postcode;
+
+      $(".out").append(zooplaPostcodeOutCode);
+
+      var numbCommaOutcode = numberWithCommas(currentSalesNumbOutcode);
+
+      $("#SalesOut").append(numbCommaOutcode);
+      
+      $("#avgPaidPriceOut").append("£"+currentSalepriceAvgOutcode);
+      
+      var calculateIncDecOutcode = currentSalepriceAvgOutcode - yr3SalepriceAvgOutcode;
+
+      var calculateIncDecProcOutcode =calculateIncDecOutcode /currentSalepriceAvgOutcode *100;
+
+      var calculateIncDecProcOutcode = Math.round(calculateIncDecProcOutcode * 100) / 100;
+
+      var textOutcode ="";
+      
+      if(calculateIncDecOutcode < 0){
+        textOutcode="Decrease £";
+        calculateIncDecOutcode = Math.abs(calculateIncDecOutcode);
+        calculateIncDecProcOutcode = Math.abs(calculateIncDecProcOutcode);
+        $("#valueChange").addClass("text-danger");
+      }else {
+        textOutcode="Increase £";
+        $("#valueChangeOut").addClass("text-success");
+      }
+
+      calculateIncDecOutcode = numberWithCommas(calculateIncDecOutcode);
+      $("#valueChangeOut").append(textOutcode+calculateIncDecOutcode+" ("+"% "+calculateIncDecProcOutcode+")");
+
 
       zooplaChartJS("1 Year","3 Years","5 Years","7 Years",currentSalepriceAvg,yr3SalepriceAvg,yr5SalepriceAvg,
       yr7SalepriceAvg,currentSalepriceAvgBrs,yr3SalepriceAvgBrs,yr5SalepriceAvgBrs,yr7SalepriceAvgBrs,currentSalepriceAvgOutcode,

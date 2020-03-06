@@ -153,7 +153,7 @@ const userEmail = req.body.email;
     
 connection.query(queryString,[userEmail],(err,rows,fields)=>{
   if (rows.length > 0){
-    console.log("user found");
+    console.log("Brand new mail not done yet");
     console.log(rows);
   }else{
   

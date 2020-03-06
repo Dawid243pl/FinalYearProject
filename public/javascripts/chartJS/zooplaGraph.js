@@ -58,6 +58,7 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
             },
             scales: {
                 x: {
+                    
                     display: true,
                     scaleLabel: {
                         display: true,
