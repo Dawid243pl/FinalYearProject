@@ -125,12 +125,15 @@ block content
         .jumbotron
           h1.display-4
           .widget.bg-dark
-            .header.bg-info Total Crime 2018/2019
+            .header.bg-info Total Population
             .header_sub.bg-danger
               .cont-h#brs
               .cont-h#wrd 
-            div#chartBrs.chart-container
-            div#chartWrd.chart-container
+            .row
+              .col-sm-6 
+                canvas#totalcrimeBRS
+              .col-sm-6 
+                canvas#totalcrimeWard
 
           p.lead
             | #INFO
@@ -144,7 +147,10 @@ block content
             | Crime in the last 3 Months  
             p.CrimeComponent  
             hr.my-4
-            ul.list-group.crimez
+
+            .col-lg-12  
+              ul.list-group.crimez
+
             hr.my-4
             p.lead
               | Crime in the last 3 Months
@@ -154,7 +160,7 @@ block content
           btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
 
-      .container.populationContainer#popz  
+      .populationContainer#popz  
           .jumbotron
             h1.display-4
             .widget.bg-dark
@@ -187,7 +193,7 @@ block content
               canvas#popChart  
             btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
-      .container.housingContainer#houz
+      .housingContainer#houz
             .jumbotron
               h1.display-4
               .widget.bg-dark
@@ -291,7 +297,7 @@ block content
                 canvas#zooplaChart  
               btn.viewAll.btn-primary.btn-lg(href="#" role="button") View More    
 
-      .container.ratingContainer#ratez
+      .ratingContainer#ratez
               .jumbotron
                 p#dispMessage.lead
                 hr

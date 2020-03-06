@@ -41,7 +41,8 @@ function getCrime(json_crime,ward){
     
         newJsonArrayWrd.push(crimeStat3);
 
-        makeDonut(newJsonArrayWrd,chartWrd,"colour");
+        //makeDonut(newJsonArrayWrd,chartWrd,"colour");
+        housing_totalPieChartJS("totalcrimeWard","some label",json_crime[i].totalCrimes);
       }
       if(json_crime[i].WardName =="Bristol"){
       
@@ -56,7 +57,10 @@ function getCrime(json_crime,ward){
 
         newJsonArrayBrs.push(crimeStat1);
     
-        makeDonut(newJsonArrayBrs,chartBrs,"colour");
+        //makeDonut(newJsonArrayBrs,chartBrs,"colour");
+        housing_totalPieChartJS("totalcrimeBRS","some label",json_crime[i].totalCrimes); 
+
+        
     }
 
     if(json_crime[i].WardName !="Bristol"){
@@ -250,34 +254,17 @@ function getQuallity(json_quall){
   
   $.each(json_quall, function(i){
    
-    console.log("THEMEEEEEEEEEEEEEEEEe",json_quall[i].Theme);
     if(json_quall[i].Theme =="Crime & Safety"){
-      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex align-items-center'><span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span>%"+json_quall[i].Indicator+"</div>");
+      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn-primary'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
     }
 
     if(json_quall[i].Theme =="Transport"){
-      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_quall[i].Indicator+"<span class='badge badge-primary badge-pill'>"+json_quall[i].Total+"</span></div>");
+      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn-primary'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
     }
   });
   
   }
-  function getEdu(json_edu){
-    tempArray = [];
-    $.each(json_edu.Current_ward.records, function(k, v){
-     
-      if (v.fields.time_period === "2018/2019"){
-        //console.log("good devo",v.fields.achieving_a_good_level_of_development);
-     
-        var devo = v.fields.achieving_a_good_level_of_development;
-  
-        tempArray.push(devo);
-      }
-
-
-    }); 
-    console.log(tempArray);
-
-  };
+ 
 
   function getWeather(json_weather){
 /*

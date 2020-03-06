@@ -36,6 +36,11 @@ html
               li.nav-item
                 a.nav-link(href='users/myAccount') My Account
           ul.navbar-nav.ml-auto
+            li.nav-item.ml-2
+              #sBox.mt-2          
+                form#locationForm.form-inline.mt-2.mt-md-0(action = "/findArea", method = "POST" onSubmit="return val()") 
+                  input#inputPostC.form-control.mr-sm-2(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
+                  button#locBtnPscode.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search   
             if typeof userMail === 'undefined'
               li.nav-item#lgIn
                 a.nav-link(href='/users/login')
@@ -44,11 +49,7 @@ html
               li.nav-item#lgOut
                 form(method="POST", action="/users/logout") 
                   button.btn.btn-lg.btn-primary.btn-block log Out
-            li.nav-item.ml-2
-              #sBox          
-                form#locationForm.form-inline.mt-2.mt-md-0(action = "/findArea", method = "POST" onSubmit="return val()") 
-                  input#inputPostC.form-control.mr-sm-2(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
-                  button#locBtnPscode.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search   
+            
           //form.form-inline.mt-2.mt-md-0#sBox
             input.form-control.mr-sm-2(type='text', placeholder='Search', aria-label='Search')
             button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search

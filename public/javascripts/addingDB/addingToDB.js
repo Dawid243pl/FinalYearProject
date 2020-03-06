@@ -69,10 +69,7 @@ $(function(){
         const api_url_pop = `population`;
         const response_pop = await fetch(api_url_pop);
         const json_pop = await response_pop.json();
-   
-
-      //getEdu(json_edu);
-     
+        
         getCrime(json_crime);
         getPopulation(json_pop);
 

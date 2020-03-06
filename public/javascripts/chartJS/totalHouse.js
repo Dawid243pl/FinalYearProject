@@ -34,9 +34,10 @@ function housing_totalPieChartJS(div,label1,data1){
         var centerY = ((chart.chartArea.top + chart.chartArea.bottom) / 2);
         ctx.font = fontSizeToUse+"px " + fontStyle;
         ctx.fillStyle = color;
-        
+		
+	
         //Draw text in center
-        ctx.fillText(txt, centerX, centerY);
+        ctx.fillText(numberWithCommas(txt), centerX, centerY);
 			}
 		}
 	});

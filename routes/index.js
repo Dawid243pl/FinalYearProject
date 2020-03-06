@@ -576,36 +576,6 @@ router.get('/crimes/:wardName', async (request, response) => {
 });
 
 
-
-
-
-
-
-router.get('/education/:wardName', async (request, response) => {
-
-
-  //console.log(request.params);
-  //const latlon = request.params.latlon.split(',');
-  //console.log(latlon);
-  const crimes = request.params.wardName;
- 
-  
-  //const api_key = "4292d79319e2ad9eae7e37f874bf66b3";
-  const education_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=early-years-pupils-achieving-a-good-level-of-development-in-bristol&rows=9999&sort=-number_of_pupils_achieving_a_good_level_of_development&facet=ward_name&facet=time_period&refine.ward_name=${crimes}`;
-  const education_response = await fetch(education_url);
-  const education_data = await education_response.json();
-
-  const all_wards_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=early-years-pupils-achieving-a-good-level-of-development-in-bristol&rows=9999&sort=-number_of_pupils_achieving_a_good_level_of_development&facet=ward_name&facet=time_period`;
-  const all_wards_response = await fetch(all_wards_url);
-  const all_wards_data = await all_wards_response.json();
-
-  const data = {
-    Current_ward: education_data,
-    //all_wards: all_wards_data
-  };
-  response.json(data);
-});
-
 router.get('/listWards', async (request, response) => {
 
 

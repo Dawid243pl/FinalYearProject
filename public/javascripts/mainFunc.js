@@ -184,7 +184,7 @@ $('a').on('click', function(){
 
 $('a.btn#crimez').addClass("btn-warning");
 
-$('a.btn').on('click', function(){
+$('a.btn').on('click', function(e){
 
   $("a.btn").removeClass("btn-warning");
   $(this).addClass("btn-warning");
@@ -197,6 +197,8 @@ $('a.btn').on('click', function(){
   console.log("target",target);
 
   $("."+target).show().siblings("div").hide();
+  
+  e.preventDefault();
   
 });
 

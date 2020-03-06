@@ -66,23 +66,7 @@ function getCrime(json_crime){
     }); 
   }
 
-  function getEdu(json_edu){
-    
-    $.each(json_edu.Current_ward.records, function(k, v){
-     
-      if (v.fields.time_period === "2018/2019"){
-        console.log("good devo",v.fields.achieving_a_good_level_of_development);
-     
-        var devo = v.fields.achieving_a_good_level_of_development;
-  
-       
-      }
-
-
-    }); 
-  
-
-  };
+ 
 
   function getQuallity(json_quall){
     $.each(json_quall.crimeQ.records, function(i){
