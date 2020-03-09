@@ -62,11 +62,11 @@ html
               li.nav-item#lgOut
                   //a.nav-link(href='users/logout') Log Out  
                   form(method="POST", action="/users/logout") 
-                    button.btn.btn-lg.btn-primary.btn-block log Out
+                    button.btn.btn-lg.btn-primary.btn-block(href="../makeDb") log Out
               li.nav-item
-              a.nav-link(href='#')
-                  span.sr-only 
-                  p= userMail
+                a.nav-link.mt-2(href='#')
+                    span.sr-only 
+                    p= userMail
 
      
 

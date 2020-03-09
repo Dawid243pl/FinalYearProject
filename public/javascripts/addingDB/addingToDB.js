@@ -73,6 +73,8 @@ $(function(){
         getCrime(json_crime);
         getPopulation(json_pop);
 
+        alert("Adding to db Finished")
+
       } 
       catch (error) {
         console.error(error);

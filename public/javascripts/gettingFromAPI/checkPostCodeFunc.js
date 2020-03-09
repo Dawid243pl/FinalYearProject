@@ -16,6 +16,12 @@ function getCrime(json_crime,ward){
 
   var chartJsArrayLabels=[];
 
+  var colourActualWardHousing =[];
+  var colourAvgWardHousing =[];
+
+  var colourActualWardPop =[];
+  var colourAvgWardPop =[];
+
   $.each(json_crime, function(i){
    
 
@@ -43,6 +49,10 @@ function getCrime(json_crime,ward){
 
         //makeDonut(newJsonArrayWrd,chartWrd,"colour");
         housing_totalPieChartJS("totalcrimeWard","some label",json_crime[i].totalCrimes);
+
+        colourActualWardPop.push(pop);
+        colourActualWardHousing.push(json_crime[i].totalCrimes);
+      
       }
       if(json_crime[i].WardName =="Bristol"){
       
@@ -60,6 +70,9 @@ function getCrime(json_crime,ward){
         //makeDonut(newJsonArrayBrs,chartBrs,"colour");
         housing_totalPieChartJS("totalcrimeBRS","some label",json_crime[i].totalCrimes); 
 
+        colourAvgWardPop.push(pop);
+        colourAvgWardHousing.push(json_crime[i].totalCrimes);
+      
         
     }
 
@@ -248,6 +261,13 @@ barChart("barCrime",makeJSONbar);
 
   //makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5],chartJsArrayBrs[0],chartJsArrayBrs[1],chartJsArrayBrs[2]);
   //console.log("0",chartJsArrayBrs[0],"1",chartJsArrayBrs[1],"2",chartJsArrayBrs[2]);
+
+  var checkHousing =colourCoding(colourActualWardHousing[0],colourAvgWardHousing[0]);
+
+  var checkPopulation =colourCoding(colourActualWardPop[0],colourAvgWardPop[0]);
+  console.log("tot house colou",checkHousing);
+  console.log("tot pop colou",checkPopulation);
+
 }
 
 function getQuallity(json_quall){

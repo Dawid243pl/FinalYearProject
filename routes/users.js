@@ -276,6 +276,7 @@ router.post('/update_user',(req,res) =>{
         
         if(result[0].Email == mail){
           console.log("Can change to the same one ");
+
           connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
             if (err) throw err;
             console.log("user Updated");
@@ -289,12 +290,16 @@ router.post('/update_user',(req,res) =>{
         //redirect error
         res.redirect("/users/myAccount");
       }else{
-        console.log("Not voted yet");
+        console.log("YOLO");
 
-        connection.query('UPDATE users SET Email = ?,fName =?,lName=?,Address=?,PostCode?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
+        console.log("old mail UPDATE WEHRE ",mail," with new email ",email);
+
+        connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
           if (err) throw err;
           console.log("user Updated");
+
         });
+        req.session.userEmail =email;
         res.redirect("/users/myAccount");
       //redirect success
       }
@@ -363,7 +368,7 @@ router.post('/update_user_password',(req,res)=>{
           return
         }
         console.log("Password changed");
-        res.status(204).send();
+        res.redirect("/users/myAccount");
       });
 
     }
@@ -394,6 +399,28 @@ router.post('/delUser',(req,res) =>{
   });
 
 });
+
+
+
+router.post('/delRating',(req,res) =>{
+  
+  var mail = req.session.userEmail;
+  console.log("taken mail",req.body.ratingWard);
+  var wardRating = req.body.ratingWard;
+
+
+  const connection = getConnection();
+ 
+  var sql = "DELETE FROM rating WHERE Email =? AND WardName =?";
+  
+  connection.query(sql,[mail,wardRating], function (err, result) {
+    if (err) throw err;
+    console.log("Number of records deleted: " + result.affectedRows);
+    res.redirect("/users/myAccount");
+  });
+
+});
+
 
 
 router.post('/rateArea',(req,res) =>{

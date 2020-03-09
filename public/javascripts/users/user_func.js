@@ -1,5 +1,17 @@
-      //Add crime to db
+//Add crime to db
+$(function(){
+
+
+
+  $("#deleteRating").click(function () {
   
+    var selectedWard = $('input[name="ratingWard"]:checked').val();
+    $("#removeRatingWard").val(selectedWard);
+
+
+  });
+
+  });
       function getCrimeUserLevel(json_crime,wrd,ratingArrr){
 
         
@@ -219,7 +231,7 @@
         $.each(json_rating, function(i){
           
           console.log("FOUND RTING");
-          $(".tBodyUserRate").append("<tr><td>"+json_rating[i].WardName+"</td/><td>"+json_rating[i].q1+"</td><td>"+json_rating[i].q2+"</td><td>"+json_rating[i].q3+"</td></tr>");
+          $(".tBodyUserRate").append("<tr><td>"+json_rating[i].WardName+"</td/><td>"+json_rating[i].q1+"</td><td>"+json_rating[i].q2+"</td><td>"+json_rating[i].q3+"</td><td><input type='radio' class='ratingWard' name='ratingWard' value='"+json_rating[i].WardName+"'></td></tr>");
           ratingArrr.push(json_rating[i].WardName);
         });
         //$(".tableArea").append("</tbody></table></div>");

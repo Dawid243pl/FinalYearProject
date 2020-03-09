@@ -53,7 +53,12 @@ block content
                                     th Q1
                                     th Q2
                                     th Q3
-                            tbody.tBodyUserRate     
+                                    th Select
+                            tbody.tBodyUserRate
+                    form#delteRatingForm(action = "/users/delRating", method = "POST")
+                                    input(type="hidden" id="removeRatingWard" name="ratingWard" value="")
+                                    |                                   
+                                    button#deleteRating.btn.btn-primary.float-right.ml-2(type='submit') Delete Rating             
                 .col-lg-6.col-sm-12
                     h2 Account Details
                     .userDetailsForm
@@ -219,6 +224,8 @@ block content
                                                     input#inputPassword4.form-control(type='password', placeholder='Password', name='password') 
                                                 .form-group.col-sm-12    
                                                     button#addUSer.btn.btn-primary.float-right(type='submit') Add user   
+                        form#makeDbFrom(action="../makeDB" method="GET")
+                            button#makeDB.btn.btn-primary.float-right.ml-2(type='submit') Make Databases                            
         script
             include ../public/javascripts/mainFunc.js  
             include ../public/javascripts/users/admin_func.js        
