@@ -44,75 +44,7 @@ block content
     .row
       .searchResult.col-sm-12
          h1.searchRes
-      .col-sm-4.col-lg-2.text-center#cr
-        .donut-container(style="background: #9C0;")
-          .donut-inner
-            .donut-label 
-              title Crime
-        h2 
-          a(href='#Crimez') Crime
-        p
-          | kox
-        p
-          a.btn.btn-secondary(href='#', role='button') View details »
-      // /.col-lg-4
-      .col-sm-4.col-lg-2.text-center#hs
-        .donut-container(style="background: #9C0;")
-          .donut-inner
-            .donut-label 
-              title Housing
-        h2 
-          a(href='#Houz') Housing
-        p
-          | kox
-        p
-          a.btn.btn-secondary(href='#', role='button') View details »
-      // /.col-lg-4
-      .col-sm-4.col-lg-2.text-center#sr
-        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
-          title Health
-          rect(width='100%', height='100%', fill='#777')
-          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
-        h2 Health
-        p
-          | kox
-        p
-          a.btn.btn-secondary(href='#', role='button') View details »
-      // /.col-lg-4
-      .col-sm-4.col-lg-2.text-center#pop
-        .donut-container(style="background: #9C0;")
-          .donut-inner
-            .donut-label 
-              title Population
-        h2
-          a(href='#popz') Population
-        p
-          | kox
-        p
-          a.btn.btn-secondary(href='#', role='button') View details »
-    
-      .col-sm-4.col-lg-2.text-center#edu
-        svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
-          title Education
-          rect(width='100%', height='100%', fill='#777')
-          text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
-        h2 Education
-        p
-          | kox
-        p
-          a.btn.btn-secondary(href='#', role='button') View details »
-      // /.col-lg-4
-
-      .col-sm-4.col-lg-2.text-center#uscr
-              svg.bd-placeholder-img.rounded-circle(width='140', height='140', xmlns='http://www.w3.org/2000/svg', preserveAspectRatio='xMidYMid slice', focusable='false', role='img', aria-label='Placeholder: 140x140')
-                title User Score
-                rect(width='100%', height='100%', fill='#777')
-                text(x='50%', y='50%', fill='#777', dy='.3em') 140x140
-              h2 User Score
-              p
-                | kox
-              p
-                a.btn.btn-secondary(href='#', role='button') View details »
+      
   
   .container
     .titContainer 
@@ -123,7 +55,7 @@ block content
      
       .crimeContainer#crimez
         .jumbotron
-          h1.display-4
+          h1.display-4 Crime
           .widget.bg-dark
             .header.bg-info Total Population
             .header_sub.bg-danger
@@ -162,7 +94,7 @@ block content
 
       .populationContainer#popz  
           .jumbotron
-            h1.display-4
+            h1.display-4 Population
             .widget.bg-dark
               .header.bg-info Total Population
               .header_sub.bg-danger
@@ -195,7 +127,7 @@ block content
 
       .housingContainer#houz
             .jumbotron
-              h1.display-4
+              h1.display-4 Housing
               .widget.bg-dark
                 .header.bg-info Total Number of Households
                 .header_sub.bg-danger
@@ -303,6 +235,7 @@ block content
                 hr
                 .row
                   .col-sm-12.col-lg-6 
+                    p.lead#no-rating
                     canvas#userDrivenChart
                   .col-sm-12.col-lg-6 
                     canvas#userDrivenChart1

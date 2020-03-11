@@ -209,16 +209,16 @@ function colourCoding(actual,average){
   console.log(actual,"vs",average);
   //if bigger than 20% of the average red
   if(actual >= (average * 1.2) ){
-    console.log("BIGGER RED");
+    //console.log("BIGGER RED");
     return "danger";
   //else if it is less than 20% of the average green  
   }else if(actual <= (average * 0.8) ){
-    console.log("SMALLER Amber");
+    //console.log("SMALLER Amber");
     return "success";
 
   //else its average amber
   }else{
-    console.log("Medium GREEN")
+    //console.log("Medium GREEN")
     return "secondary";
   }
 

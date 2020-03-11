@@ -1,6 +1,5 @@
 function makeStacked(div,barChartData){
 
-    console.log("pop",barChartData);
     var ctx = document.getElementById(div).getContext('2d');
     var myBar = new Chart(ctx, {
         type: 'bar',

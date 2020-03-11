@@ -18,12 +18,12 @@ $(function(){
         if(postcode == ""){
 
           text = `postCode2/${long}/${lat}`;
-          console.log(text);
+          
 
           const api_url = text;
           const response = await fetch(api_url);
           const json = await response.json();
-          console.log(json);
+       
 
           postC =  json.postcode.result[0].postcode;
           latz = json.postcode.result[0].latitude;
@@ -32,7 +32,6 @@ $(function(){
           northing = json.postcode.result[0].northings;
           ward = json.postcode.result[0].admin_ward;
 
-          console.log("WARD# 1",ward);
 
         }else{
           text = `postCode/${postcode}`
@@ -40,7 +39,7 @@ $(function(){
           const api_url = text;
           const response = await fetch(api_url);
           const json = await response.json();
-          console.log(json);
+          
 
           postC =  json.postcode.result.postcode;
           latz = json.postcode.result.latitude;
@@ -51,7 +50,7 @@ $(function(){
           
         }
 
-        console.log("WARD# 2",ward);
+        
      
         //weather = json.weather.currently;
         //air = json.air_quality.results[0].measurements[0];
@@ -108,7 +107,6 @@ $(function(){
         const response_quall = await fetch(api_url_quall );
         const json_quall  = await response_quall.json();
 
-        console.log(lat,long);
 
         
         //console.log(d.toLocaleDateString());
@@ -154,9 +152,9 @@ $(function(){
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
 
-      var api_url_zoopla = `/zooplaAPI/${postC}`;
-      var response_zoopla = await fetch(api_url_zoopla);
-      var json_zoopla  = await response_zoopla.json(); 
+      //var api_url_zoopla = `/zooplaAPI/${postC}`;
+      //var response_zoopla = await fetch(api_url_zoopla);
+      //var json_zoopla  = await response_zoopla.json(); 
 
       var api_url_housing = `/housing`;
       var response_housing = await fetch(api_url_housing);
@@ -171,7 +169,7 @@ $(function(){
       getWeather(json_weather);
       getCrime(json_crime,ward);
       getPopulation(json_pop,ward);
-      getZoopla(json_zoopla,ward);
+      //getZoopla(json_zoopla,ward);
       getHousing(json_housing,ward);
       
 

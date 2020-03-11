@@ -16,8 +16,8 @@ function getCrime(json_crime,ward){
 
   var chartJsArrayLabels=[];
 
-  var colourActualWardHousing =[];
-  var colourAvgWardHousing =[];
+  var colourActualWardCrime =[];
+  var colourAvgWardCrime =[];
 
   var colourActualWardPop =[];
   var colourAvgWardPop =[];
@@ -35,7 +35,7 @@ function getCrime(json_crime,ward){
       if( json_crime[i].WardName ==ward){
         var pop = json_crime[i].population;
         //$(".popWrd").append("<h1>"+pop+"</h1>");   
-        housing_totalPieChartJS("totalpopWard","test",pop); 
+        //housing_totalPieChartJS("totalpopWard","test",pop); 
        
         var crimeStat3 = new Object();
         crimeStat3.name = "Total crimes";
@@ -48,17 +48,17 @@ function getCrime(json_crime,ward){
         newJsonArrayWrd.push(crimeStat3);
 
         //makeDonut(newJsonArrayWrd,chartWrd,"colour");
-        housing_totalPieChartJS("totalcrimeWard","some label",json_crime[i].totalCrimes);
+        //housing_totalPieChartJS("totalcrimeWard","some label",json_crime[i].totalCrimes);
 
         colourActualWardPop.push(pop);
-        colourActualWardHousing.push(json_crime[i].totalCrimes);
+        colourActualWardCrime.push(json_crime[i].totalCrimes);
       
       }
       if(json_crime[i].WardName =="Bristol"){
       
         var pop = json_crime[i].population;
         //$(".popBrs").append("<h1>"+pop+"</h1>");  
-        housing_totalPieChartJS("totalpopBRS","test",pop);
+        housing_totalPieChartJS("totalpopBRS","test",pop,"default");
         var crimeStat1 = new Object();
         crimeStat1.name = "Total crimes";
         crimeStat1.percent = 100;
@@ -68,10 +68,10 @@ function getCrime(json_crime,ward){
         newJsonArrayBrs.push(crimeStat1);
     
         //makeDonut(newJsonArrayBrs,chartBrs,"colour");
-        housing_totalPieChartJS("totalcrimeBRS","some label",json_crime[i].totalCrimes); 
+        housing_totalPieChartJS("totalcrimeBRS","some label",json_crime[i].totalCrimes,"default"); 
 
         colourAvgWardPop.push(pop);
-        colourAvgWardHousing.push(json_crime[i].totalCrimes);
+        colourAvgWardCrime.push(json_crime[i].totalCrimes);
       
         
     }
@@ -202,7 +202,7 @@ var makeJSONarr=[];
 var makeJSONbar=[];
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
-  console.log(chartJsArray1Name[xy]," vs ",ward);
+  //console.log(chartJsArray1Name[xy]," vs ",ward);
   if (chartJsArray1Name[xy] == ward){
     var someObj = new Object();
     someObj.label = chartJsArray1Name[xy];
@@ -228,10 +228,7 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
 }
 
-console.log(makeJSONarr);
-console.log(makeJSONbar);
 
-console.log("CHART LABELS",chartJsArrayLabels);
 
 makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr); 
 barChart("barCrime",makeJSONbar); 
@@ -262,11 +259,15 @@ barChart("barCrime",makeJSONbar);
   //makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5],chartJsArrayBrs[0],chartJsArrayBrs[1],chartJsArrayBrs[2]);
   //console.log("0",chartJsArrayBrs[0],"1",chartJsArrayBrs[1],"2",chartJsArrayBrs[2]);
 
-  var checkHousing =colourCoding(colourActualWardHousing[0],colourAvgWardHousing[0]);
+  var checkCrime =colourCoding(colourActualWardCrime[0],colourAvgWardCrime[0]);
 
   var checkPopulation =colourCoding(colourActualWardPop[0],colourAvgWardPop[0]);
-  console.log("tot house colou",checkHousing);
-  console.log("tot pop colou",checkPopulation);
+
+  //console.log("tot crime colou",checkCrime);
+  //console.log("tot pop colou",checkPopulation);
+
+  housing_totalPieChartJS("totalcrimeWard","some label",colourActualWardCrime[0],checkCrime);
+  housing_totalPieChartJS("totalpopWard","test",colourActualWardPop[0],checkPopulation,checkPopulation); 
 
 }
 
@@ -485,8 +486,6 @@ function getQuallity(json_quall){
 
   function getZoopla(json_zoopla,ward){
     
-    console.log(json_zoopla);
-
       
       var turnover =json_zoopla.zoopla.turnover;
       var currentSalepriceAvg = json_zoopla.zoopla.average_sold_price_1year;
@@ -879,7 +878,7 @@ function getHousing(json_housing,ward){
   
 
   //console.log("avg semi etc",semiNumbBRS,terracedNumbBRS,detachedNumbBRS,flatNumbBRS);
-  console.log("avg semi etc",calcAVG_semi_Brs,calcAVG_terraced_Brs,calcAVG_detached_Brs,calcAVG_flat_Brs);
+  //console.log("avg semi etc",calcAVG_semi_Brs,calcAVG_terraced_Brs,calcAVG_detached_Brs,calcAVG_flat_Brs);
 
   housing_ownedPieChartJS("housing_ownedPieChartBRS","Owned","Social","Private owned",calcAVG_owned_Brs,calcAVG_social_Brs,calcAVG_privateBrs);  
 
@@ -888,23 +887,24 @@ function getHousing(json_housing,ward){
   housing_bedPieChartJS("housing_bedPieChartBRS","1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",calcAVG_Bed_1_Brs,calcAVG_Bed_2_Brs,calcAVG_Bed_3_Brs,calcAVG_Bed_4_Brs);
 
 
-  console.log(colourCoding(totalHouseholdsBed,totalHouseholdsBedBrs/34));
+  var checkHousing =colourCoding(totalHouseholdsBed,totalHouseholdsBedBrs);
 
-  housing_totalPieChartJS("totalHouseBRS","cos",totalHouseholdsBedBrs);
-  housing_totalPieChartJS("totalHouseWard","cos",totalHouseholdsBed);
+  //console.log("tot house colou",checkHousing);
+
+  housing_totalPieChartJS("totalHouseBRS","cos",totalHouseholdsBedBrs,"default");
+  housing_totalPieChartJS("totalHouseWard","cos",totalHouseholdsBed,checkHousing);
  
-  
-  var calculateBRSoverCrowded =overcrowdedHousesProcBrs / counter;
+
 
  // console.log(counter);
-  console.log("BRS",overcrowdedHousesNumbBrs,calculateBRSoverCrowded.toFixed(2),"Ward",overcrowdedHousesNumb,overcrowdedHousesProc)
+  //console.log("BRS",overcrowdedHousesNumbBrs,calculateBRSoverCrowded.toFixed(2),"Ward",overcrowdedHousesNumb,overcrowdedHousesProc)
 
 }
 
 
 function getUserReview(json_review){
 
-  console.log(json_review.review[0].q1Yes);
+  //console.log(json_review.review[0].q1Yes);
 
   var recordResponse=[];
   var questionArr=[];
@@ -920,7 +920,7 @@ function getUserReview(json_review){
   tempArray3.push(json_review.review[0].q3Yes,json_review.review[0].q3No);  
   recordResponse.push(tempArray3);
 
-  console.log(recordResponse);
+  //console.log(recordResponse);
 
   $.each(json_review.question, function(i){
 

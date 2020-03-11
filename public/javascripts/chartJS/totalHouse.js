@@ -1,4 +1,21 @@
-function housing_totalPieChartJS(div,label1,data1){
+function housing_totalPieChartJS(div,label1,data1,colorz){
+
+
+	if (colorz =="danger"){
+		color ="rgb(255,0,0)";
+		//console.log("RED");
+	}else if(colorz =="success"){
+		colorz ="#00e640";
+		//console.log("GREEN");
+	}else if(colorz =="secondary"){
+		colorz ="rgb(36,37,42)";
+		//console.log("GREY");
+
+	}else if (colorz =="default"){
+		colorz ="rgb(0,123,255)";
+		//console.log("BLUE DEFAULT");
+	}
+
 	Chart.pluginService.register({
 		beforeDraw: function (chart) {
 			if (chart.config.options.elements.center) {
@@ -54,7 +71,7 @@ function housing_totalPieChartJS(div,label1,data1){
 				datasets: [{
 					data: [data1],
 					backgroundColor: [
-					  "rgb(31, 119, 180)",
+					  colorz,
 					],
 					hoverBackgroundColor: [
 					  "#FF6384",
@@ -67,7 +84,7 @@ function housing_totalPieChartJS(div,label1,data1){
 			elements: {
 				center: {
 					text: data1,
-          color: '#FF6384', // Default is #000000
+          color: "#FF6384", // Default is #000000
           fontStyle: 'Arial', // Default is Arial
           sidePadding: 20 // Defualt is 20 (as a percentage)
 				}
