@@ -143,9 +143,9 @@ $(function(){
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
 
-      //var api_url_zoopla = `/zooplaAPI/${postC}`;
-      //var response_zoopla = await fetch(api_url_zoopla);
-      //var json_zoopla  = await response_zoopla.json(); 
+      var api_url_zoopla = `/zooplaAPI/${postC}`;
+      var response_zoopla = await fetch(api_url_zoopla);
+      var json_zoopla  = await response_zoopla.json(); 
 
       var api_url_housing = `/housing`;
       var response_housing = await fetch(api_url_housing);
@@ -160,7 +160,7 @@ $(function(){
       getWeather(json_weather);
       getCrime(json_crime,ward);
       getPopulation(json_pop,ward);
-      //getZoopla(json_zoopla,ward);
+      getZoopla(json_zoopla,ward);
       getHousing(json_housing,ward);
       
 

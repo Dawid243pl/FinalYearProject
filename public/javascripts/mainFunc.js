@@ -102,12 +102,10 @@ function val(){
 
 function checkBristol(pCode){
   var checkPFormat = checkPostCode(pCode);
-  alert(checkPFormat);
+
   if(checkPFormat){
     $.getJSON('../postCode/'+pCode, function(data) {
       
-      alert(data.postcode.result.primary_care_trust );
-
       if (data.postcode.result.primary_care_trust == "Bristol"){
         document.getElementById("locationForm").submit();
         return true;
