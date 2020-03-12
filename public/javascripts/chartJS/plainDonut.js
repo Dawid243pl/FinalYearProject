@@ -1,8 +1,5 @@
 function plainDonut(div,label,datas){
 
-	console.log(datas[0].data[0]);
-	console.log(datas);
-
 	if(datas[0].data[0] != null){
 
 		var ctx = document.getElementById(div).getContext('2d');

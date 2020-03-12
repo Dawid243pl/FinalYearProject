@@ -13,15 +13,9 @@ block content
         .form-label-group
             input#inputPassword.form-control(type='password', required='',name="password")
             label(for='inputPassword') Password
-        .checkbox.mb-3
-            label
-            input(type='checkbox', value='remember-me')
-            |  Remember me
         button.btn.btn-lg.btn-primary.btn-block(type='submit') Sign in
         br
         a(href='/users/register')
             button.btn.btn-lg.btn-primary.btn-block(type='button') Register
-            
-        p.mt-5.mb-3.text-muted.text-center © 2017-2019
     script
         include ../public/javascripts/mainFunc.js

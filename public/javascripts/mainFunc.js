@@ -43,6 +43,7 @@ function checkPostCode(postcode) {
 
 
 
+
 function val2(){
   var lat =$("#latti").val();
   var long = $("#longi").val();
@@ -100,18 +101,27 @@ function val(){
 
 
 function checkBristol(pCode){
+  var checkPFormat = checkPostCode(pCode);
+  alert(checkPFormat);
+  if(checkPFormat){
+    $.getJSON('../postCode/'+pCode, function(data) {
+      
+      alert(data.postcode.result.primary_care_trust );
 
-  $.getJSON('../postCode/'+pCode, function(data) {
-    if (data.postcode.result.primary_care_trust == "Bristol"){
-      document.getElementById("locationForm").submit();
-      return true;
-
-    }else{
-      return false;
-    }
-});
-
-
+      if (data.postcode.result.primary_care_trust == "Bristol"){
+        document.getElementById("locationForm").submit();
+        return true;
+  
+      }else{
+        alert("Postcode not withing bristol");
+        return false;
+      }
+  });
+  }else{
+    alert("Wrong postcode format");
+    return false;
+  }
+  
   
 };
 function checkBristol2(lat,long){

@@ -1,4 +1,6 @@
 function initMap(json,wardCurlat,wardCurlong) {
+
+    console.log(json);
     // map options
     var options ={
         zoom:18,
@@ -17,7 +19,7 @@ function initMap(json,wardCurlat,wardCurlong) {
 
                 for (var z =0;z<json[l].police.length;z++){
 
-                    console.log(json[l].police[z].location.latitude,json[l].police[z].location.longitude);
+                   
 
                     var tempAtt=[];
                     
@@ -32,11 +34,11 @@ function initMap(json,wardCurlat,wardCurlong) {
 
         }
 
-        console.log(mapArray);
+        
 
         for (var r=0;r <mapArray.length;r++){
 
-            console.log(parseFloat(mapArray[0]));
+        
             var newLat = parseFloat(mapArray[r][0]) + (Math.random() -.5) / 1500;// * (Math.random() * (max - min) + min);
             var newLng = parseFloat(mapArray[r][1]) + (Math.random() -.5) / 1500;// * (Math.random() * (max - min) + min);
 
@@ -117,25 +119,10 @@ function initMap(json,wardCurlat,wardCurlong) {
                 infoWindow.open(map,marker);
             });
         }
-
+        
     }
-
-  }
-
-  function getPolice(json_police){
-      
-    $.each(json_police, function(i){
-           
-        var length = json_police[i].length;
-
-        for(var l = 0;l < length;l++){
-
-          console.log("police",json_police[i][l]);
-          
-          
-          //$(".latestCrime").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_police[i][l].category+"<span class='badge badge-primary badge-pill'>"+json_police[i][l].month+"</span></div>");
     
-        }
-     
-      });
+
   }
+
+ 

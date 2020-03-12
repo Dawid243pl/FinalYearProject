@@ -31,6 +31,7 @@ function showPosition(position) {
     console.log(latz);
     console.log(longz);
 
+ 
     $("#latti").val(latz);
     $("#longi").val(longz);
 

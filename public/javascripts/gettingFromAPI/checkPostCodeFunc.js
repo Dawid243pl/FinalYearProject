@@ -196,8 +196,6 @@ function getCrime(json_crime,ward){
 //console.log(chartJsArray1Stat,chartJsArray2Stat,chartJsArray3Stat,chartJsArray1Name,chartJsArray2Name,chartJsArray3Name);
 
 //Find top Contrys with the biigest crime + current ward
-
-
 var makeJSONarr=[];
 var makeJSONbar=[];
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
@@ -216,12 +214,23 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   //someObj.pointHoverRadius=15;
   //someObj.showLine= false;
 
-  var barObj = new Object();
-  barObj.label = chartJsArray1Name[xy];
-  barObj.data = [chartJsArray1Stat[xy]];
-  barObj.backgroundColor =  "rgb(255, 99, 132)";
-  barObj.borderColor = '#000000';
-  barObj.fill = false;
+  if (chartJsArray1Name[xy] == ward){
+    var barObj = new Object();
+    barObj.label = chartJsArray1Name[xy];
+    barObj.data = [chartJsArray1Stat[xy]];
+    barObj.backgroundColor =  "rgb(0,123,255)";
+    barObj.borderColor = 'rgb(0,123,255)';
+    barObj.fill = false;
+  }else{
+    var barObj = new Object();
+    barObj.label = chartJsArray1Name[xy];
+    barObj.data = [chartJsArray1Stat[xy]];
+    barObj.backgroundColor =  "rgb(255, 99, 132)";
+    barObj.borderColor = '#000000';
+    barObj.fill = false;
+  }
+
+ 
 
 
   makeJSONbar.push(barObj);

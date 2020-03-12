@@ -62,7 +62,7 @@ block content
                 .col-lg-6.col-sm-12
                     h2 Account Details
                     .userDetailsForm
-                        form#userDetailsForm(action="/users/update_user" method="POST")
+                        form#userDetailsForm(action="/users/update_user" method="POST" onSubmit="return checkPCode();")
                             .form-row  
                                 .form-group.col-sm-6
                                     label(for='validationDefault01') First name
@@ -72,16 +72,16 @@ block content
                                     input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
                                 .form-group.col-sm-6
                                     label(for='inputEmail4') Email
-                                    input#inputEmail4.form-control(type='email', placeholder='Email', name='email')
+                                    input#inputEmail4.form-control(type='email', placeholder='Email', name='email',required='')
                                 .form-group.col-sm-6 
                                     label(for='inputAddress') Address
-                                    input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address')
+                                    input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address'.required='')
                                 .form-group.col-sm-6
                                     label(for='inputZip') PostCode
-                                    input#inputZip.form-control(type='text', name='postCode')
+                                    input#inputZip.EditUser.form-control(type='text', name='postCode',required='')
                                 .form-group.col-sm-6
                                     label(for='inputCity') City
-                                    input#inputCity.form-control(type='text' name='city')
+                                    input#inputCity.form-control(type='text' name='city',required='')
                                 .form-group.col-sm-12    
                                     button#subUser.btn.btn-primary.float-right(type='submit') Update     
                     .row
@@ -110,6 +110,7 @@ block content
             include ../public/javascripts/users/users.js    
             include ../public/javascripts/chartJs/radar.js
             include ../public/javascripts/chartJs/basicBar.js
+            include ../public/javascripts/formValidation.js
     else if accountType == 'Admin'   
         .container.marketing
             .row
@@ -156,7 +157,7 @@ block content
                 .row.col-lg-12                       
                     .col-lg-12
                         #formHolder
-                                form#locationForm(action = "/users/delUser", method = "POST")
+                                form#deleteUser(action = "/users/delUser", method = "POST")
                                     input(type="hidden" id="editUserMail" name="userMail" value="")
                                     |                                 
                                     button#delUSer.btn.btn-primary.float-right.ml-2(type='submit') Delete User    
@@ -169,7 +170,7 @@ block content
                                     .modal-contentz
                                         span.closez ×
                                         .userDetailsForm
-                                            form#userDetailsForm(action="/users/update_user2" method="POST")
+                                            form#edit(action="/users/update_user2" method="POST" onSubmit="return checkPCode3();")
                                                 .form-row  
                                                     .form-group.col-sm-6
                                                         label(for='validationDefault01') First name
@@ -179,16 +180,16 @@ block content
                                                         input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
                                                     .form-group.col-sm-6
                                                         label(for='inputEmail4') Email
-                                                        input#inputEmail4.form-control(type='email', placeholder='Email', name='email')
+                                                        input#inputEmail4.form-control(type='email', placeholder='Email', name='email',required='')
                                                     .form-group.col-sm-6 
                                                         label(for='inputAddress') Address
-                                                        input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address')
+                                                        input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address',required='')
                                                     .form-group.col-sm-6
                                                         label(for='inputZip') PostCode
-                                                        input#inputZip.form-control(type='text', name='postCode')
+                                                        input#inputZip.Edit.form-control(type='text', name='postCode',required='')
                                                     .form-group.col-sm-6
                                                         label(for='inputCity') City
-                                                        input#inputCity.form-control(type='text' name='city')
+                                                        input#inputCity.form-control(type='text' name='city',required='')
                                                         input#mailOld(type="hidden" name="mailOld")    
                                                     .form-group.col-sm-12    
                                                         button#subUser.btn.btn-primary.float-right(type='submit') Update 
@@ -199,7 +200,7 @@ block content
                                     // Modal content
                                     .modal-contentz
                                         span.closez ×
-                                        form#addUser(action="/users/user_create2" method="POST")
+                                        form#addUser(action="/users/user_create2" method="POST" onSubmit="return checkPCode2();")
                                             .form-row  
                                                 .form-group.col-sm-6
                                                     label(for='validationDefault01') First name
@@ -209,19 +210,19 @@ block content
                                                     input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
                                                 .form-group.col-sm-6
                                                     label(for='inputEmail4') Email
-                                                    input#inputEmail4.form-control(type='email', placeholder='Email', name='email')
+                                                    input#inputEmail4.form-control(type='email', placeholder='Email', name='email',required='')
                                                 .form-group.col-sm-6 
                                                     label(for='inputAddress') Address
-                                                    input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address')
+                                                    input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address',required='')
                                                 .form-group.col-sm-6
                                                     label(for='inputZip') PostCode
-                                                    input#inputZip.form-control(type='text', name='postCode')
+                                                    input#inputZip.Add.form-control(type='text', name='postCode',required='')
                                                 .form-group.col-sm-6
                                                     label(for='inputCity') City
-                                                    input#inputCity.form-control(type='text' name='city')
+                                                    input#inputCity.form-control(type='text' name='city',required='')
                                                 .form-group.col-lg-12
                                                     label(for='inputPassword4') Password
-                                                    input#inputPassword4.form-control(type='password', placeholder='Password', name='password') 
+                                                    input#inputPassword4.form-control(type='password', placeholder='Password', name='password',required='') 
                                                 .form-group.col-sm-12    
                                                     button#addUSer.btn.btn-primary.float-right(type='submit') Add user   
                         form#makeDbFrom(action="../makeDB" method="GET")
@@ -231,3 +232,4 @@ block content
             include ../public/javascripts/users/admin_func.js        
             include ../public/javascripts/users/admin.js    
             include ../public/javascripts/chartJS/timeUser.js   
+            include ../public/javascripts/formValidation.js

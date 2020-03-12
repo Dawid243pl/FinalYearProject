@@ -7,13 +7,17 @@ function barChart(div,makeJSONarr){
     
         // The data for our dataset
         data: {
-            labels:["cos"],
+            labels:["Cimres in all wards"],
             datasets: makeJSONarr
         },
     
         // Configuration options go here
         options: {
             responsive: true,
+            legend: {
+				display: false,
+            },
+            
         }
     });
     

@@ -55,7 +55,7 @@ block content
      
       .crimeContainer#crimez
         .jumbotron
-          h1.display-4 Crime
+          h1.display-4.text-center Crime
           .widget.bg-dark
             .header.bg-info Total Population
             .header_sub.bg-danger
@@ -70,33 +70,31 @@ block content
           p.lead
             | #INFO
           .hiddenCont  
-            hr.my-4
-            p
-              | It uses utility classes for typography and spacing to space content out within the larger container.
             p.lead
-              a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
-            p.lead
-            | Crime in the last 3 Months  
+            | What do people living in this area think?
             p.CrimeComponent  
             hr.my-4
-
             .col-lg-12  
               ul.list-group.crimez
-
             hr.my-4
-            p.lead
+            h2.lead
               | Crime in the last 3 Months
               .latestCrime
             #map
             hr.my-4  
-            canvas#myChart
+            h2.lead
+              | Crimes in all wards
             canvas#barCrime
+            hr.my-4  
+            p.lead
+              | Crime levels in the past 3 Years
+            canvas#myChart
           btn.viewAll.btn-primary.btn-lg.mt-2(href="#" role="button") View More    
 
 
       .populationContainer#popz  
           .jumbotron
-            h1.display-4 Population
+            h1.display-4.text-center Population
             .widget.bg-dark
               .header.bg-info Total Population
               .header_sub.bg-danger
@@ -110,21 +108,13 @@ block content
             p.lead
               | #INFO
             .hiddenCont  
-              hr.my-4
-              p
-                | It uses utility classes for typography and spacing to space content out within the larger container.
-              p.lead
-                a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
-              p.lead
-              | Crime in the last 3 Months  
-              p.CrimeComponent  
-              canvas#popBar
-              hr.my-4
-              ul.list-group.popz
-              hr.my-4
-              p.lead
-                | Crime in the last 3 Months
+              h2.lead
+                | Population of this ward
               canvas#popChart  
+              h2.lead
+              | Population in all wards 
+              canvas#popBar
+          
             btn.viewAll.btn-primary.btn-lg.mt-2(href="#" role="button") View More    
 
       .housingContainer#houz
@@ -140,22 +130,15 @@ block content
                     canvas#totalHouseBRS
                   .col-sm-6 
                     canvas#totalHouseWard
-              
-                  //.cont-h#brs
-                  //.cont-h#wrd 
-                //div#chartBrs.chart-container
-                //div#chartWrd.chart-container
                 .houseBrs
                 .houseWrd
               p.lead
                 | #INFO
               .hiddenCont
+                p.lead
+                  | What do people living in this area think?
                 ul.list-group.houz
                 hr.my-4
-                p
-                  | It uses utility classes for typography and spacing to space content out within the larger container.
-                p.lead
-                  a.btn.btn-primary.btn-lg(href='#', role='button') Learn more
                 p.lead
                 | Housing information
                 p.CrimeComponent
