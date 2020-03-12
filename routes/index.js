@@ -78,7 +78,12 @@ router.get('/makeDB', function(req, res, next) {
 });
 
 
+router.get('/map', function(req, res, next) {
+ 
+  res.render('someMap', { title: '' });
 
+
+});
 
 
 /*
@@ -337,6 +342,8 @@ router.post('/findArea', function(req, res){
     var lat =  req.body.lat;
     var long =  req.body.long;
       
+    console.log("lat lon",lat,long);
+
     if (req.session.loggedin){
       console.log("WElcome back,"+req.session.userEmail+'!');
       //document.getElementById("#lgIn").style.visibility = 'hidden';

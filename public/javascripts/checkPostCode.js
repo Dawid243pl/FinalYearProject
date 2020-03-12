@@ -32,7 +32,7 @@ $(function(){
           northing = json.postcode.result[0].northings;
           ward = json.postcode.result[0].admin_ward;
 
-
+         
         }else{
           text = `postCode/${postcode}`
 
@@ -55,8 +55,8 @@ $(function(){
         //weather = json.weather.currently;
         //air = json.air_quality.results[0].measurements[0];
 
-    
-
+        
+        console.log("latz longz",latz,longz);
         //set value of hidden field
         $("#wardNamezHidden").val(ward);
          //to redirect to home page if ward does not exist
@@ -110,7 +110,7 @@ $(function(){
 
         
         //console.log(d.toLocaleDateString());
-        /*
+        
         var dateArray=[];
 
         for(var y =0;y<3;y++){
@@ -120,6 +120,8 @@ $(function(){
           
           dateArray.push(d);
         }
+
+        policeJsonArr =[];
        for(var z =0;z<dateArray.length;z++){
           
           var mm = dateArray[z].getMonth()+1;
@@ -128,26 +130,15 @@ $(function(){
           var combinedDate =yr+'-'+mm;
           console.log("combined",combinedDate);
           
-          var api_url_police = `/policeData/${combinedDate}/${lat}/${long}/`;
+          var api_url_police = `/policeData/${combinedDate}/${latz}/${longz}/`;
           var response_police = await fetch(api_url_police);
           var json_police  = await response_police.json();
 
-          $.each(json_police, function(i){
-           
-            var length = json_police[i].length;
+          policeJsonArr.push(json_police);
+      }
 
-            for(var l = 0;l < length;l++){
+      initMap(policeJsonArr,latz,longz);
 
-              console.log("police",json_police[i][l]);
-              
-              $(".latestCrime").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'>% "+json_police[i][l].category+"<span class='badge badge-primary badge-pill'>"+json_police[i][l].month+"</span></div>");
-        
-            }
-         
-          });
-          
-          }
-*/
       var api_url_pop = `/getPopulation`;
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
