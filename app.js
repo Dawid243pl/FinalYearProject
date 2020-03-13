@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var areaRouter = require('./routes/searchOutput');
 const session = require("express-session");
+var expressValidator = require("express-validator");
+
 
 var app = express();
 
@@ -31,6 +33,7 @@ const{
   SEES_SECRET = 'testSecret',
 } = process.env;
 const IN_PROD = NODE_ENV === 'production';
+
 app.use(session({
   name: SESS_Name,
   secret: SEES_SECRET,
@@ -43,6 +46,8 @@ app.use(session({
   }
 
 }));
+
+//app.use(expressValidator());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

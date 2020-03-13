@@ -5,6 +5,7 @@ const fetch = require("node-fetch");
 const bcryptjs = require("bcryptjs");
 
 
+
 const pool = mysql.createPool({
 
   host:'localhost',
@@ -52,7 +53,11 @@ router.get('/register',redirectHome, function(req, res, next) {
 
 
 router.get('/login',redirectHome, function(req, res, next) {
-  res.render('login', { title: '' });
+  res.render('login', { title: '',success:req.session.success,errors: req.session.errors });
+  //req.session.success = "true";
+  req.session.destroy(function (err) {
+    if (err) return next(err)
+  })
 });
 
 
@@ -195,8 +200,9 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
 
 });
 
-router.post('/auth', function(req,res){
+router.post('/auth', function(req,res,next){
   
+
   var email = req.body.email;
   var password = req.body.password;
   
@@ -207,11 +213,16 @@ router.post('/auth', function(req,res){
     const queryString = "SELECT * FROM users WHERE email =?"; 
   
     connection.query(queryString,[email], (err,result,fields) =>{
+    
+      console.log(result);
+
     if(result.length > 0){
    
       bcryptjs.compare(password, result[0].Password, function(err, result2) {
         console.log("B CRYPTE RES",result2);
         console.log(password," vs ",result[0].Password);
+
+
         var accountType = result[0].AccountType;
         // res == true
         if (err){
@@ -232,6 +243,23 @@ router.post('/auth', function(req,res){
             message: 'Auth Sucessful'
           })
           */    
+        }else{
+
+          req.session.success = "error";
+     
+          res.redirect('/users/login');
+          //req.session.auth = "failed";
+     
+          //res.redirect('/users/login');
+          //res.status(204).send();
+    
+          //res.status(400).send("Cannot find user");
+          //res.status(500).send("Cannot find user");
+    
+          //return next(error);
+          //return next(new Error('No users found.'))
+
+          //res.status(200).send({ error: 'Something failed!' });
         }
         /*
         res.status(401).json({
@@ -241,7 +269,9 @@ router.post('/auth', function(req,res){
       });
 
     }else{
-      //res.send("Incorrect email")
+      req.session.success = "error";
+     
+      res.redirect('/users/login');
     }
     //res.end();
   });
