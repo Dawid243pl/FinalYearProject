@@ -1,6 +1,13 @@
 extends layout
 
 block content
+    script.
+        var checkAuth = '#{success}';
+        
+        if(checkAuth == "error"){
+            
+            alert("Sorry this email address is already in use");
+        }    
     .registerForm
         form#userForm(action="/users/user_create" method="POST" onSubmit="return checkPCode();")
             .form-row

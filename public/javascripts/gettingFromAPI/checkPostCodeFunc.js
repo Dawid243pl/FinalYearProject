@@ -24,31 +24,23 @@ function getCrime(json_crime,ward){
 
   $.each(json_crime, function(i){
    
-
-
     if( json_crime[i].year =="2018-19" ){
 
       var wardCurrent = json_crime[i].WardName;
       var trendYears = json_crime[i].year;
+
       chartJsArrayLabels.push(trendYears);
 
       if( json_crime[i].WardName ==ward){
         var pop = json_crime[i].population;
-        //$(".popWrd").append("<h1>"+pop+"</h1>");   
-        //housing_totalPieChartJS("totalpopWard","test",pop); 
-       
+ 
         var crimeStat3 = new Object();
         crimeStat3.name = "Total crimes";
         crimeStat3.percent = 100;
         crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);
         crimeStat3.wName = json_crime[i].WardName;
-    
-        //var trendYears = json_crime[i].year;
-    
+        
         newJsonArrayWrd.push(crimeStat3);
-
-        //makeDonut(newJsonArrayWrd,chartWrd,"colour");
-        //housing_totalPieChartJS("totalcrimeWard","some label",json_crime[i].totalCrimes);
 
         colourActualWardPop.push(pop);
         colourActualWardCrime.push(json_crime[i].totalCrimes);
@@ -57,8 +49,8 @@ function getCrime(json_crime,ward){
       if(json_crime[i].WardName =="Bristol"){
       
         var pop = json_crime[i].population;
-        //$(".popBrs").append("<h1>"+pop+"</h1>");  
-        housing_totalPieChartJS("totalpopBRS","test",pop,"default");
+        
+        housing_totalPieChartJS("totalpopBRS","Total Bristol Population",pop,"default");
         var crimeStat1 = new Object();
         crimeStat1.name = "Total crimes";
         crimeStat1.percent = 100;
@@ -77,12 +69,17 @@ function getCrime(json_crime,ward){
     }
 
     if(json_crime[i].WardName !="Bristol"){
+
       var wardCurrent = json_crime[i].WardName;
+
       var stat =  json_crime[i].totalCrimes;
 
       chartJsArray1Name.push(wardCurrent);
+
       chartJsArray1Stat.push(stat);
+
     }
+
     }
 
   if(json_crime[i].year =="2017-18"){
@@ -198,10 +195,12 @@ function getCrime(json_crime,ward){
 //Find top Contrys with the biigest crime + current ward
 var makeJSONarr=[];
 var makeJSONbar=[];
+
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
   //console.log(chartJsArray1Name[xy]," vs ",ward);
   if (chartJsArray1Name[xy] == ward){
+    
     var someObj = new Object();
     someObj.label = chartJsArray1Name[xy];
     someObj.data = [chartJsArray3Stat[xy],chartJsArray2Stat[xy],chartJsArray1Stat[xy]];
@@ -215,13 +214,16 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   //someObj.showLine= false;
 
   if (chartJsArray1Name[xy] == ward){
+
     var barObj = new Object();
     barObj.label = chartJsArray1Name[xy];
     barObj.data = [chartJsArray1Stat[xy]];
     barObj.backgroundColor =  "rgb(0,123,255)";
     barObj.borderColor = 'rgb(0,123,255)';
     barObj.fill = false;
+
   }else{
+
     var barObj = new Object();
     barObj.label = chartJsArray1Name[xy];
     barObj.data = [chartJsArray1Stat[xy]];
@@ -236,8 +238,6 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   makeJSONbar.push(barObj);
 
 }
-
-
 
 makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr); 
 barChart("barCrime",makeJSONbar); 

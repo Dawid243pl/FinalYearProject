@@ -4,18 +4,13 @@ block content
     script.
         var checkAuth = '#{success}';
         
-        /*if (checkAuth =="failed"){
-            alert("Incorrect email or password")
-        }*/
-
-        console.log("!!!",checkAuth);
         if(checkAuth == "error"){
             
-            $(".errorMsg").append("<p>Sorry you have an error</p>");
             alert("error");
         }    
 
-    .errorMsg
+    
+  
     form.form-signin(action="/users/auth" method="POST")
         .text-center.mb-4
             img.mb-4(src='../images/map.png', alt='', width='72', height='72')

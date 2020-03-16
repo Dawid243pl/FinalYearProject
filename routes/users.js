@@ -48,13 +48,15 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/register',redirectHome, function(req, res, next) {
-  res.render('registerUser', { title: '' });
+  res.render('registerUser', { title: '' ,success:req.session.success,errors: req.session.errors });
+  req.session.destroy(function (err) {
+    if (err) return next(err)
+  })
 });
 
 
 router.get('/login',redirectHome, function(req, res, next) {
   res.render('login', { title: '',success:req.session.success,errors: req.session.errors });
-  //req.session.success = "true";
   req.session.destroy(function (err) {
     if (err) return next(err)
   })
@@ -62,12 +64,6 @@ router.get('/login',redirectHome, function(req, res, next) {
 
 
 router.post('/user_create',(req,res)=>{
-  //to decrypt
-  /*
-  bcryptjs.compare(myPlaintextPassword, hash, function(err, res) {
-    // res == true
-});
-*/
      
 var today = new Date();
 var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
@@ -80,7 +76,11 @@ const userEmail = req.body.email;
 connection.query(queryString,[userEmail],(err,rows,fields)=>{
   if (rows.length > 0){
     console.log("user found error");
-    console.log(rows);
+    //console.log(rows);
+    req.session.success = "error";
+
+    res.redirect('/users/register');
+
   }else{
     console.log(rows);
     bcryptjs.hash(req.body.password,10,(err,hash)=>{
@@ -99,7 +99,6 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
   
         //console.log(email,firstName,lastName,password,pCode,address,city);
    
-
         const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City,TimeStamp) VALUES (?,?,?,?,?,?,?,?)"; 
   
         connection.query(queryString,[email,firstName,lastName,password,address,pCode,city,date], (err,result,fields) =>{
@@ -202,7 +201,6 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
 
 router.post('/auth', function(req,res,next){
   
-
   var email = req.body.email;
   var password = req.body.password;
   
@@ -219,9 +217,9 @@ router.post('/auth', function(req,res,next){
     if(result.length > 0){
    
       bcryptjs.compare(password, result[0].Password, function(err, result2) {
-        console.log("B CRYPTE RES",result2);
-        console.log(password," vs ",result[0].Password);
-
+        
+        //console.log("B CRYPTE RES",result2);
+        //console.log(password," vs ",result[0].Password);
 
         var accountType = result[0].AccountType;
         // res == true
@@ -248,18 +246,7 @@ router.post('/auth', function(req,res,next){
           req.session.success = "error";
      
           res.redirect('/users/login');
-          //req.session.auth = "failed";
-     
-          //res.redirect('/users/login');
-          //res.status(204).send();
-    
-          //res.status(400).send("Cannot find user");
-          //res.status(500).send("Cannot find user");
-    
-          //return next(error);
-          //return next(new Error('No users found.'))
-
-          //res.status(200).send({ error: 'Something failed!' });
+ 
         }
         /*
         res.status(401).json({
@@ -406,7 +393,7 @@ router.post('/update_user_password',(req,res)=>{
 
 });
 
-router.post('/logout',(req,res) =>{
+router.post('/logout',redirectHome2,function(req, res, next) {
  
   req.session.destroy(function (err) {
     if (err) return next(err)
