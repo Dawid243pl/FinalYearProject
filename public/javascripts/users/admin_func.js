@@ -1,17 +1,28 @@
   $(function(){
 
 
-  
+   
   $("#delUSer").click(function () {
   
-    var selectedUser = $('input[name="userz"]:checked').val();
-    $("#editUserMail").val(selectedUser);
-
+   
 
   });
 
   });
+  function validateDel(){
+ 
+    if($('input[name="userz"]:checked').val() == null){
 
+      alert("please select a user to Delete");
+      return false;
+
+    }else{
+      var selectedUser = $('input[name="userz"]:checked').val();
+      $("#editUserMail").val(selectedUser);
+      return true;
+    }
+
+  }
   function convertDate(dateString){
     var p = dateString.split(/\D/g)
     return [p[2],p[1],p[0] ].join("-")
@@ -128,13 +139,13 @@
    
           if(json_userDetails.Users[i].Email == $('input[name="userz"]:checked').val()){
 
-            $("input#validationDefault01").val(json_userDetails.Users[i].fName);
-            $("input#validationDefault02").val(json_userDetails.Users[i].lName);
-            $("input#inputEmail4").val(json_userDetails.Users[i].Email);
+            $("input#validationDefault01Edit").val(json_userDetails.Users[i].fName);
+            $("input#validationDefault02Edit").val(json_userDetails.Users[i].lName);
+            $("input#inputEmail4Edit").val(json_userDetails.Users[i].Email);
             $("input#mailOld").val(json_userDetails.Users[i].Email);
-            $("input#inputZip").val( json_userDetails.Users[i].PostCode);
-            $("input#inputAddress").val(json_userDetails.Users[i].Address);
-            $("input#inputCity").val(json_userDetails.Users[i].City);
+            $("input#inputZipEdit").val( json_userDetails.Users[i].PostCode);
+            $("input#inputAddressEdit").val(json_userDetails.Users[i].Address);
+            $("input#inputCityEdit").val(json_userDetails.Users[i].City);
           }
                     
         });

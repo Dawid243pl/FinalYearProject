@@ -62,7 +62,7 @@ block content
                 .col-lg-6.col-sm-12
                     h2 Account Details
                     .userDetailsForm
-                        form#userDetailsForm(action="/users/update_user" method="POST" onSubmit="return checkPCode();")
+                        form#userDetailsForm(action="/users/update_user" method="POST" onSubmit="return checkPCode4();")
                             .form-row  
                                 .form-group.col-sm-6
                                     label(for='validationDefault01') First name
@@ -72,10 +72,10 @@ block content
                                     input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
                                 .form-group.col-sm-6
                                     label(for='inputEmail4') Email
-                                    input#inputEmail4.form-control(type='email', placeholder='Email', name='email',required='')
+                                    input#inputEmail4.EditUserMail.form-control(type='email', placeholder='Email', name='email',required='')
                                 .form-group.col-sm-6 
                                     label(for='inputAddress') Address
-                                    input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address'.required='')
+                                    input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address',required='')
                                 .form-group.col-sm-6
                                     label(for='inputZip') PostCode
                                     input#inputZip.EditUser.form-control(type='text', name='postCode',required='')
@@ -157,7 +157,7 @@ block content
                 .row.col-lg-12                       
                     .col-lg-12
                         #formHolder
-                                form#deleteUser(action = "/users/delUser", method = "POST")
+                                form#deleteUser(action = "/users/delUser", method = "POST" onsubmit="return validateDel()")
                                     input(type="hidden" id="editUserMail" name="userMail" value="")
                                     |                                 
                                     button#delUSer.btn.btn-primary.float-right.ml-2(type='submit') Delete User    
@@ -173,23 +173,23 @@ block content
                                             form#edit(action="/users/update_user2" method="POST" onSubmit="return checkPCode3();")
                                                 .form-row  
                                                     .form-group.col-sm-6
-                                                        label(for='validationDefault01') First name
-                                                        input#validationDefault01.form-control(type='text', placeholder='First name', required='',name='fName')
+                                                        label(for='validationDefault01Edit') First name
+                                                        input#validationDefault01Edit.form-control(type='text', placeholder='First name', required='',name='fName')
                                                     .form-group.col-sm-6   
-                                                        label(for='validationDefault02') Last name
-                                                        input#validationDefault02.form-control(type='text', placeholder='Last name', required='',name='lName')
+                                                        label(for='validationDefault02Edit') Last name
+                                                        input#validationDefault02Edit.form-control(type='text', placeholder='Last name', required='',name='lName')
                                                     .form-group.col-sm-6
-                                                        label(for='inputEmail4') Email
-                                                        input#inputEmail4.form-control(type='email', placeholder='Email', name='email',required='')
+                                                        label(for='inputEmail4Edit') Email
+                                                        input#inputEmail4Edit.form-control(type='email', placeholder='Email', name='email',required='')
                                                     .form-group.col-sm-6 
-                                                        label(for='inputAddress') Address
-                                                        input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address',required='')
+                                                        label(for='inputAddressEdit') Address
+                                                        input#inputAddressEdit.form-control(type='text', placeholder='1234 Main St', name='address',required='')
                                                     .form-group.col-sm-6
-                                                        label(for='inputZip') PostCode
-                                                        input#inputZip.Edit.form-control(type='text', name='postCode',required='')
+                                                        label(for='inputZipEdit') PostCode
+                                                        input#inputZipEdit.Edit.form-control(type='text', name='postCode',required='')
                                                     .form-group.col-sm-6
-                                                        label(for='inputCity') City
-                                                        input#inputCity.form-control(type='text' name='city',required='')
+                                                        label(for='inputCityEdit') City
+                                                        input#inputCityEdit.form-control(type='text' name='city',required='')
                                                         input#mailOld(type="hidden" name="mailOld")    
                                                     .form-group.col-sm-12    
                                                         button#subUser.btn.btn-primary.float-right(type='submit') Update 

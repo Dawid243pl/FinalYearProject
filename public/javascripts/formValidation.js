@@ -53,8 +53,6 @@ function checkBristolRegister(pCode){
     if(checkPFormat){
       $.getJSON('../postCode/'+pCode, function(data) {
         
-  
-  
         if (data.postcode.result.primary_care_trust == "Bristol"){
           document.getElementById("edit").submit();
           return true;
@@ -151,7 +149,7 @@ function checkPCode(){
   
   function checkPCode3(){
   
-    var pCode = $("#inputZip.Edit").val();
+    var pCode = $("#inputZipEdit.Edit").val();
   
    
     if(!pCode){
@@ -166,8 +164,35 @@ function checkPCode(){
     
   }
   
-  function checkPCode4(){
+  function checkuserMail(){
+ 
+    var newMail = $("#inputEmail4.EditUserMail").val();
+    $.getJSON('/users/listAllUsers', function(data) {
   
+      var currentMail = data.usersList[0].Email;
+      console.log("currentMail",data.usersList[0].Email);
+   
+      if (newMail != currentMail){
+      
+        for (var i =0;i < data.allUsers.length;i++){
+  
+          if (newMail == data.allUsers[i].Email){
+            alert("User email address already taken");
+            
+          }else{
+           
+          }
+  
+        }    
+      }
+      
+    });
+  
+  }
+  function checkPCode4(){
+    
+    checkuserMail();
+
     var pCode = $("#inputZip.EditUser").val();
   
    

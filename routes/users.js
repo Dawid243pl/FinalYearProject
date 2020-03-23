@@ -156,8 +156,11 @@ const queryString = "SELECT * FROM users WHERE email =?";
 const userEmail = req.body.email;
     
 connection.query(queryString,[userEmail],(err,rows,fields)=>{
+
+console.log(rows.length);
+
   if (rows.length > 0){
-    console.log("Brand new mail not done yet");
+    console.log("Email already exists");
     console.log(rows);
   }else{
   
@@ -182,7 +185,7 @@ connection.query(queryString,[userEmail],(err,rows,fields)=>{
         
         const queryString = "REPLACE INTO users (Email,fName,lName,Password,Address,PostCode,City,TimeStamp) VALUES (?,?,?,?,?,?,?,?)"; 
   
-        connection.query(queryString,[email,firstName,lastName,password,pCode,address,city,date], (err,result,fields) =>{
+        connection.query(queryString,[email,firstName,lastName,password,address,pCode,city,date], (err,result,fields) =>{
   
           if (err){
             console.log("failed to insert new user"+err)
@@ -441,36 +444,21 @@ router.post('/delRating',(req,res) =>{
 
 
 router.post('/rateArea',(req,res) =>{
-
  
   var mail = req.session.userEmail; 
  
-  console.log(req.body);
-
-  console.log(req.body.wardName);
-   
-
-  console.log(mail);
-
   const connection = getConnection();
 
     const queryString = "SELECT * FROM rating WHERE WardName =? AND Email =?"; 
 
     connection.query(queryString,[req.body.wardName,mail], (err,result,fields) =>{
+
       if(result.length > 0){
         console.log("already voted for this ward");
-        //res.redirect("/");
-        //redirect error
+   
         res.status(204).send();
       }else{
-        console.log("Not voted yet");
-      
-        //console.log(req.body.q1);
-        //console.log(req.body.q2);
-        //console.log(req.body.q3);
-  
-        //const queryString = "INSERT INTO RATING (Question,Email,Response) VALUES (?,?,?)"; 
-  
+    
         var sql = "REPLACE INTO RATING (Email,WardName,q1,q2,q3) VALUES ?";
         var values = [
             [mail,req.body.wardName,req.body.q1,req.body.q2,req.body.q3]
@@ -478,25 +466,14 @@ router.post('/rateArea',(req,res) =>{
         console.log(values);
         connection.query(sql, [values], function(err) {
             if (err) throw err;
-            //connection.end();
+  
         });
         
-        /*
-        connection.query('UPDATE users SET Rated = ? WHERE Email = ?', ["Yes", mail], function(err) {
-          if (err) throw err;
-          connection.end();
-      });
-      */
-      //res.end();
-      //res.redirect("/");
       res.status(204).send();
-      //redirect success
+      
       }
 
     });
-
-
-
 
 });
 
@@ -550,7 +527,6 @@ router.get('/userInfo', (req,res)=>{
       //res.end()
       return
     }
-    console.log("i think we fetched sucessfuly");
 
     res.json({
       User: rows[0],
@@ -583,6 +559,23 @@ router.get('/reviewCount/:ward', (req,res)=>{
 
 });
 
+router.get('/listAllUsers', (req,res)=>{
+ 
+  const connection = getConnection();
+  var mail = req.session.userEmail; 
+  
+
+  connection.query('SELECT * FROM users where Email =?;SELECT * FROM users',[mail],function(err, rows) {
+    if (err) throw err;
+
+
+    res.json({
+      usersList: rows[0],
+      allUsers: rows[1]
+  });
+  });
+
+});
 
 
 module.exports = router;

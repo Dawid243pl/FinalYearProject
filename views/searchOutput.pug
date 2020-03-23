@@ -44,8 +44,24 @@ block content
     .row
       .searchResult.col-sm-12
          h1.searchRes
-      
-  
+    .col-lg-6.col-sm-12
+      ul.list-group.mb-3
+          li.list-group-item.d-flex.justify-content-between.lh-condensed
+              div
+                  h6.my-0 Red
+                  small.text-muted 20% over average
+              buttton.btn.btn-primary.btn-lg
+          li.list-group-item.d-flex.justify-content-between.lh-condensed
+              div
+                  h6.my-0 Green
+                  small.text-muted 20% Below average
+              buttton#houseStatUser
+          li.list-group-item.d-flex.justify-content-between.lh-condensed
+              div
+                  h6.my-0 Amber
+                  small.text-muted Close to the average
+              buttton#popStatUser  
+
   .container
     .titContainer 
       a.btn.btn-primary.btn-lg#crimez(href="#" role="button" rel="crimeContainer") Crime
@@ -234,7 +250,7 @@ block content
                   p.lead
                     | Loged in    
                   .responseForm
-                    form#ratings(action="/users/rateArea" method="POST" onSubmit="return resetForm()")
+                    form#ratings(action="/users/rateArea" method="POST" onSubmit="event.preventDefault(); resetForm();")
                       .form-row
                       | Please answer the following Questions
                       hr    

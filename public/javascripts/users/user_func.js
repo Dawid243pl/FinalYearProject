@@ -30,6 +30,9 @@ $(function(){
         var wardArr3=[];
         var crimzArr3=[];
         var popzzArr3=[];
+        
+        var currentWardPop =[];
+        var currentWardCrime=[];
 
         $.each(json_crime, function(i){
     
@@ -51,6 +54,12 @@ $(function(){
           
               $("#popStatUser").append(json_crime[i].population);
               $("#crimeStatUser").append(json_crime[i].totalCrimes);
+
+
+
+              currentWardPop.push(json_crime[i].population);
+              currentWardCrime.push(json_crime[i].totalCrimes);
+
 
               colourCheckerArray.push(json_crime[i].population,json_crime[i].totalCrimes);
 
@@ -111,7 +120,7 @@ $(function(){
         var objArray =[];
         var objArray2 =[];
         
-        console.log("ppoz1",popzzArr1);
+  
         for (p =0;p <ratingArrr.length;p++){
 
           var someObj = new Object();
@@ -142,7 +151,10 @@ $(function(){
 
         $("#popStatUser").addClass("btn btn-"+userPopColour);
         $("#crimeStatUser").addClass("btn btn-"+userCrimeColour);
-        return colourCheckerArray;
+
+        currentWardPop.push(currentWardCrime[0])
+
+        return currentWardPop;
       }  
 
 
@@ -153,6 +165,7 @@ $(function(){
         /*---------Owned-----------------*/
         var totalHouseholdsBed =0;
         var totalHouseholdsBedBrs=0;
+       
         $.each(json_housing.housing_size.records, function(i){
       
         
@@ -205,9 +218,6 @@ $(function(){
       const response = await fetch(api_url);
       const json = await response.json();
 
-      //weather = json.weather.currently;
-      //air = json.air_quality.results[0].measurements[0];
-
       postC =  json.postcode.result.postcode;
       lat = json.postcode.result.latitude;
       long = json.postcode.result.longitude;
@@ -222,23 +232,15 @@ $(function(){
       const json_rating = await response_rating.json();
 
      
-      console.log("JWaw",json_rating);
-
-
       if(!json_rating.length == 0) {
-        //$(".tableArea").append("<div class='table-responsive'><table class='table table-striped table-sm'><thead><tr><th>Ward</th><th>Q1</th><th>Q2</th><th>Q3</th></tr></thead><tbody>");
-          
+ 
         $.each(json_rating, function(i){
           
-          console.log("FOUND RTING");
           $(".tBodyUserRate").append("<tr><td>"+json_rating[i].WardName+"</td/><td>"+json_rating[i].q1+"</td><td>"+json_rating[i].q2+"</td><td>"+json_rating[i].q3+"</td><td><input type='radio' class='ratingWard' name='ratingWard' value='"+json_rating[i].WardName+"'></td></tr>");
           ratingArrr.push(json_rating[i].WardName);
         });
-        //$(".tableArea").append("</tbody></table></div>");
-
 
       }else{
-        console.log("EMPTY");
         $(".tBodyUserRate").append("<p>You have not rated any ward</p>");
         ratingArrr.push(ward);
       }
@@ -251,25 +253,12 @@ $(function(){
       var response_housing = await fetch(api_url_housing);
       var json_housing = await response_housing.json();
 
-
-      
-      console.log(json_userDetails);
-      console.log(json_crime,ward);
-
       var crimeARR =getCrimeUserLevel(json_crime,ward,ratingArrr);
       var houseARR =getHouseUserLevel(json_housing,ward,ratingArrr);
 
-      console.log("rating awards",ratingArrr);
-
-      console.log(crimeARR[2],crimeARR[3],houseARR);
-      radarData(crimeARR[2],crimeARR[3],houseARR);
-      
-      //lindeData(ratingArrr);
-
-
-      //getHouseUserLevel(json_housing,ward);
-
-      //return await response.json();
+      console.log(crimeARR);
+      radarData(crimeARR[1],houseARR,crimeARR[0]);
+     
     }catch(err){
       console.error(err);
       // Handle errors here

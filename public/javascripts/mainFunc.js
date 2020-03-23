@@ -143,10 +143,56 @@ function checkBristol2(lat,long){
   
 };
 function resetForm(){
-  //document.getElementById("ratings").reset();
-  setTimeout(function(){ document.getElementById("ratings").reset(); }, 100);  
-  console.log("cleared")
 
+  var pCode = document.getElementById("pagePS").textContent;
+  
+  console.log(pCode);
+
+  var ward = [];
+  var checker= 1;
+    $.getJSON('../postCode/'+pCode, function(data) {
+      
+      console.log(data);
+
+      console.log(data.postcode.result);
+
+     console.log(data.postcode.result.admin_ward);
+     ward.push(data.postcode.result.admin_ward);
+
+     $.getJSON('/users/accountRating', function(data2) {
+      
+      console.log("list",data2);
+
+      for (var v=0;v < data2.length;v++){
+
+        if(data2[v].WardName == ward[0]){
+
+         
+          checker = -1;
+        }else{
+         
+        }
+
+      }
+      
+      if (checker > 0 ){
+        alert("Your respone has been recorded");
+        setTimeout(function(){ document.getElementById("ratings").reset(); }, 100);  
+        document.getElementById("ratings").submit();
+        
+      }else{
+        alert("You have already voted for this ward your response could not be submitted");
+      }
+  
+    });
+
+  });
+  
+    
+
+  //console.log("this ward",ward[0]);
+
+  
 
 };
 
@@ -217,17 +263,17 @@ function colourCoding(actual,average){
   console.log(actual,"vs",average);
   //if bigger than 20% of the average red
   if(actual >= (average * 1.2) ){
-    //console.log("BIGGER RED");
+    
     return "danger";
   //else if it is less than 20% of the average green  
   }else if(actual <= (average * 0.8) ){
-    //console.log("SMALLER Amber");
+
     return "success";
 
   //else its average amber
   }else{
-    //console.log("Medium GREEN")
-    return "secondary";
+
+    return "warning";
   }
 
 }

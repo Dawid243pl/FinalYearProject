@@ -36,7 +36,7 @@ var config = {
             position: 'right',
         },
         title: {
-            display: true,
+            display: false,
             text: 'Chart.js Polar Area Chart'
         },
         scale: {
