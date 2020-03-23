@@ -161,7 +161,8 @@ console.log(rows.length);
 
   if (rows.length > 0){
     console.log("Email already exists");
-    console.log(rows);
+    //console.log(rows);
+    res.status(204).send();
   }else{
   
   console.log("user not found");
@@ -300,20 +301,19 @@ router.post('/update_user',(req,res) =>{
           connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
             if (err) throw err;
             console.log("user Updated");
+            
           });
-
+          res.redirect("/users/myAccount");
         }else{
           console.log("Can not change as this is someone elses email");
+          res.status(204).send();
         }
 
         //res.redirect("/");
         //redirect error
-        res.redirect("/users/myAccount");
+      
       }else{
-        console.log("YOLO");
-
-        console.log("old mail UPDATE WEHRE ",mail," with new email ",email);
-
+       
         connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,mail], function(err) {
           if (err) throw err;
           console.log("user Updated");

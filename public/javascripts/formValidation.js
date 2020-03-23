@@ -128,7 +128,7 @@ function checkPCode(){
   
   
   function checkPCode2(){
-  
+    checkuserMail2();
     var pCode = $("#inputZip.Add").val();
   
    
@@ -148,7 +148,7 @@ function checkPCode(){
   
   
   function checkPCode3(){
-  
+    
     var pCode = $("#inputZipEdit.Edit").val();
   
    
@@ -164,6 +164,35 @@ function checkPCode(){
     
   }
   
+
+
+
+
+
+  function checkuserMail2(){
+ 
+    var newMail = $("#inputEmail4.mailAdd").val();
+
+
+    $.getJSON('/users/listAllUsers', function(data) {
+      
+        for (var i =0;i < data.allUsers.length;i++){
+  
+          if (newMail == data.allUsers[i].Email){
+            alert("User email address already taken");
+            
+            
+          }else{
+          
+          }
+  
+        }    
+      
+      
+    });
+  
+  }
+
   function checkuserMail(){
  
     var newMail = $("#inputEmail4.EditUserMail").val();
@@ -189,6 +218,7 @@ function checkPCode(){
     });
   
   }
+
   function checkPCode4(){
     
     checkuserMail();
