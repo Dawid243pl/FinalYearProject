@@ -5,6 +5,7 @@ var ctx = document.getElementById('popChart').getContext('2d');
 var mixedChart = new Chart(ctx, {
     type: 'bar',
     data: {
+        
         datasets: [ {
             label: 'Working Age',
             data: [workingAge1,workingAge2,workingAge3,workingAge4,workingAge5,workingAge6,workingAge7],
@@ -12,9 +13,9 @@ var mixedChart = new Chart(ctx, {
             // this dataset is drawn on top
             order: 1,
             //backgroundColor: 'rgb(255, 99, 132)',
-            //borderColor: '#000000'
+            backgroundColor: '#007bff',
             fill:false,
-            borderColor:'rgb(255, 99, 132)',
+            borderColor:"#007bff",
             lineTension:0.1
         }, {
             label: 'Children',
@@ -23,9 +24,9 @@ var mixedChart = new Chart(ctx, {
             // this dataset is drawn on top
             order: 2,
             //backgroundColor: 'rgba(77, 5, 232, 1)',
-            //borderColor: '#000000'
+            backgroundColor: '#2c5db2',
             fill:false,
-            borderColor:'rgba(77, 5, 232, 1)',
+            borderColor: "#2c5db2",
             lineTension:0.1
             
         },{
@@ -35,14 +36,14 @@ var mixedChart = new Chart(ctx, {
             // this dataset is drawn on top
             order: 3,
             //backgroundColor: 'rgba(240, 52, 52, 1)',
-            //borderColor: '#000000',
+            backgroundColor: '#2f406a',
             fill:false,
-            borderColor:'rgb(75, 192, 192)',
+            borderColor: "#2f406a",
             lineTension:0.1
         },{
             label: 'Total Population',
             data: [pop1,pop2,pop3,pop4,pop5,pop6,pop7],
-            backgroundColor: 'rgba(36, 37, 42, 1)',
+            backgroundColor: "#24252a",
             // this dataset is drawn below
             order: 4
         },

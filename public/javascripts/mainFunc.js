@@ -236,12 +236,12 @@ $('a').on('click', function(){
 });
 */
 
-$('a.btn#crimez').addClass("btn-warning");
+$('a.btn#crimez').addClass("btn-success");
 
 $('a.btn').on('click', function(e){
 
-  $("a.btn").removeClass("btn-warning");
-  $(this).addClass("btn-warning");
+  $("a.btn").removeClass("btn-success");
+  $(this).addClass("btn-success");
 
 
   console.log("clicked");

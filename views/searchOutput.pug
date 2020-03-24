@@ -43,24 +43,31 @@ block content
   .container.marketing  
     .row
       .searchResult.col-sm-12
-         h1.searchRes
-    .col-lg-6.col-sm-12
-      ul.list-group.mb-3
-          li.list-group-item.d-flex.justify-content-between.lh-condensed
-              div
-                  h6.my-0 Red
-                  small.text-muted 20% over average
-              buttton.btn.btn-primary.btn-lg
-          li.list-group-item.d-flex.justify-content-between.lh-condensed
-              div
-                  h6.my-0 Green
-                  small.text-muted 20% Below average
-              buttton#houseStatUser
-          li.list-group-item.d-flex.justify-content-between.lh-condensed
-              div
-                  h6.my-0 Amber
-                  small.text-muted Close to the average
-              buttton#popStatUser  
+        h1.searchRes
+        .row
+      .col-lg-12.text-left
+          h2 Colour Meaning:
+      .col-lg-4
+          ul.list-group.mb-12
+              li.list-group-item.d-flex.justify-content-between.lh-condensed
+                  div
+                    h6.my-0 Red
+                    small.text-muted 20% over average
+                  buttton.btn.btn-danger.btn-lg
+      .col-lg-4
+          ul.list-group.mb-12    
+              li.list-group-item.d-flex.justify-content-between.lh-condensed
+                  div
+                    h6.my-0 Green
+                    small.text-muted 20% Below average
+                  buttton.btn.btn-success.btn-lg
+      .col-lg-4.mb-4
+          ul.list-group.mb-12    
+              li.list-group-item.d-flex.justify-content-between.lh-condensed
+                  div
+                    h6.my-0 Amber
+                    small.text-muted Close to the average
+                  buttton.btn.btn-warning.btn-lg   
 
   .container
     .titContainer 
@@ -78,9 +85,9 @@ block content
               .cont-h#brs
               .cont-h#wrd 
             .row
-              .col-sm-6 
+              .col-sm-6.mt-4.mb-4
                 canvas#totalcrimeBRS
-              .col-sm-6 
+              .col-sm-6.mt-4.mb-4 
                 canvas#totalcrimeWard
 
           p.lead
@@ -117,9 +124,9 @@ block content
                 .cont-h#brs
                 .cont-h#wrd 
               .row
-                .col-sm-6 
+                .col-sm-6.mt-4.mb-4 
                   canvas#totalpopBRS
-                .col-sm-6 
+                .col-sm-6.mt-4.mb-4 
                   canvas#totalpopWard
             p.lead
               | #INFO
@@ -129,22 +136,22 @@ block content
               canvas#popChart  
               h2.lead
               | Population in all wards 
-              canvas#popBar
+              canvas#popBar.Spacer
           
             btn.viewAll.btn-primary.btn-lg.mt-2(href="#" role="button") View More    
 
       .housingContainer#houz
             .jumbotron
-              h1.display-4 Housing
+              h1.display-4.text-center Housing
               .widget.bg-dark
                 .header.bg-info Total Number of Households
                 .header_sub.bg-danger
                   .cont-h#brs
                   .cont-h#wrd 
                 .row
-                  .col-sm-6 
+                  .col-sm-6.mt-4.mb-4 
                     canvas#totalHouseBRS
-                  .col-sm-6 
+                  .col-sm-6.mt-4.mb-4 
                     canvas#totalHouseWard
                 .houseBrs
                 .houseWrd
@@ -232,6 +239,7 @@ block content
 
       .ratingContainer#ratez
               .jumbotron
+                h1.display-4.text-center User Rating
                 p#dispMessage.lead
                 hr
                 .row

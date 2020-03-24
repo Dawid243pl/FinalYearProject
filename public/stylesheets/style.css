@@ -74,6 +74,9 @@ a {
   width: 50%;
   text-align: center;
 }
+#popBar.Spacer{
+  max-height: 800px !important;
+}
 /*BOOSTRAP*/
 .jumbotron{
   overflow: auto;
@@ -157,7 +160,12 @@ li.my-list.list-group-item.d-flex.justify-content-between.align-items-center{
   display: none;
 }  
 
-
+.fixed-btn{
+  width:  50px;
+}
+.OrSec{
+  color:white;
+}
 .populationContainer,.housingContainer,.ratingContainer{
   display: none;
 }

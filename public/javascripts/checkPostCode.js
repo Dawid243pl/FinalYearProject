@@ -98,9 +98,9 @@ $(function(){
         const json_crime = await response_crime.json();
    
 
-        const api_url_weather = `weather/${latz}/${longz}`;
-        const response_weather = await fetch(api_url_weather);
-        const json_weather = await response_weather.json();
+        //const api_url_weather = `weather/${latz}/${longz}`;
+        ///const response_weather = await fetch(api_url_weather);
+        //const json_weather = await response_weather.json();
 
       
         const api_url_quall = `ListQuallity/${ward}`;
@@ -143,9 +143,9 @@ $(function(){
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
 
-      //var api_url_zoopla = `/zooplaAPI/${postC}`;
-      //var response_zoopla = await fetch(api_url_zoopla);
-      //var json_zoopla  = await response_zoopla.json(); 
+      var api_url_zoopla = `/zooplaAPI/${postC}`;
+      var response_zoopla = await fetch(api_url_zoopla);
+      var json_zoopla  = await response_zoopla.json(); 
 
       var api_url_housing = `/housing`;
       var response_housing = await fetch(api_url_housing);
@@ -157,10 +157,10 @@ $(function(){
       
       getUserReview(json_review);
       getQuallity(json_quall);
-      getWeather(json_weather);
+      //getWeather(json_weather);
       getCrime(json_crime,ward);
       getPopulation(json_pop,ward);
-      //getZoopla(json_zoopla,ward);
+      getZoopla(json_zoopla,ward);
       getHousing(json_housing,ward);
       
 

@@ -1,7 +1,3 @@
-var randomScalingFactor = function() {
-    return Math.round(Math.random() * 100);
-};
-
 function radarData(data1,data2,data3){
 
 var chartColors = window.chartColors;
@@ -16,9 +12,9 @@ var config = {
                 data3
             ],
             backgroundColor: [
-                color("red").alpha(0.5).rgbString(),
-                color("orange").alpha(0.5).rgbString(),
-                color("yellow").alpha(0.5).rgbString(),
+                "#24252a",
+                "#304e8e",
+                "#007bff",
          
             ],
             label: 'My dataset' // for legend

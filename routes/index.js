@@ -334,24 +334,13 @@ router.get('/quallity_create/:ward/:indicator/:theme/:total',(req,res)=>{
 
 
 
-// Access the parse results as request.body
+
 router.post('/findArea', function(req, res){
-    //console.log(request.body.say);
 
     var area = req.body.say;
     var lat =  req.body.lat;
     var long =  req.body.long;
-      
-    console.log("lat lon",lat,long);
-
-    if (req.session.loggedin){
-      console.log("WElcome back,"+req.session.userEmail+'!');
-      //document.getElementById("#lgIn").style.visibility = 'hidden';
-    }else{
-      console.log("Please log in");
-      //document.getElementById("#lgOut").style.visibility = 'hidden';
-    }
-    
+          
     res.render('searchOutput', { title: area,userMail:req.session.userEmail,accountType:req.session.userType,latz:lat,longz:long});
    
 

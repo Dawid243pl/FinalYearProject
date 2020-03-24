@@ -50,7 +50,7 @@ function getCrime(json_crime,ward){
       
         var pop = json_crime[i].population;
         
-        housing_totalPieChartJS("totalpopBRS","Total Bristol Population",pop,"default");
+        housing_totalPieChartJS("totalpopBRS","Bristol",pop,"default");
         var crimeStat1 = new Object();
         crimeStat1.name = "Total crimes";
         crimeStat1.percent = 100;
@@ -60,7 +60,7 @@ function getCrime(json_crime,ward){
         newJsonArrayBrs.push(crimeStat1);
     
         //makeDonut(newJsonArrayBrs,chartBrs,"colour");
-        housing_totalPieChartJS("totalcrimeBRS","some label",json_crime[i].totalCrimes,"default"); 
+        housing_totalPieChartJS("totalcrimeBRS","Bristol",json_crime[i].totalCrimes,"default"); 
 
         colourAvgWardPop.push(pop);
         colourAvgWardCrime.push(json_crime[i].totalCrimes);
@@ -204,8 +204,8 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
     var someObj = new Object();
     someObj.label = chartJsArray1Name[xy];
     someObj.data = [chartJsArray3Stat[xy],chartJsArray2Stat[xy],chartJsArray1Stat[xy]];
-    someObj.backgroundColor =  "rgb(255, 99, 132)";
-    someObj.borderColor = '#000000';
+    someObj.backgroundColor =  "#24252a";
+    someObj.borderColor = '#007bff';
     someObj.fill = false;
     makeJSONarr.push(someObj);
   }
@@ -218,8 +218,8 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
     var barObj = new Object();
     barObj.label = chartJsArray1Name[xy];
     barObj.data = [chartJsArray1Stat[xy]];
-    barObj.backgroundColor =  "rgb(0,123,255)";
-    barObj.borderColor = 'rgb(0,123,255)';
+    barObj.backgroundColor =  "#24252a";
+    barObj.borderColor = '#24252a';
     barObj.fill = false;
 
   }else{
@@ -227,8 +227,8 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
     var barObj = new Object();
     barObj.label = chartJsArray1Name[xy];
     barObj.data = [chartJsArray1Stat[xy]];
-    barObj.backgroundColor =  "rgb(255, 99, 132)";
-    barObj.borderColor = '#000000';
+    barObj.backgroundColor =  "#007bff";
+    barObj.borderColor = '#007bff';
     barObj.fill = false;
   }
 
@@ -238,6 +238,8 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
   makeJSONbar.push(barObj);
 
 }
+
+console.log("bar",makeJSONbar);
 
 makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr); 
 barChart("barCrime",makeJSONbar); 
@@ -275,8 +277,8 @@ barChart("barCrime",makeJSONbar);
   //console.log("tot crime colou",checkCrime);
   //console.log("tot pop colou",checkPopulation);
 
-  housing_totalPieChartJS("totalcrimeWard","some label",colourActualWardCrime[0],checkCrime);
-  housing_totalPieChartJS("totalpopWard","test",colourActualWardPop[0],checkPopulation,checkPopulation); 
+  housing_totalPieChartJS("totalcrimeWard",ward,colourActualWardCrime[0],checkCrime);
+  housing_totalPieChartJS("totalpopWard",ward,colourActualWardPop[0],checkPopulation,checkPopulation); 
 
 }
 
@@ -285,11 +287,11 @@ function getQuallity(json_quall){
   $.each(json_quall, function(i){
    
     if(json_quall[i].Theme =="Crime & Safety"){
-      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn btn-primary btn-sm'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
+      $(".list-group.crimez").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='fixed-btn btn btn-primary btn-sm'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
     }
 
     if(json_quall[i].Theme =="Transport"){
-      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='btn btn-primary btn-sm'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
+      $(".list-group.houz").append("<li class='my-list list-group-item d-flex justify-content-between align-items-center'><button class='fixed-btn btn btn-primary btn-sm'>"+json_quall[i].Total+"%</button> "+json_quall[i].Indicator+"</li>");
     }
   });
   
@@ -469,17 +471,17 @@ function getQuallity(json_quall){
     var barChartData = {
       labels: wardHolder,
       datasets: [{
-          label: 'Working age',
-          backgroundColor: "red",
+          label: 'Working age',	
+          backgroundColor: "#24252a",
           data: d1Holder
       }, {
           label: 'Children',
-          backgroundColor: "blue",
+          backgroundColor: "#304e8e",
           data: d2Holder
   
       }, {
           label: 'Elderly',
-          backgroundColor: "green",
+          backgroundColor: "#007bff",
           data:d3Holder
       }]
   };
@@ -900,8 +902,8 @@ function getHousing(json_housing,ward){
 
   //console.log("tot house colou",checkHousing);
 
-  housing_totalPieChartJS("totalHouseBRS","cos",totalHouseholdsBedBrs,"default");
-  housing_totalPieChartJS("totalHouseWard","cos",totalHouseholdsBed,checkHousing);
+  housing_totalPieChartJS("totalHouseBRS","Bristol",totalHouseholdsBedBrs,"default");
+  housing_totalPieChartJS("totalHouseWard",ward,totalHouseholdsBed,checkHousing);
  
 
 

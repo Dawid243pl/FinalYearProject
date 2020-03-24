@@ -11,9 +11,10 @@ function housing_ownedPieChartJS(div,label1,label2,label3,data1,data2,data3){
                         data3
 					],
 					backgroundColor: [
-						"red",
-						"orange",
-						"yellow",
+						"#24252a",
+						"#304e8e",
+                        "#007bff",
+                    
 					],
 					label: 'Dataset 1'
 				}],

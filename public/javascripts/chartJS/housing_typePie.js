@@ -12,10 +12,10 @@ function housing_typePieChartJS(div,label1,label2,label3,label4,data1,data2,data
                         data4
 					],
 					backgroundColor: [
-						"red",
-						"orange",
-                        "yellow",
-                        "black",
+						"#24252a",
+						"#2f406a",
+                        "#2c5db2",
+                        "#007bff",
 					],
 					label: 'Dataset 1'
 				}],

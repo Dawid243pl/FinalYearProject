@@ -8,8 +8,8 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
             labels: [CurrentYear,Yr3,Yr5,Yr7],
             datasets: [{
                 label: 'BS57tw',
-                backgroundColor: "red",
-                borderColor: "red",
+                backgroundColor: "#24252a",
+                borderColor: "#24252a",
                 data: [
                     currentSoldprice,
                     yr3Soldprice,
@@ -20,8 +20,8 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
             }, {
                 label: 'Bristol',
                 fill: false,
-                backgroundColor: "blue",
-                borderColor: "blue",
+                backgroundColor: "#304e8e",
+                borderColor: "#304e8e",
                 data: [
                     currentSoldpriceBrs,
                     yr3SoldpriceBrs,
@@ -32,8 +32,8 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
             , {
                 label: 'BS5',
                 fill: false,
-                backgroundColor: "green",
-                borderColor: "green",
+                backgroundColor: "#007bff",
+                borderColor: "#007bff",
                 data: [
                     currentSoldpriceOutcode,
                     yr3SoldpriceOutcode,
