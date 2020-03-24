@@ -80,7 +80,7 @@ block content
         .jumbotron
           h1.display-4.text-center Crime
           .widget.bg-dark
-            .header.bg-info Total Population
+            .header.bg-info Total Crime
             .header_sub.bg-danger
               .cont-h#brs
               .cont-h#wrd 
@@ -91,7 +91,8 @@ block content
                 canvas#totalcrimeWard
 
           p.lead
-            | #INFO
+            | Source: Bristol City Council Quality of life
+            | Time Period: 2018-2019 
           .hiddenCont  
             p.lead
             | What do people living in this area think?
@@ -99,19 +100,32 @@ block content
             hr.my-4
             .col-lg-12  
               ul.list-group.crimez
+              p.lead
+                | Source: Bristol City Council Quality of life
+                | Time Period: 2018-2019
             hr.my-4
             h2.lead
               | Crime in the last 3 Months
               .latestCrime
             #map
+             p.lead
+                | Source: Police
+                | Time Period: 2020
             hr.my-4  
             h2.lead
               | Crimes in all wards
             canvas#barCrime
+            p.lead
+              | Source: Bristol City Council Crime
+              | Time Period: 2018-2019
             hr.my-4  
             p.lead
               | Crime levels in the past 3 Years
             canvas#myChart
+            p.lead
+              | Source: Bristol City Council Crime
+              | Time Period: 2016-2019  
+            
           btn.viewAll.btn-primary.btn-lg.mt-2(href="#" role="button") View More    
 
 
@@ -129,14 +143,21 @@ block content
                 .col-sm-6.mt-4.mb-4 
                   canvas#totalpopWard
             p.lead
-              | #INFO
+              | Source: Bristol City Council Quality of life
+              | Time Period: 2018-2019 
             .hiddenCont  
               h2.lead
                 | Population of this ward
               canvas#popChart  
+              p.lead
+                | Source: Bristol City Council Population
+                | Time Period: 2012-2017 
               h2.lead
               | Population in all wards 
               canvas#popBar.Spacer
+              p.lead
+                | Source: Bristol City Council Population
+                | Time Period: 2012-2017 
           
             btn.viewAll.btn-primary.btn-lg.mt-2(href="#" role="button") View More    
 
@@ -156,11 +177,15 @@ block content
                 .houseBrs
                 .houseWrd
               p.lead
-                | #INFO
+                | Source: Bristol City Council Census
+                | Time Period: 2011-2016 
               .hiddenCont
                 p.lead
                   | What do people living in this area think?
                 ul.list-group.houz
+                p.lead
+                  | Source: Bristol City Council Quality of life
+                  | Time Period: 2018-2019
                 hr.my-4
                 p.lead
                 | Housing information
@@ -185,7 +210,9 @@ block content
                       canvas#housing_bedPieChartBRS
                     .col-sm-12.col-lg-6  
                       canvas#housing_bedPieChart
-                  
+                    p.lead
+                      | Source: Bristol City Council Household Size/ Housing Type / Housing Tenure
+                      | Time Period: 2011-2016                    
 
 
                 hr.my-4
@@ -229,12 +256,17 @@ block content
                                 h6.my-0 Value Change Compared to 3 Years
                                 small.text-muted
                             buttton#valueChangeOut
-                        
+                p.lead
+                  | Source: Zoopla 
+                  | Time Period: 2016-2019    
 
                 hr.my-4
                 p.lead
                   | Average house prices in the last 7 Years
                 canvas#zooplaChart  
+                p.lead
+                  | Source: Zoopla 
+                  | Time Period: 2016-2019    
               btn.viewAll.btn-primary.btn-lg.mt-2(href="#" role="button") View More    
 
       .ratingContainer#ratez
