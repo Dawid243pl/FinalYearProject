@@ -7,7 +7,6 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var areaRouter = require('./routes/searchOutput');
 const session = require("express-session");
 var expressValidator = require("express-validator");
 
@@ -51,7 +50,6 @@ app.use(session({
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/searchOutput', areaRouter);
 
 
 // catch 404 and forward to error handler

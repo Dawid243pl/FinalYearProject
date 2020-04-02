@@ -222,9 +222,6 @@ router.post('/auth', function(req,res,next){
    
       bcryptjs.compare(password, result[0].Password, function(err, result2) {
         
-        //console.log("B CRYPTE RES",result2);
-        //console.log(password," vs ",result[0].Password);
-
         var accountType = result[0].AccountType;
         // res == true
         if (err){
@@ -407,8 +404,6 @@ router.post('/logout',redirectHome2,function(req, res, next) {
 
 router.post('/delUser',(req,res) =>{
   const connection = getConnection();
-
-  console.log("taken mail",req.body.userMail);
  
   var sql = "DELETE FROM users WHERE Email =?";
   
