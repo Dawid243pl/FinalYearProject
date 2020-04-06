@@ -70,8 +70,17 @@ $(function(){
         const response_pop = await fetch(api_url_pop);
         const json_pop = await response_pop.json();
         
+
+        const api_url_wards = `listWards`;
+        const response_wards = await fetch(api_url_wards);
+        const json_wards = await response_wards.json();
+        
+
+
+
         getCrime(json_crime);
         getPopulation(json_pop);
+        getWard(json_wards);
 
         alert("Adding to db Finished")
 

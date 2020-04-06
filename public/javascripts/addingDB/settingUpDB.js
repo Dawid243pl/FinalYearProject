@@ -16,7 +16,8 @@ function getCrime(json_crime){
       var year = "2018-19";
 
 
-      addCrimeToDb(wrd,bulg,sex,all,pop,year);
+      console.log("ADDING THIS TO DB SHITZ",wrd,year,bulg,sex,all,pop);
+      addCrimeToDb(wrd,year,bulg,sex,all,pop);
  
 
     }); 
@@ -38,29 +39,29 @@ function getCrime(json_crime){
       var year = "2017-18";
 
 
-      addCrimeToDb(wrd,bulg,sex,all,pop,year);
+      addCrimeToDb(wrd,year,bulg,sex,all,pop);
  
 
     }); 
     
     $.each(json_crime.year_16_17.records, function(i){
 
-      
+      console.log("WHATTTTTTTTTTTTTTTTT 2016",json_crime.year_16_17.records);
       //console.log("all json",json_crime.all_wards.records);
       //console.log("k",json_crime.all_wards.records[i]);
 
       //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
 
 
-      var bulg = json_crime.year_16_17.records[i].record.fields.burglary_number;
-      var sex = json_crime.year_16_17.records[i].record.fields.violent_sexual_offences_number;
-      var all = json_crime.year_16_17.records[i].record.fields.all_crimes_number;
-      var pop = json_crime.year_16_17.records[i].record.fields.latest_mid_year_population_estimates_for_ward;
-      var wrd = json_crime.year_16_17.records[i].record.fields.ward_name;
+      var bulg = json_crime.year_16_17.records[i].fields.burglary_number;
+      var sex = json_crime.year_16_17.records[i].fields.violent_sexual_offences_number;
+      var all = json_crime.year_16_17.records[i].fields.all_crimes_number;
+      var pop = json_crime.year_16_17.records[i].fields.latest_mid_year_population_estimates_for_ward;
+      var wrd = json_crime.year_16_17.records[i].fields.ward_name;
       var year = "2016-17";
 
 
-      addCrimeToDb(wrd,bulg,sex,all,pop,year);
+      addCrimeToDb(wrd,year,bulg,sex,all,pop);
  
 
     }); 
@@ -261,4 +262,23 @@ function getCrime(json_crime){
 
 
 
+  }
+
+  
+  function getWard(json_wards){
+
+    //console.log("Wardz yooooooooooooooooooooo",json_wards);
+
+    //console.log(json_wards.wards.records[0].record.fields.name)
+    $.each(json_wards.wards.records, function(i){
+
+      //console.log("WARZZZZZZ 2",json_wards.wards.records[0]);
+      console.log("WARZZZZZZ YOO",json_wards.wards.records[i].record.fields.name);
+
+      var ward = json_wards.wards.records[i].record.fields.name;
+      console.log(ward);
+
+      addWardsToDb(ward);
+    });
+   
   }

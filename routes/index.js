@@ -160,7 +160,7 @@ router.get('/user/:id', (req,res)=>{
 */
 
 
-router.get('/crime_create/:wardName/:bulglary/:sexualOffence/:AllCrimes/:totalPop/:Year',(req,res)=>{
+router.get('/crime_create/:wardName/:Year/:bulglary/:sexualOffence/:AllCrimes/:totalPop',(req,res)=>{
 
   const wrd = req.params.wardName;
   const bulglary = req.params.bulglary;
@@ -184,15 +184,13 @@ const TotalPop = req.body.create_pop;
 */
 //console.log(req.params);
 
-console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop,year);
+console.log("I AM ADDING ",wrd,year,bulglary,sexualOffence,allCrimes,TotalPop);
 
   const connection = getConnection2();
 
-  const queryString = "REPLACE INTO crime (WardName,burglary,sexual_offences,total_crimes,total_population,year) VALUES (?,?,?,?,?,?)";
+  const queryString = "REPLACE INTO crime (WardName,Year,Burglary,sexualOffences,totalCrimes,totalPopulation) VALUES (?,?,?,?,?,?)";
   
-  
-
-  connection.query(queryString,[wrd,bulglary,sexualOffence,allCrimes,TotalPop,year], (err,result,fields) =>{
+  connection.query(queryString,[wrd,year,bulglary,sexualOffence,allCrimes,TotalPop], (err,result,fields) =>{
 
 
     if (err){
@@ -200,7 +198,7 @@ console.log("all params",wrd,bulglary,sexualOffence,allCrimes,TotalPop,year);
       return
     }
 
-    console.log("inserted a new user with the id",result.insertId);
+    //console.log("inserted a new user with the id",result.insertId);
     res.end()
   })
 
@@ -229,7 +227,7 @@ router.get('/listCrime/:id', (req,res)=>{
     //custom format for json response
    
     const users = rows.map((row)=> {
-      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population,year:row.year}
+      return {WardName: row.WardName,year:row.Year,bulgary: row.Burglary,sexOffence:row.sexualOffences, totalCrimes: row.totalCrimes,population:row.totalPopulation}
     })
 
     res.json(users);
@@ -257,7 +255,7 @@ router.get('/listCrimes', (req,res)=>{
     //custom format for json response
    
     const users = rows.map((row)=> {
-      return {WardName: row.WardName,bulgary: row.burglary,sexOffence:row.sexual_offences, totalCrimes: row.total_crimes,population:row.total_population}
+      return {WardName: row.WardName,year:row.Year,bulgary: row.Burglary,sexOffence:row.sexualOffences, totalCrimes: row.totalCrimes,population:row.totalPopulation}
   
 
     })
@@ -275,7 +273,7 @@ router.get('/listQuallity/:id', (req,res)=>{
   
   const connection = getConnection2();
   
-  const queryString = "SELECT * FROM quallitylife WHERE WardName =? AND total > 0";
+  const queryString = "SELECT * FROM quallity_of_life WHERE WardName =? AND total > 0";
   const userId = req.params.id;
 
   connection.query(queryString,[userId],(err,rows,fields)=>{
@@ -314,7 +312,7 @@ router.get('/quallity_create/:ward/:indicator/:theme/:total',(req,res)=>{
   const connection = getConnection2();
   
 
-  const queryString = "REPLACE INTO quallitylife (WardName,Indicator,Theme,Total) VALUES (?,?,?,?)"; 
+  const queryString = "REPLACE INTO quallity_of_life (WardName,Indicator,Theme,Total) VALUES (?,?,?,?)"; 
 
   connection.query(queryString,[wrd,indicator,theme,total], (err,result,fields) =>{
 
@@ -323,7 +321,7 @@ router.get('/quallity_create/:ward/:indicator/:theme/:total',(req,res)=>{
       return
     }
 
-    console.log("inserted a new user with the id",result.insertId);
+    //console.log("inserted a new user with the id",result.insertId);
     res.end()
   })
 
@@ -556,7 +554,9 @@ router.get('/crimes/:wardName', async (request, response) => {
   const year_17_18_response = await fetch(year_17_18_url);
   const year_17_18_data = await year_17_18_response.json();
 
-  const year_16_17_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward/records?rows=100&select=all_crimes_number,%20violent_sexual_offences_number,%20burglary_number,%20ward_name,%20latest_mid_year_population_estimates_for_ward&where="2016/17"`;
+  //const year_16_17_url = `https://opendata.bristol.gov.uk/api/v2/catalog/datasets/crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward/records?rows=100&select=all_crimes_number,%20violent_sexual_offences_number,%20burglary_number,%20ward_name,%20latest_mid_year_population_estimates_for_ward&where="2016/17"`;
+  const year_16_17_url = `https://opendata.bristol.gov.uk/api/records/1.0/search/?dataset=crime-recorded-by-police-by-selected-offence-groups-in-bristol-by-ward&rows=100&sort=ward_name&refine.year=2016%2F17`;
+  
   const year_16_17_response = await fetch(year_16_17_url);
   const year_16_17_data = await year_16_17_response.json();
 
@@ -718,7 +718,7 @@ router.get('/population_create/:ward/:year/:workingAgeP/:olderPP/:childrenP/:wor
       return
     }
 
-    console.log("inserted a new user with the id",result.insertId);
+    //console.log("inserted a new user with the id",result.insertId);
     res.end()
   })
 
@@ -727,7 +727,29 @@ router.get('/population_create/:ward/:year/:workingAgeP/:olderPP/:childrenP/:wor
 })
 
 
+router.get('/ward_create/:ward',(req,res)=>{
 
+  const wrd = req.params.ward;
+  
+  const connection = getConnection2();
+  
+
+  const queryString = "REPLACE INTO ward (WardName) VALUES (?)"; 
+
+  connection.query(queryString,[wrd], (err,result,fields) =>{
+
+    if (err){
+      console.log("failed to insert new user"+err)
+      return
+    }
+
+    //console.log("inserted a new user with the id",result.insertId);
+    res.end()
+  })
+
+
+
+})
 router.get('/getPopulation', (req,res)=>{
   
   const connection = getConnection2();
