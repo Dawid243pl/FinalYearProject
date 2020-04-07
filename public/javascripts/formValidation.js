@@ -170,24 +170,27 @@ function checkPCode(){
   function checkuserMail3(){
  
     //var oldMail = userMail;
-   console.log("USER MAIL OLDz)",oldMailz);
+  
 
     var newMail = $("#inputEmail4Edit").val();
-
+    var oldMail = $("#mailOld").val();
 
     $.getJSON('/users/listAllUsers', function(data) {
       
         for (var i =0;i < data.allUsers.length;i++){
-  
-          if (newMail == data.allUsers[i].Email){
-            alert("User add email address already taken");
-            
+
+          if (newMail == oldMail){
+                      
             
           }else{
-            
-            
+            if (newMail == data.allUsers[i].Email){
+              alert("User add email address already taken");
+              
+              
+            }   
           }
-  
+         
+
         }    
       
       
