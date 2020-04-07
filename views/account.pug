@@ -227,6 +227,8 @@ block content
                                                     button#addUSer.btn.btn-primary.float-right(type='submit') Add user   
                         form#makeDbFrom(action="../makeDB" method="GET")
                             button#makeDB.btn.btn-primary.float-right.ml-2(type='submit') Make Databases                            
+        script.
+            oldMailz="#{userMail}";
         script
             include ../public/javascripts/mainFunc.js  
             include ../public/javascripts/users/admin_func.js        

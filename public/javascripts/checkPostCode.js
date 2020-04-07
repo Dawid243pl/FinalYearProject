@@ -67,7 +67,9 @@ $(function(){
 
        
         ward = ward.replace('and','&');
+
         var falseWard = false;
+
         $.each(json_ward.wards.records, function(i){
 
           
@@ -81,7 +83,9 @@ $(function(){
         });
 
         if (falseWard == false){
+
           location.replace("/")
+          
         }
 
         //check a list of wards if ward not in DB ERROR

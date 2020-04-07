@@ -326,7 +326,7 @@ router.post('/update_user',(req,res) =>{
 
 router.post('/update_user2',(req,res) =>{
   const oldMail = req.body.mailOld;
-
+//david.k
   const email = req.body.email;
   const firstName = req.body.fName;
   const lastName = req.body.lName;
@@ -336,19 +336,31 @@ router.post('/update_user2',(req,res) =>{
 
   const connection = getConnection();
 
+  //check if email already exists in the list of users
     const queryString = "SELECT Email FROM users WHERE Email =?"; 
 
-    connection.query(queryString,[oldMail], (err,result,fields) =>{
+    connection.query(queryString,[email], (err,result,fields) =>{
+      //if yes
       if(result.length > 0){
-          connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,oldMail], function(err) {
-            if (err) throw err;
-            console.log("user Updated");
-          });
 
-        res.redirect("/users/myAccount");
+        console.log("checl mail",result[0].Email);
+          //if it is the same as users old mail its ok 
+          if (oldMail == result[0].Email){
+            
+            connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,oldMail], function(err) {
+              if (err) throw err;
+              console.log("user Updated");
+            });
+            res.redirect("/users/myAccount");
+          }else{
+            console.log("Email already exists this one");
+            //console.log(rows);
+            res.status(204).send(); 
+          }
+      
       }else{
 
-        connection.query('UPDATE users SET Email = ?,fName =?,lName=?,Address=?,PostCode?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,oldMail], function(err) {
+        connection.query('UPDATE users SET Email = ?,fName =?,lName =?,Address =?,PostCode =?,City =? WHERE Email = ?', [email,firstName,lastName,address,pCode,city,oldMail], function(err) {
           if (err) throw err;
           console.log("user Updated");
         });
