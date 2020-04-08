@@ -374,35 +374,36 @@ router.post('/update_user2',(req,res) =>{
   
 router.post('/update_user_password',(req,res)=>{
 
+
   const connection = getConnection();
 
   var mail = req.session.userEmail; 
+
+  if(req.body.password == 0){
+    res.status(204).send();
+  }else{
+    bcryptjs.hash(req.body.password,10,(err,hash)=>{
+      if (err){
+        return res.status(500).json({
+          error:err
+        }) 
+      }else{
   
-  bcryptjs.hash(req.body.password,10,(err,hash)=>{
-    if (err){
-      return res.status(500).json({
-        error:err
-      }) 
-    }else{
-
-      const password = hash;
-     
-
-      //console.log(email,firstName,lastName,password,pCode,address,city);
-      
-      
-      connection.query('UPDATE users SET Password = ? WHERE Email = ?', [password,mail], function(err) {
-        if (err){
-          console.log("failed to change password"+err)
-          return
-        }
-        console.log("Password changed");
-        res.redirect("/users/myAccount");
-      });
-
-    }
-  });
-
+        const password = hash;
+             
+        connection.query('UPDATE users SET Password = ? WHERE Email = ?', [password,mail], function(err) {
+          if (err){
+            console.log("failed to change password"+err)
+            return
+          }
+          console.log("Password changed");
+          res.redirect("/users/myAccount");
+        });
+  
+      }
+    });
+  }
+  
 });
 
 router.post('/logout',redirectHome2,function(req, res, next) {
@@ -432,19 +433,28 @@ router.post('/delUser',(req,res) =>{
 router.post('/delRating',(req,res) =>{
   
   var mail = req.session.userEmail;
-  console.log("taken mail",req.body.ratingWard);
+
   var wardRating = req.body.ratingWard;
 
+  console.log("value?",wardRating);
 
-  const connection = getConnection();
+  if(wardRating == ""){
+    console.log("none");
+    res.status(204).send();
+  }else{
+    console.log("found");
+    const connection = getConnection();
  
-  var sql = "DELETE FROM rating WHERE Email =? AND WardName =?";
+    var sql = "DELETE FROM rating WHERE Email =? AND WardName =?";
+    
+    connection.query(sql,[mail,wardRating], function (err, result) {
+      if (err) throw err;
+      console.log("Number of records deleted: " + result.affectedRows);
+      res.redirect("/users/myAccount");
+    });
+  }
+
   
-  connection.query(sql,[mail,wardRating], function (err, result) {
-    if (err) throw err;
-    console.log("Number of records deleted: " + result.affectedRows);
-    res.redirect("/users/myAccount");
-  });
 
 });
 

@@ -1,7 +1,12 @@
+/*This file deals with form validation*/
+
+//Checking if the user is registering with a postcode within Bristol if they are register them otherwise throw an error message
 function checkBristolRegister(pCode){
+
     var checkPFormat = checkPostCode(pCode);
-    alert(checkPFormat);
+  
     if(checkPFormat){
+
       $.getJSON('../postCode/'+pCode, function(data) {
         
   
@@ -21,10 +26,10 @@ function checkBristolRegister(pCode){
     
   };
 
-
+  //when adding a user check if their address is within Bristol if they are register them otherwise throw an error message
   function checkBristolAdd(pCode){
     var checkPFormat = checkPostCode(pCode);
-    alert(checkPFormat);
+
     if(checkPFormat){
       $.getJSON('../postCode/'+pCode, function(data) {
         
@@ -46,7 +51,8 @@ function checkBristolRegister(pCode){
     
   };
 
-  
+  //admin editing user details check users postcode when their account details have been editied if it
+  //is within Bristol if they are save their details otherwise throw an error message
   function checkBristolEdit(pCode){
     var checkPFormat = checkPostCode(pCode);
     alert(checkPFormat);
@@ -69,7 +75,8 @@ function checkBristolRegister(pCode){
     
   };
 
-
+  //user updating their details check users postcode when their account details have been editied if it
+  //is within Bristol if they are save their details otherwise throw an error message
   function checkBristoluserEdit(pCode){
     var checkPFormat = checkPostCode(pCode);
   
@@ -94,19 +101,7 @@ function checkBristolRegister(pCode){
     
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-  
+//get the users postcode value when they try to register and validate it using checkBristolRegister function
 function checkPCode(){
 
     var pCode = $("#inputZip").val();
@@ -126,7 +121,7 @@ function checkPCode(){
   }
   
   
-  
+  //get the users postcode value when an admin changes their details and validate it using checkBristolAdd function
   function checkPCode2(){
     checkuserMail2();
     var pCode = $("#inputZip.Add").val();
@@ -146,7 +141,8 @@ function checkPCode(){
   
   }
   
-  
+   
+  //get the users postcode value when an admin changes their details and validate it using checkBristolAdd function
   function checkPCode3(){
     checkuserMail3();
     var pCode = $("#inputZipEdit.Edit").val();
@@ -165,13 +161,13 @@ function checkPCode(){
   }
   
 
-
-
+ 
+  
+   //Check if when editing a users by admin the users email is an email that is already taken
   function checkuserMail3(){
  
     //var oldMail = userMail;
   
-
     var newMail = $("#inputEmail4Edit").val();
     var oldMail = $("#mailOld").val();
 
@@ -198,6 +194,7 @@ function checkPCode(){
   
   }
 
+   //Check if when adding a users by admin the users email is an email that is already taken
   function checkuserMail2(){
  
     var newMail = $("#inputEmail4.mailAdd").val();
@@ -222,6 +219,7 @@ function checkPCode(){
   
   }
 
+   //Check if when editing the users email if that email is already taken
   function checkuserMail(){
  
     var newMail = $("#inputEmail4.EditUserMail").val();
@@ -248,6 +246,7 @@ function checkPCode(){
   
   }
 
+//get the users postcode value when they try to change their details and validate it using checkBristolRegister function
   function checkPCode4(){
     
     checkuserMail();

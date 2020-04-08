@@ -1,4 +1,6 @@
   
+  /*This file holds all of the function definitions that are used to add the data collected from the API to the database*/
+
   //Add crime to db
   async function addCrimeToDb(ward,year,bulglary,sexOffence,allCrimes,totalPop)  {
     try{
@@ -10,7 +12,7 @@
     }
   }
 
-    //Add crime to db
+    //Add Quallity of life data to db
     async function addquallityOfLifeToDb(ward,indicator,theme,total)  {
       console.log("see this",ward,indicator,theme,total);
      
@@ -23,7 +25,7 @@
           // Handle errors here
         }
       }
-
+      //Add Population data to db
       async function addPopulationToDb(ward,year,workingAgeP,olderPP,childrenP,workingAgeN,olderPN,childrenN,totalPop)  {
           try{
             let response = await fetch(`population_create/${ward}/${year}/${workingAgeP}/${olderPP}/${childrenP}/${workingAgeN}/${olderPN}/${childrenN}/${totalPop}`);
@@ -35,7 +37,7 @@
           }
         }
 
-
+        //Add the list of wards to db
         async function addWardsToDb(ward)  {
           try{
             let response = await fetch(`ward_create/${ward}`);

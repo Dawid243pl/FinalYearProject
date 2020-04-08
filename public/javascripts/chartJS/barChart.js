@@ -1,3 +1,4 @@
+/*bar chart used for the Crime data*/
 function barChart(div,makeJSONarr){
     
     var ctx = document.getElementById(div).getContext('2d');

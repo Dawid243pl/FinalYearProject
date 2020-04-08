@@ -1,4 +1,4 @@
-
+//check if the user is on the home page if they are remove the second search box othewrise if the user is on the resutls page show the second serach field
 function checkSite(){
   if (window.location.pathname == "/"){
 
@@ -12,15 +12,17 @@ function checkSite(){
   }
 };
 
-
+//run the function on each page
 checkSite();
 
+//get the average between two numbers
 function avgTwoNumb(x,y){
     var average=((x+y)/2).toFixed(2);
 
     return average;
 }
 
+//check if the word has any encoded components
 function containsEncodedComponents(x) {
     // ie ?,=,&,/ etc
     if ((decodeURI(x) !== decodeURIComponent(x)) == false){
@@ -31,17 +33,17 @@ function containsEncodedComponents(x) {
     }
   }
 
+  //add commas for reading easbillity to big integers
   function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
+//regex to valide postcode format
 function checkPostCode(postcode) {
     postcode = postcode.replace(/\s/g, "");
     var regex = /^[A-Z]{1,2}[0-9]{1,2} ?[0-9][A-Z]{2}$/i;
     return regex.test(postcode);
 }
-
-
 
 
 function val2(){
@@ -72,7 +74,7 @@ function val2(){
      return false;
   }
 }
-
+//function that checks the postcode by calling the checkBristol function used when the user seraches for a location
 function val(){
 
     var pCode = $("#inputPostC").val();
@@ -99,7 +101,7 @@ function val(){
     }
 }
 
-
+//
 function checkBristol(pCode){
   var checkPFormat = checkPostCode(pCode);
 

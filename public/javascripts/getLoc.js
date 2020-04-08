@@ -1,11 +1,12 @@
-
+/*This file deals with geting the users GEO location*/
 $(function(){
 
+  //when the location button is clicked get the location of the user
 $("#locBtn").click(function () {
     getLocation();
   });
 
-
+//check if the users geolaction is supported if it show the users position
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -16,12 +17,9 @@ function getLocation() {
 
 }
 
-
+//get the lattitude and the longtitude of the user and set the froms hidden fields to those values
 function showPosition(position) {
     
-    //var Low  = "51.467038";
-    //var High = "-2.537563";
-
 
     var latz  = position.coords.latitude;
     var longz = position.coords.longitude;

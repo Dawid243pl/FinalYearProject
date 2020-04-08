@@ -37,10 +37,13 @@ block content
                     h2 Your rating chart
                     .table-responsive
                         canvas#ratingStats.table(max-height='500px')
-                    
-                    select#type
+            .row        
+                .form-group.col-md-6
+                    //label(for='inputState') State
+                    select#type.form-control
                         option(value="line") Line
                         option(value="bar") Bar
+                .form-group.col-md-6        
                     button#update.btn.btn-primary update    
             .row
                 .col-lg-6.col-sm-12
@@ -56,9 +59,9 @@ block content
                                     th Select
                             tbody.tBodyUserRate
                     form#delteRatingForm(action = "/users/delRating", method = "POST")
-                                    input(type="hidden" id="removeRatingWard" name="ratingWard" value="")
-                                    |                                   
-                                    button#deleteRating.btn.btn-primary.float-right.ml-2(type='submit') Delete Rating             
+                        input(type="hidden" id="removeRatingWard" name="ratingWard" value="")
+                        |                                   
+                        button#deleteRating.btn.btn-primary.float-right.ml-2(type='submit') Delete Rating             
                 .col-lg-6.col-sm-12
                     h2 Account Details
                     .userDetailsForm

@@ -44,9 +44,9 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
         },
         options: {
             responsive: true,
+            //maintainAspectRatio: true,
             title: {
                 display: true,
-                text: 'Chart.js Line Chart'
             },
             tooltips: {
                 mode: 'index',

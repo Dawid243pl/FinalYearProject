@@ -1,14 +1,6 @@
-  $(function(){
+/*This file is used for managing Admin accounts*/
 
-
-   
-  $("#delUSer").click(function () {
-  
-   
-
-  });
-
-  });
+  //function to check if the user was selected to delete
   function validateDel(){
  
     if($('input[name="userz"]:checked').val() == null){
@@ -23,17 +15,20 @@
     }
 
   }
+  //function to conver the data to be - rather than / 
   function convertDate(dateString){
     var p = dateString.split(/\D/g)
     return [p[2],p[1],p[0] ].join("-")
   }
   
+  //function to see how many times an object appears in the array
   function getOccurrence(array, value) {
     var count = 0;
     array.forEach((v) => (v === value && count++));
     return count;
 }
   
+/*Admin functionallity*/
   async function fetchAdminData()  {
     try{
       
@@ -44,6 +39,7 @@
       var timeSeparate =[];
       var labelSeparate=[];
 
+      /* Calling the user info and the list of wards */
       const api_url_userDetails = `userInfo`;
       const response_userDetails = await fetch(api_url_userDetails);
       const json_userDetails = await response_userDetails.json();
@@ -53,7 +49,7 @@
       const json_ward = await response_ward.json();
 
 
-
+      /*split each date and email for data ready to create the visual*/
       $.each(json_userDetails.Users, function(i){
    
         var stampTime =json_userDetails.Users[i].TimeStamp;
@@ -71,10 +67,9 @@
       
     let unique = [...new Set(stampUserTimeArr)]; 
     
-    
+    //change the date format to match YYYY/MM/DD
     unique.sort(function (a, b) {
       // '01/03/2014'.split('/')
-      // gives ["01", "03", "2014"]
       // gives ["2014","03","01"]
       a = a.split('-');
       b = b.split('-');
@@ -83,7 +78,7 @@
   });
 
 
-
+    //count each uniqe time stamp
     for (var zi =0;zi < unique.length;zi++){
       
       var count = getOccurrence(stampUserTimeArr, unique[zi])
@@ -96,14 +91,10 @@
       
     }
     
-
-
-
-    console.log(unique);
+    //create visual with users time stamps
     timeChart("userStamp",unique,stampCounted); 
 
-
-      console.log(json_ward.wards.total_count);
+      //if there are no users say there are no users othewise count them and display the visual
       if(json_userDetails.length == 0) {
         
         $(".tBodyAdminUsers").append("<p>There are no users</p>");
@@ -113,6 +104,7 @@
         $("#totAdmin").append(json_userDetails.Total[0].Admin);
         $("#totWard").append(json_ward.wards.total_count);
             
+        //display a list of users to the admin
         $.each(json_userDetails.Users, function(i){
    
             $(".tBodyAdminUsers").append("<tr scope='row' class='user'><td class='uMail'>"+json_userDetails.Users[i].Email+"</td/><td  scope='row' class='uFname'td>"+json_userDetails.Users[i].fName+"</td><td  scope='row' class='uLname'>"+json_userDetails.Users[i].lName+"</td><td  scope='row' class='uAddress'>"+json_userDetails.Users[i].Address+"</td><td  scope='row' class='uPostCode'td>"+json_userDetails.Users[i].PostCode+"</td><td  scope='row' class='uCity'>"+json_userDetails.Users[i].City+"</td><td  scope='row'>"+json_userDetails.Users[i].AccountType+"</td><td  scope='row'><input type='radio' class='uzerz' name='userz' value='"+json_userDetails.Users[i].Email+"'></td></tr>");
@@ -121,13 +113,9 @@
        
       }
 
-
+      //when clicking the edit user get the users information and put it in the pop up if no user was selected show an error 
       $("#openEdit").click(function () {
-      
-        console.log($('input[name="userz"]:checked').val());
-      
-        //console.log($('input[name="userz"]:checked').val());
-
+       
         if($('input[name="userz"]:checked').val() == null){
 
           alert("please select a user to edit");
@@ -153,6 +141,7 @@
         
 
       });
+      //show slowsly the pop up when adding a user
       $("#openAddUser").click(function () {
       
         

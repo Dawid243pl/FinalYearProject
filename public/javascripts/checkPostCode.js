@@ -1,4 +1,5 @@
 
+/*This file is used to get all of the data from the database and the API to be able to display the users serach result to them*/
 $(function(){
 
 
@@ -7,14 +8,13 @@ $(function(){
       try {
 
         var text= "";
-
         var postC =  "";
         var latz = "";
         var longz = "";
         var easting = "";
         var northing = "";
         var ward = "";
-
+        //if there was no postcode the user had to find the area by location therefore call the api with lat and long othrwise use postcode
         if(postcode == ""){
 
           text = `postCode2/${long}/${lat}`;
@@ -50,22 +50,16 @@ $(function(){
           
         }
 
-        
-     
-        //weather = json.weather.currently;
-        //air = json.air_quality.results[0].measurements[0];
-
-        
         console.log("latz longz",latz,longz);
         //set value of hidden field
         $("#wardNamezHidden").val(ward);
-         //to redirect to home page if ward does not exist
+        
+        //to redirect to home page if ward does not exist
 
         const api_url_ward = `listWards`;
         const response_ward = await fetch(api_url_ward);
         const json_ward = await response_ward.json();
-
-       
+        //change and with & to be constient with the database
         ward = ward.replace('and','&');
 
         var falseWard = false;
@@ -81,40 +75,31 @@ $(function(){
           }
           
         });
-
+        //if it is a bad ward redirect to home page
         if (falseWard == false){
 
           location.replace("/")
           
         }
 
-        //check a list of wards if ward not in DB ERROR
+        //show the user what they serached for
 
         $(".searchRes").append("Your Search<br> Ward: "+ward+" Postcode: <div id='pagePS'>"+postC+"</div>");
 
-        //check a list of wards if ward not in DB ERROR
         $(".cont-h#brs").append("Bristol");
         $(".cont-h#wrd").append(ward);
-     
+        
+        //get all of the crime and qualllity of life data
 
         const api_url_crime = `listCrime/${ward}`;
         const response_crime = await fetch(api_url_crime);
         const json_crime = await response_crime.json();
-   
-
-        //const api_url_weather = `weather/${latz}/${longz}`;
-        ///const response_weather = await fetch(api_url_weather);
-        //const json_weather = await response_weather.json();
-
-      
+       
         const api_url_quall = `ListQuallity/${ward}`;
         const response_quall = await fetch(api_url_quall );
         const json_quall  = await response_quall.json();
-
-
         
-        //console.log(d.toLocaleDateString());
-        
+        //get the date for last three months to call the police API 3 times for that data
         var dateArray=[];
 
         for(var y =0;y<3;y++){
@@ -141,8 +126,10 @@ $(function(){
           policeJsonArr.push(json_police);
       }
 
+      //initliase the map with police data
       initMap(policeJsonArr,latz,longz);
 
+      //get all of the data from API and database
       var api_url_pop = `/getPopulation`;
       var response_pop = await fetch(api_url_pop);
       var json_pop  = await response_pop.json();    
@@ -158,10 +145,10 @@ $(function(){
       var api_url_review = `/users/reviewCount/${ward}`;
       var response_review = await fetch(api_url_review);
       var json_review = await response_review.json(); 
-      
+
+      //call the relevant functions in gettinFromAPI/checkPostCodeFunc.js to parse the data
       getUserReview(json_review);
       getQuallity(json_quall);
-      //getWeather(json_weather);
       getCrime(json_crime,ward);
       getPopulation(json_pop,ward);
       getZoopla(json_zoopla,ward);
@@ -171,13 +158,8 @@ $(function(){
       } 
       catch (error) {
         console.error(error);
-        //air = { value: -1 };
-        //document.getElementById('aq_value').textContent = 'NO READING';
       }
 
 });
-
-
-
 
 });

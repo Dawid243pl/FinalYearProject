@@ -1,3 +1,6 @@
+/*Function declaration file for functions that are called in checkPostCode.js*/
+
+//getting the crime data
 function getCrime(json_crime,ward){
 
   var newJsonArrayWrd =[];
@@ -22,8 +25,9 @@ function getCrime(json_crime,ward){
   var colourActualWardPop =[];
   var colourAvgWardPop =[];
 
+  //loop for each ward in the json and thorugh different time periods
   $.each(json_crime, function(i){
-   
+   //if the time period is 2018-19
     if( json_crime[i].year =="2018-19" ){
 
       var wardCurrent = json_crime[i].WardName;
@@ -32,8 +36,9 @@ function getCrime(json_crime,ward){
       chartJsArrayLabels.push(trendYears);
 
       if( json_crime[i].WardName ==ward){
+
         var pop = json_crime[i].population;
- 
+        //save statistics and addd them to relative arrays for further usage
         var crimeStat3 = new Object();
         crimeStat3.name = "Total crimes";
         crimeStat3.percent = 100;
@@ -49,7 +54,7 @@ function getCrime(json_crime,ward){
       if(json_crime[i].WardName =="Bristol"){
       
         var pop = json_crime[i].population;
-        
+        //save statistics and addd them to relative arrays for further usage
         housing_totalPieChartJS("totalpopBRS","Bristol",pop,"default");
         var crimeStat1 = new Object();
         crimeStat1.name = "Total crimes";
@@ -59,7 +64,7 @@ function getCrime(json_crime,ward){
 
         newJsonArrayBrs.push(crimeStat1);
     
-        //makeDonut(newJsonArrayBrs,chartBrs,"colour");
+        //create a visual for Bristol statistics
         housing_totalPieChartJS("totalcrimeBRS","Bristol",json_crime[i].totalCrimes,"default"); 
 
         colourAvgWardPop.push(pop);
@@ -69,6 +74,7 @@ function getCrime(json_crime,ward){
     }
 
     if(json_crime[i].WardName !="Bristol"){
+      //save statistics for all other wards and addd them to relative arrays for further usage
 
       var wardCurrent = json_crime[i].WardName;
 
@@ -81,7 +87,7 @@ function getCrime(json_crime,ward){
     }
 
     }
-
+//save statistics for all ward in previous years and addd them to relative arrays for further usage
   if(json_crime[i].year =="2017-18"){
     if(json_crime[i].WardName !="Bristol"){
     var wardCurrent = json_crime[i].WardName;
@@ -107,98 +113,15 @@ function getCrime(json_crime,ward){
     }
 }
 
-//label: 'Total Crimes 3 Year Trend',
-    //backgroundColor: 'rgb(255, 99, 132)',
-    //borderColor: '#000000',
-    //data: [dataset1,dataset2,dataset3]
-
-/*
-    if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2018-19") ){
-
-        var pop = json_crime[i].population;
-        $(".popWrd").append("<h1>"+pop+"</h1>");   
-
-        var crimeStat3 = new Object();
-        crimeStat3.name = "Total crimes";
-        crimeStat3.percent = 100;
-        crimeStat3.actual =  numberWithCommas(json_crime[i].totalCrimes);
-        crimeStat3.wName = json_crime[i].WardName;
-    
-        var trendYears = json_crime[i].year;
-        var stat =  json_crime[i].totalCrimes;
-
-        newJsonArrayWrd.push(crimeStat3);
-
-        chartJsArray.push(trendYears,stat);
-
-        makeDonut(newJsonArrayWrd,chartWrd,"colour");
-    }
-    */
-   /*
-    if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2017-18") ){
-      
-      var trendYears = json_crime[i].year;
-      var stat =  json_crime[i].totalCrimes;
-
-      chartJsArray.push(trendYears,stat);
-  }
-  if( (json_crime[i].WardName ==ward) && (json_crime[i].year =="2016-17") ){
-
-    var trendYears = json_crime[i].year;
-    var stat =  json_crime[i].totalCrimes;
-
-    chartJsArray.push(trendYears,stat);
+});
   
-  }
-    
-    if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2018-19") ){
-      
-        var pop = json_crime[i].population;
-        $(".popBrs").append("<h1>"+pop+"</h1>");   
-        var crimeStat1 = new Object();
-        crimeStat1.name = "Total crimes";
-        crimeStat1.percent = 100;
-        crimeStat1.actual =  numberWithCommas(json_crime[i].totalCrimes);
-        crimeStat1.wName = json_crime[i].WardName;
-    
-   
 
-        var stat =  json_crime[i].totalCrimes;
-
-        chartJsArrayBrs.push(stat);
-
-        newJsonArrayBrs.push(crimeStat1);
-    
-        makeDonut(newJsonArrayBrs,chartBrs,"colour");
-    }
-
-    
-    if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2017-18") ){
-  
-      var stat =  json_crime[i].totalCrimes;
-  
-      chartJsArrayBrs.push(stat);
-  }
-  
-  if( (json_crime[i].WardName =="Bristol") && (json_crime[i].year =="2016-17") ){
-   
-    var stat =  json_crime[i].totalCrimes;
-
-    chartJsArrayBrs.push(stat);
-}
-
-*/
-  });
-  
-//console.log(chartJsArray1Stat,chartJsArray2Stat,chartJsArray3Stat,chartJsArray1Name,chartJsArray2Name,chartJsArray3Name);
-
-//Find top Contrys with the biigest crime + current ward
+//Create JSON objects from data in arrays to create visuals
 var makeJSONarr=[];
 var makeJSONbar=[];
 
 for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
-  //console.log(chartJsArray1Name[xy]," vs ",ward);
   if (chartJsArray1Name[xy] == ward){
     
     var someObj = new Object();
@@ -209,9 +132,7 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
     someObj.fill = false;
     makeJSONarr.push(someObj);
   }
-  //someObj.pointRadius = 10;
-  //someObj.pointHoverRadius=15;
-  //someObj.showLine= false;
+
 
   if (chartJsArray1Name[xy] == ward){
 
@@ -239,46 +160,19 @@ for(xy=0;xy<chartJsArray1Stat.length;xy++){
 
 }
 
-console.log("bar",makeJSONbar);
 
+//Create the visuals from JSON objects
 makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],makeJSONarr); 
 barChart("barCrime",makeJSONbar); 
- 
-/*
-   datasets: [{
-            label: 'Total Crimes 3 Year Trend',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: '#000000',
-            data: [dataset1,dataset2,dataset3]
-        },{
-            label: 'Total Crimes 3 Year Trend',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: '#000000',
-            data: [dataset1,dataset2,dataset3]
-        
-        }
-    ]
-*/
+  
+//work out the colour coding
+var checkCrime =colourCoding(colourActualWardCrime[0],colourAvgWardCrime[0]);
 
- // console.log(chartJsArray1,chartJsArray2,chartJsArray3);
+var checkPopulation =colourCoding(colourActualWardPop[0],colourAvgWardPop[0]);
 
-  //makeChartJsCrime(chartJsArrayLabels[0],chartJsArrayLabels[1],chartJsArrayLabels[2],);  
 
-  //chartJsArray1[1],chartJsArray1[3],chartJsArray1[5],chartJsArray1[7],chartJsArray1[9],chartJsArray1[11],chartJsArray1[13],chartJsArray1[15],chartJsArray1[17],chartJsArray1[19],chartJsArray1[21],chartJsArray1[23]
-  //chartJsArray1[24],chartJsArray1[25]
-
-  //makeChartJsCrime(chartJsArray[0],chartJsArray[2],chartJsArray[4],chartJsArray[1],chartJsArray[3],chartJsArray[5],chartJsArrayBrs[0],chartJsArrayBrs[1],chartJsArrayBrs[2]);
-  //console.log("0",chartJsArrayBrs[0],"1",chartJsArrayBrs[1],"2",chartJsArrayBrs[2]);
-
-  var checkCrime =colourCoding(colourActualWardCrime[0],colourAvgWardCrime[0]);
-
-  var checkPopulation =colourCoding(colourActualWardPop[0],colourAvgWardPop[0]);
-
-  //console.log("tot crime colou",checkCrime);
-  //console.log("tot pop colou",checkPopulation);
-
-  housing_totalPieChartJS("totalcrimeWard",ward,colourActualWardCrime[0],checkCrime);
-  housing_totalPieChartJS("totalpopWard",ward,colourActualWardPop[0],checkPopulation,checkPopulation); 
+housing_totalPieChartJS("totalcrimeWard",ward,colourActualWardCrime[0],checkCrime);
+housing_totalPieChartJS("totalpopWard",ward,colourActualWardPop[0],checkPopulation,checkPopulation); 
 
 }
 
@@ -315,6 +209,7 @@ function getQuallity(json_quall){
   */
   }
 
+  //getting the population Data
   function getPopulation(json_pop,ward){
   
     //var brsAvg
@@ -331,6 +226,7 @@ function getQuallity(json_quall){
     var totPopAll =[];
     var wardsAll=[];
 
+    //for each ward in json if current ward grab the data for all of the years otherwise grab only data foe other wards in 2018
     $.each(json_pop, function(i){
 
       if(json_pop[i].WardName ==ward){
@@ -411,8 +307,7 @@ function getQuallity(json_quall){
 
     });
 
-
-
+    //make the population visual
     popChartJs(yearArray[0],yearArray[1],yearArray[2],yearArray[3],yearArray[4],yearArray[5],yearArray[6],
       totPop[0],totPop[1],totPop[2],totPop[3],totPop[4],totPop[5],totPop[6],
       workingAge[0],workingAge[1],workingAge[2],workingAge[3],workingAge[4],workingAge[5],workingAge[6],
@@ -430,44 +325,17 @@ function getQuallity(json_quall){
     var d2Holder =[];
     var d3Holder =[];
     var wardHolder =[];
+    
+    //go through the array and split the data into singluar arrays
+
     for(xy=0;xy<wardsAll.length;xy++){
-
-      //var someObj = new Object();
-      
-     
-
-      //someObj.backgroundColor =  "red";
-      //someObj.borderColor = '#000000';
-      //someObj.fill = false;
-      //someObj.pointRadius = 10;
-      //someObj.pointHoverRadius=15;
-      //someObj.showLine= false;
 
       d1Holder.push(workingAgeAll[xy]);
       d2Holder.push(childrenAll[xy]);
       d3Holder.push(olderAll[xy]);
       wardHolder.push(wardsAll[xy]);
     }
-    /*
-    d1Obj.label =  "Working age";
-    d1Obj.backgroundColor =  "red";
-    
-    d2Obj.label =  "Children";
-    d2Obj.backgroundColor =  "blue";
-    
-    d3Obj.label =  "Elderly";
-    d3Obj.backgroundColor =  "yellow";
-*/
-
-    //d1Obj.data = [d1Holder];
-    //d2Obj.data = [d2Holder];
-    //d3Obj.data = [d3Holder];
-    //wardObj.data = [wardHolder];
-
-    //var finalObj = new Object();
-    //finalObj.labels = [wardHolder]
-    //finalObj = [d1Obj,d2Obj,d3Obj];
-
+    //create the visual data and format
     var barChartData = {
       labels: wardHolder,
       datasets: [{
@@ -485,16 +353,11 @@ function getQuallity(json_quall){
           data:d3Holder
       }]
   };
-
+    //make the visual
     makeStacked("popBar",barChartData)
-
-    //console.log("test",finalObj);
-
-
-
     
   }
-
+  //getting zoopla housing information
   function getZoopla(json_zoopla,ward){
     
       
@@ -508,18 +371,19 @@ function getQuallity(json_quall){
       var yr7SalepriceAvg = json_zoopla.zoopla.average_sold_price_7year;
       var yr7SalesNumb = json_zoopla.zoopla.number_of_sales_7year;
       var postZoopla = json_zoopla.zoopla.postcode;
-
+      //appending postcode housing data
       $(".wr").append(postZoopla);
       var numbComma = numberWithCommas(currentSalesNumb);
       $("#Sales").append(numbComma);
       $("#avgPaidPrice").append("£"+currentSalepriceAvg);
-      
+
+      //caluclating the averages
       var calculateIncDec = currentSalepriceAvg - yr3SalepriceAvg;
 
       var calculateIncDecProc =calculateIncDec /currentSalepriceAvg *100;
 
       var text ="";
-      
+      //caluclate the increase/decrase between now and last 3 years
       if(calculateIncDec < 0){
         text="Decrease £";
         calculateIncDec = Math.abs(calculateIncDec);
@@ -533,7 +397,7 @@ function getQuallity(json_quall){
       calculateIncDec = numberWithCommas(calculateIncDec);
       $("#valueChange").append(text+calculateIncDec+" ("+"% "+Math.round(calculateIncDecProc * 100) / 100+")");
 
-    
+      //bristol data
       var turnoverBrs =json_zoopla.zoopla_brs.areas[0].turnover;
       var currentSalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_1year;
       var currentSalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_1year;
@@ -544,7 +408,7 @@ function getQuallity(json_quall){
       var yr7SalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_7year;
       var yr7SalesNumbBrs = json_zoopla.zoopla_brs.areas[0].number_of_sales_7year;
 
-
+      //outcode data ie bs5
       var turnoverOutcode =json_zoopla.zoopla_outcode.turnover;
       var currentSalepriceAvgOutcode = json_zoopla.zoopla_outcode.average_sold_price_1year;
       var currentSalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_1year;
@@ -556,6 +420,8 @@ function getQuallity(json_quall){
       var yr7SalesNumbOutcode = json_zoopla.zoopla_outcode.number_of_sales_7year;
       var zooplaPostcodeOutCode = json_zoopla.zoopla_outcode.postcode;
 
+      //appending outcode data
+
       $(".out").append(zooplaPostcodeOutCode);
 
       var numbCommaOutcode = numberWithCommas(currentSalesNumbOutcode);
@@ -563,7 +429,7 @@ function getQuallity(json_quall){
       $("#SalesOut").append(numbCommaOutcode);
       
       $("#avgPaidPriceOut").append("£"+currentSalepriceAvgOutcode);
-      
+      //caluclating the averages
       var calculateIncDecOutcode = currentSalepriceAvgOutcode - yr3SalepriceAvgOutcode;
 
       var calculateIncDecProcOutcode =calculateIncDecOutcode /currentSalepriceAvgOutcode *100;
@@ -571,7 +437,7 @@ function getQuallity(json_quall){
       var calculateIncDecProcOutcode = Math.round(calculateIncDecProcOutcode * 100) / 100;
 
       var textOutcode ="";
-      
+      //caluclating the incrase/decrase in market value change in last 3 years
       if(calculateIncDecOutcode < 0){
         textOutcode="Decrease £";
         calculateIncDecOutcode = Math.abs(calculateIncDecOutcode);
@@ -591,10 +457,11 @@ function getQuallity(json_quall){
       yr3SalepriceAvgOutcode,yr5SalepriceAvgOutcode,yr7SalepriceAvgOutcode);
 }
 
+//getting housing data
 function getHousing(json_housing,ward){
 
   
-  /*---------Owned-----------------*/
+  /*---------Housing Owned-----------------*/
   var totalHouseHoldsTenure =  0;
 
   var ownedProc = 0;
@@ -606,7 +473,7 @@ function getHousing(json_housing,ward){
   var privateNumb =  0;
 
   
-  /*---------Owned BRS-----------------*/
+  /*---------Housing Owned BRS-----------------*/
   var totalHouseHoldsTenureBRS =  0;
 
   var ownedProcBRS = 0;
@@ -618,8 +485,7 @@ function getHousing(json_housing,ward){
   var privateNumbBRS =  0;
 
 
-  /*---------Type-----------------*/
-  /*spaced not actual numb*/
+  /*---------Housing Type-----------------*/
   var totHouseSpaces =  0;
 
   var semiProc = 0;
@@ -647,7 +513,7 @@ function getHousing(json_housing,ward){
 
   
 
-  /*---------TYPE BRS-----------------*/
+  /*---------Housing type BRS-----------------*/
 
   var totHouseSpacesBRS =  0;
 
@@ -674,7 +540,7 @@ function getHousing(json_housing,ward){
 
   var otherNumbBRS = 0;
 
-  /*---------BED-----------------*/
+  /*---------Housing BED-----------------*/
   var totalHouseholdsBed = 0;
 
   var oneBedProc =   0;
@@ -694,7 +560,7 @@ function getHousing(json_housing,ward){
   var avgHouseSizePerPerson =  0;
 
 
-  /*---------BED- BRS----------------*/
+  /*---------Housing BED BRS----------------*/
   var totalHouseholdsBedBrs =0;
   
   var oneBedProcBrs =   0;
@@ -716,9 +582,11 @@ function getHousing(json_housing,ward){
 
 
   var counter =0;
+
+  //for each wards housing size data
   $.each(json_housing.housing_size.records, function(i){
 
-    
+    //if it is the current ward grab the needed data  
     if(json_housing.housing_size.records[i].record.fields["2016_ward_name"] ==ward){
 
       totalHouseholdsBed = json_housing.housing_size.records[i].record.fields.total_number_of_households;
@@ -741,8 +609,7 @@ function getHousing(json_housing,ward){
       
      
     }    
-  
-
+    //otherwise for all other wards record this data
       totalHouseholdsBedBrs = totalHouseholdsBedBrs +json_housing.housing_size.records[i].record.fields.total_number_of_households;
 
       oneBedProcBrs =  oneBedProcBrs +json_housing.housing_size.records[i].record.fields.with_1_bedroom;
@@ -766,21 +633,21 @@ function getHousing(json_housing,ward){
     counter++;
   });
 
-  
+  //for each wards housing type data  
   $.each(json_housing.housing_type.records, function(i){
 
-    //console.log(json_housing.housing_type.records);
+    //if it is the current ward grab the following data
     if(json_housing.housing_type.records[i].record.fields["2016_ward_name"] ==ward){
     
       semiProc = json_housing.housing_type.records[i].record.fields.semi_detached0;
       terracedProc = json_housing.housing_type.records[i].record.fields.terraced0;
       detachedProc = json_housing.housing_type.records[i].record.fields.detached0;
 
-     
+     //add flats up ass the flats are caluclated togehter
       flat1Proc =json_housing.housing_type.records[i].record.fields.flat_in_commercial_building0;
       flat2Proc = json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits0;
       flat3Proc = json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats0;
-
+      
       flatProc = flat1Proc+flat2Proc+flat3Proc;
 
       otherProc = json_housing.housing_type.records[i].record.fields.caravan_or_other_mobile_or_temporary_structure0;
@@ -799,12 +666,14 @@ function getHousing(json_housing,ward){
       /*spaced not actual numb*/
       totHouseSpaces = json_housing.housing_type.records[i].record.fields.total_number_of_household_spaces;
      
-  }    
+  }  
+    //for all other wards grab this data  
       semiProcBRS = semiProcBRS+json_housing.housing_type.records[i].record.fields.semi_detached0;
       terracedProcBRS = terracedProcBRS + json_housing.housing_type.records[i].record.fields.terraced0;
       
       detachedProcBRS = detachedProcBRS+json_housing.housing_type.records[i].record.fields.detached0;
 
+      //add flats up ass the flats are caluclated togheter
       flat1ProcBRS =flat1ProcBRS+json_housing.housing_type.records[i].record.fields.flat_in_commercial_building0;
       flat2ProcBRS = flat2ProcBRS+json_housing.housing_type.records[i].record.fields.flat_part_of_a_converted_or_shared_house_including_bed_sits0;
       flat3ProcBRS = flat3ProcBRS+json_housing.housing_type.records[i].record.fields.flat_purpose_built_block_of_flats0;
@@ -818,7 +687,6 @@ function getHousing(json_housing,ward){
       
       terracedNumbBRS =  terracedNumbBRS+ parseInt(json_housing.housing_type.records[i].record.fields.terraced);
 
-      //console.log("tera",terracedNumbBRS,"+",parseInt(json_housing.housing_type.records[i].record.fields.terraced));
 
       detachedNumbBRS = detachedNumbBRS+json_housing.housing_type.records[i].record.fields.detached;
       
@@ -835,9 +703,11 @@ function getHousing(json_housing,ward){
 
   flatNumbBRS = flat1NumbBRS+ flat2NumbBRS+flat3NumbBRS;
 
+  //for each wards tenure data
   $.each(json_housing.housing_tenure.records, function(i){
 
-    //console.log(json_housing.housing_type.records);
+  
+    //if this ward get the following data
     if(json_housing.housing_tenure.records[i].record.fields["2016_ward_name"] ==ward){
  
     totalHouseHoldsTenure = json_housing.housing_tenure.records[i].record.fields.total_number_of_households;
@@ -852,7 +722,7 @@ function getHousing(json_housing,ward){
 
  
   }    
-
+  //for all other wards get the following data
   totalHouseHoldsTenureBRS = totalHouseHoldsTenureBRS+json_housing.housing_tenure.records[i].record.fields.total_number_of_households;
      
     ownedProcBRS = ownedProcBRS + json_housing.housing_tenure.records[i].record.fields.owned0;
@@ -864,13 +734,16 @@ function getHousing(json_housing,ward){
     privateNumbBRS =privateNumbBRS + json_housing.housing_tenure.records[i].record.fields.private_and_other_rented;
 
   });
+
+  //make housing visuals from the data 
   housing_ownedPieChartJS("housing_ownedPieChart","Owned","Social","Private owned",ownedProc,socialProc,privateProc);  
 
   housing_typePieChartJS("housing_typePieChart","Semi","Terraced","Detached","Flat",semiProc,terracedProc,detachedProc,flatProc);
   
   housing_bedPieChartJS("housing_bedPieChart","1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",oneBedProc,twoBedProc,threeBedProc,fourPlusBedProc);
 
-  
+  //calculate the averages for the data 
+
   var calcAVG_owned_Brs = oneDcm(ownedNumbBRS / totalHouseHoldsTenureBRS * 100);
   var calcAVG_social_Brs = oneDcm(socialNumbBRS / totalHouseHoldsTenureBRS * 100);
   var calcAVG_privateBrs = oneDcm(privateNumbBRS / totalHouseHoldsTenureBRS * 100);
@@ -885,37 +758,23 @@ function getHousing(json_housing,ward){
   var calcAVG_Bed_3_Brs = oneDcm(threeBedNumbBrs / totalHouseholdsBedBrs * 100);
   var calcAVG_Bed_4_Brs = oneDcm(fourPlusBedProcBrs / totalHouseholdsBedBrs * 100);
 
-
-  
-
-  //console.log("avg semi etc",semiNumbBRS,terracedNumbBRS,detachedNumbBRS,flatNumbBRS);
-  //console.log("avg semi etc",calcAVG_semi_Brs,calcAVG_terraced_Brs,calcAVG_detached_Brs,calcAVG_flat_Brs);
-
+  //create visuals from the data
   housing_ownedPieChartJS("housing_ownedPieChartBRS","Owned","Social","Private owned",calcAVG_owned_Brs,calcAVG_social_Brs,calcAVG_privateBrs);  
 
   housing_typePieChartJS("housing_typePieChartBRS","Semi","Terraced","Detached","Flat",calcAVG_semi_Brs,calcAVG_terraced_Brs,calcAVG_detached_Brs,calcAVG_flat_Brs);
   
   housing_bedPieChartJS("housing_bedPieChartBRS","1 Bedroom","2 Bedroom","3 Bedroom","4+ Bedroom",calcAVG_Bed_1_Brs,calcAVG_Bed_2_Brs,calcAVG_Bed_3_Brs,calcAVG_Bed_4_Brs);
 
-
+  //make colour coding for housing
   var checkHousing =colourCoding(totalHouseholdsBed,totalHouseholdsBedBrs);
-
-  //console.log("tot house colou",checkHousing);
 
   housing_totalPieChartJS("totalHouseBRS","Bristol",totalHouseholdsBedBrs,"default");
   housing_totalPieChartJS("totalHouseWard",ward,totalHouseholdsBed,checkHousing);
  
-
-
- // console.log(counter);
-  //console.log("BRS",overcrowdedHousesNumbBrs,calculateBRSoverCrowded.toFixed(2),"Ward",overcrowdedHousesNumb,overcrowdedHousesProc)
-
 }
 
-
+//get user review data
 function getUserReview(json_review){
-
-  //console.log(json_review.review[0].q1Yes);
 
   var recordResponse=[];
   var questionArr=[];
@@ -924,6 +783,7 @@ function getUserReview(json_review){
   var tempArray=[];
   var tempArray2=[];
   var tempArray3=[];
+
   tempArray.push(json_review.review[0].q1Yes,json_review.review[0].q1No);  
   recordResponse.push(tempArray);
   tempArray2.push(json_review.review[0].q2Yes,json_review.review[0].q2No);  
@@ -931,8 +791,7 @@ function getUserReview(json_review){
   tempArray3.push(json_review.review[0].q3Yes,json_review.review[0].q3No);  
   recordResponse.push(tempArray3);
 
-  //console.log(recordResponse);
-
+  //grab all the questions
   $.each(json_review.question, function(i){
 
     var tempArray=[];
@@ -945,6 +804,7 @@ function getUserReview(json_review){
   });
 
 
+  //go through each response yes or no and make data out of it
 var makePlainDonutJson=[];
 
 for(xy=0;xy<recordResponse.length;xy++){
@@ -966,7 +826,7 @@ for(xy=0;xy<recordResponse.length;xy++){
   testarr3=[];
   testarr3.push(makePlainDonutJson[2]);
  
-
+  //mak visual
   plainDonut("userDrivenChart",questionArr[0],testarr);
   plainDonut("userDrivenChart1",questionArr[1],testarr2);
   plainDonut("userDrivenChart2",questionArr[2],testarr3);

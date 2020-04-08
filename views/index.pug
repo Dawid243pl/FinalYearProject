@@ -7,7 +7,7 @@ block content
       form#locationForm.form-signin.text-white(action = "/findArea", method = "POST" onSubmit="return val()")
         img.mb-4(src='../images/map.png', alt='', width='72', height='72')
         |   
-        h1.h3.mb-3.font-weight-normal Please find PostCode
+        h1.h3 Please find PostCode
         |    
         input#inputPostC.form-control(name = 'say', placeholder = 'Enter Postcode', required='', autofocus='')
         |   
@@ -15,12 +15,12 @@ block content
         |  
         //input(type="hidden" id="long" name="long" value="")
         |   
-        button#locBtnPscode.btn.btn-lg.btn-primary.btn-block(type='submit') Find Postcode
+        button#locBtnPscode.btn.btn-primary.btn-block(type='submit') Find Postcode
         |
     section.OrSec.text-center
       .container
-        h1 Or
-        h3
+        h1.h1 Or
+        h3.h3
           | Simply Find Current Location
         #formHolder
           form#locationForm2.form-signin2.text-white(action = "/findArea", method = "POST")
@@ -31,7 +31,7 @@ block content
             |   
             input#inputPostC.form-control(type="hidden", name = 'say')
             |
-            button#locBtn.btn.btn-lg.btn-primary.btn-block(type='submit') Find Current Location
+            button#locBtn.btn.btn-primary.btn-block(type='submit') Find Current Location
     script
       include ../public/javascripts/getLoc.js
       include ../public/javascripts/mainFunc.js

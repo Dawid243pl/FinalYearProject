@@ -1,12 +1,11 @@
+/*This file is used to hold the function definitions that are used to parse the data to make sure that the correct data is input into the database
+and then calls the functon in the file databaseAdding.js to add them to the database*/
+
+//Parsing crime data
 function getCrime(json_crime){
+
+    //Parsing each crime type and population year 2018-19
     $.each(json_crime.all_wards.records, function(i){
-
-      
-      console.log("all json",json_crime.all_wards.records);
-      //console.log("k",json_crime.all_wards.records[i]);
-
-      //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
-
 
       var bulg = json_crime.all_wards.records[i].record.fields.burglary_number;
       var sex = json_crime.all_wards.records[i].record.fields.violent_sexual_offences_number;
@@ -15,21 +14,13 @@ function getCrime(json_crime){
       var wrd = json_crime.all_wards.records[i].record.fields.ward_name;
       var year = "2018-19";
 
-
-      console.log("ADDING THIS TO DB SHITZ",wrd,year,bulg,sex,all,pop);
       addCrimeToDb(wrd,year,bulg,sex,all,pop);
  
 
     }); 
 
+     //Parsing each crime type and population year 2017-18
     $.each(json_crime.year_17_18.records, function(i){
-
-      
-      //console.log("all json",json_crime.all_wards.records);
-      //console.log("k",json_crime.all_wards.records[i]);
-
-      //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
-
 
       var bulg = json_crime.year_17_18.records[i].record.fields.burglary_number;
       var sex = json_crime.year_17_18.records[i].record.fields.violent_sexual_offences_number;
@@ -44,14 +35,8 @@ function getCrime(json_crime){
 
     }); 
     
+     //Parsing each crime type and population year 2016-17
     $.each(json_crime.year_16_17.records, function(i){
-
-      console.log("WHATTTTTTTTTTTTTTTTT 2016",json_crime.year_16_17.records);
-      //console.log("all json",json_crime.all_wards.records);
-      //console.log("k",json_crime.all_wards.records[i]);
-
-      //console.log(json_crime.all_wards.records[i].record.fields.burglary_number);
-
 
       var bulg = json_crime.year_16_17.records[i].fields.burglary_number;
       var sex = json_crime.year_16_17.records[i].fields.violent_sexual_offences_number;
@@ -68,8 +53,11 @@ function getCrime(json_crime){
   }
 
  
+  //Parsing quallity of life data  data
 
   function getQuallity(json_quall){
+
+    //Parsing each crime inidcator and its stats
     $.each(json_quall.crimeQ.records, function(i){
 
       var wrd = json_quall.crimeQ.records[i].record.fields.ward_name;
@@ -77,12 +65,13 @@ function getCrime(json_crime){
       var indicator = json_quall.crimeQ.records[i].record.fields.indicator;
       var low = json_quall.crimeQ.records[i].record.fields.lower_confidence_limit;
       var theme = json_quall.crimeQ.records[i].record.fields.theme;
-
+      
+      //if some of the inidcators do not have a value input 0 to the database
       var total = avgTwoNumb(low,up);  
       if (total == null){
           total = 0;
       }  
-        
+      //fix naming convention to be compatabile with database storing   
       var indicator = String(indicator);
       var indicator = indicator.replace('% ','');
       var indicator = indicator.replace('/','');
@@ -94,7 +83,7 @@ function getCrime(json_crime){
     });
 
 
-
+    //Parsing each transport inidcator and its stats
     $.each(json_quall.transportQ.records, function(i){
 
       var wrd = json_quall.transportQ.records[i].record.fields.ward_name;
@@ -103,11 +92,13 @@ function getCrime(json_crime){
       var low = json_quall.transportQ.records[i].record.fields.lower_confidence_limit;
       var theme = json_quall.transportQ.records[i].record.fields.theme;
 
+       //if some of the inidcators do not have a value input 0 to the database
       var total = avgTwoNumb(low,up);  
       if (total == null){
           total = 0;
       }  
-        
+     
+      //fix naming convention to be compatabile with database storing   
       var indicator = String(indicator);
       var indicator = indicator.replace('% ','');
       var indicator = indicator.replace('/','');
@@ -118,43 +109,10 @@ function getCrime(json_crime){
 
     });
 
-
-
-
-    /*
-    $.each(json_quall.all_wards.records, function(i){
-     
-      console.log("INDI",ward,indicator);
-
-      //console.log("all json",json_crime.all_wards.records);
-      //console.log("k",json_quall.all_wards);
-      var wrd = json_quall.all_wards.records[i].record.fields.ward_name;
-      var up = json_quall.all_wards.records[i].record.fields.upper_confidence_limit;
-      var indicator = json_quall.all_wards.records[i].record.fields.indicator;
-      var low = json_quall.all_wards.records[i].record.fields.lower_confidence_limit;
-      var theme = json_quall.all_wards.records[i].record.fields.theme;
-      
-      var total = avgTwoNumb(low,up);  
-      if (total == null){
-          total = 0;
-      }  
-        
-      var indicator = String(indicator);
-      var indicator = indicator.replace('% ','');
-      var indicator = indicator.replace('/','');
-      
- //prints: 123
-      console.log(wrd,indicator,theme,total);
-      addquallityOfLifeToDb(wrd,indicator,theme,total);
-      
-    }); 
- */
-
   };
 
+  //parsing all of the population data from 2012 to 2018 and adding to db
   function getPopulation(json_pop){
-
-    console.log(json_pop);
 
     $.each(json_pop.population_18.records, function(i){
 
@@ -264,19 +222,12 @@ function getCrime(json_crime){
 
   }
 
-  
+  //get each of the wards and add them to db  
   function getWard(json_wards){
 
-    //console.log("Wardz yooooooooooooooooooooo",json_wards);
-
-    //console.log(json_wards.wards.records[0].record.fields.name)
     $.each(json_wards.wards.records, function(i){
 
-      //console.log("WARZZZZZZ 2",json_wards.wards.records[0]);
-      console.log("WARZZZZZZ YOO",json_wards.wards.records[i].record.fields.name);
-
       var ward = json_wards.wards.records[i].record.fields.name;
-      console.log(ward);
 
       addWardsToDb(ward);
     });
