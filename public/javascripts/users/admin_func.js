@@ -45,24 +45,39 @@ async function fetchAdminData() {
 			var d = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
 			stampUserTimeArr.push(d);
 			stampUserMailArr.push(stampMail);
-		});
+    });
+	
+		//sort date array
+		stampUserTimeArr.sort(function (a, b) {
+			if (a > b) return 1;
+			if (a < b) return -1;
+			return 0;
+		  });
+	  
+		//save second array so that its occurance can still be counted in the stampUserTimeArr
 		let unique = [...new Set(stampUserTimeArr)];
-		//change the date format to match YYYY/MM/DD
-		unique.sort(function(a, b) {
-			// '01/03/2014'.split('/')
-			// gives ["2014","03","01"]
-			a = a.split('-');
-			b = b.split('-');
-			return a[2] - b[2] || a[1] - b[1] || a[0] - b[0];
-		});
-		//count each uniqe time stamp
+
+		var unique2 =[...new Set(stampUserTimeArr)];
+   
+	//change date format yo be dd/mm/yyyy
+	
+	for (var p = 0; p < unique.length; p++) {
+		
+		unique[p] = formatDate (unique[p]);
+	
+	}
+
+
+	
+		//count each uniqe time stamp. Count the second array as this has the orginal yyyy/mm/dd format but display the first array which is dd/mm/yyyy
 		for (var zi = 0; zi < unique.length; zi++) {
-			var count = getOccurrence(stampUserTimeArr, unique[zi])
+			var count = getOccurrence(stampUserTimeArr, unique2[zi]);
 			var stampObj = new Object();
 			stampObj.x = unique[zi];
 			stampObj.y = count;
 			stampCounted.push(stampObj);
-		}
+    }
+	
 		//create visual with users time stamps
 		timeChart("userStamp", unique, stampCounted);
 		//if there are no users say there are no users othewise count them and display the visual

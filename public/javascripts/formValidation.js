@@ -39,7 +39,7 @@ function checkBristolAdd(pCode) {
 //is within Bristol if they are save their details otherwise throw an error message
 function checkBristolEdit(pCode) {
 	var checkPFormat = checkPostCode(pCode);
-	alert(checkPFormat);
+
 	if (checkPFormat) {
 		$.getJSON('../postCode/' + pCode, function(data) {
 			if (data.postcode.result.primary_care_trust == "Bristol") {
