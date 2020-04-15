@@ -300,8 +300,12 @@ table th {
 		margin-top: 10px;
 		margin-bottom: 10px;
 	}
-
-	
+	.row{
+		margin: 0px !important;
+	}
+	.registerForm{
+		width: 100% !important;
+	}
 
 }
 
