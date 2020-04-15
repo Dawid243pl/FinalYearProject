@@ -81,14 +81,19 @@ block content
           h1.display-4.text-center Crime
           .widget.bg-dark
             .header.bg-info Total Crime
-            .header_sub.bg-danger
+            .header_sub.bg-danger.hiddenDesktop
               .cont-h#brs
               .cont-h#wrd 
             .row
+              .header_sub.bg-danger.col-sm-6.hiddenMobile
+                .cont-h#brs.col-lg-12 
               .col-sm-6.mt-4.mb-4
                 canvas#totalcrimeBRS
+              .header_sub.bg-danger.col-sm-6.hiddenMobile
+                .cont-h#wrd.col-lg-12 
               .col-sm-6.mt-4.mb-4 
                 canvas#totalcrimeWard
+
 
           p.lead
             | Source: Bristol City Council Quality of life
@@ -134,12 +139,16 @@ block content
             h1.display-4.text-center Population
             .widget.bg-dark
               .header.bg-info Total Population
-              .header_sub.bg-danger
+              .header_sub.bg-danger.hiddenDesktop
                 .cont-h#brs
                 .cont-h#wrd 
               .row
+                .header_sub.bg-danger.col-sm-6.hiddenMobile
+                  .cont-h#brs.col-lg-12 
                 .col-sm-6.mt-4.mb-4 
                   canvas#totalpopBRS
+                .header_sub.bg-danger.col-sm-6.hiddenMobile
+                  .cont-h#wrd.col-lg-12 
                 .col-sm-6.mt-4.mb-4 
                   canvas#totalpopWard
             p.lead
@@ -154,7 +163,14 @@ block content
                 | Time Period: 2012-2017 
               h2.lead
               | Population in all wards 
-              canvas#popBar.Spacer
+              //.contPopBar
+                canvas#popBar
+              .container-fluid
+                .row
+                  .col-lg-12
+                     canvas#popBar(width='390', height='425')
+  
+              
               p.lead
                 | Source: Bristol City Council Population
                 | Time Period: 2012-2017 
@@ -166,16 +182,22 @@ block content
               h1.display-4.text-center Housing
               .widget.bg-dark
                 .header.bg-info Total Number of Households
-                .header_sub.bg-danger
+                .header_sub.bg-danger.hiddenDesktop
                   .cont-h#brs
                   .cont-h#wrd 
                 .row
+                  .header_sub.bg-danger.col-sm-6.hiddenMobile
+                    .cont-h#brs.col-lg-12 
                   .col-sm-6.mt-4.mb-4 
                     canvas#totalHouseBRS
+                  .header_sub.bg-danger.col-sm-6.hiddenMobile
+                    .cont-h#wrd.col-lg-12   
                   .col-sm-6.mt-4.mb-4 
                     canvas#totalHouseWard
+
                 .houseBrs
                 .houseWrd
+
               p.lead
                 | Source: Bristol City Council Census
                 | Time Period: 2011-2016 
@@ -190,24 +212,36 @@ block content
                 p.lead
                 | Housing information
                 p.CrimeComponent
-                .header_sub.bg-danger
+                .header_sub.bg-danger.hideHousing
                   .cont-h#brs
                   .cont-h#wrd   
                 hr.my-4
                 .container
                   .row
+                    .header_sub.bg-danger.col-lg-12.hideMobileHousing
+                      .cont-h#brs.col-lg-12 
                     .col-sm-12.col-lg-6 
                       canvas#housing_ownedPieChartBRS   
+                    .header_sub.bg-danger.col-lg-12.hideMobileHousing
+                      .cont-h#wrd.col-lg-12 
                     .col-sm-12.col-lg-6 
                       canvas#housing_ownedPieChart
-                  
+
+                    .header_sub.bg-danger.col-lg-12.hideMobileHousing
+                      .cont-h#brs.col-lg-12 
                     .col-sm-12.col-lg-6  
                       canvas#housing_typePieChartBRS  
+                    .header_sub.bg-danger.col-lg-12.hideMobileHousing
+                      .cont-h#wrd.col-lg-12   
                     .col-sm-12.col-lg-6 
                       canvas#housing_typePieChart
                     
+                    .header_sub.bg-danger.col-lg-12.hideMobileHousing
+                      .cont-h#brs.col-lg-12 
                     .col-sm-12.col-lg-6 
                       canvas#housing_bedPieChartBRS
+                    .header_sub.bg-danger.col-lg-12.hideMobileHousing
+                      .cont-h#wrd.col-lg-12   
                     .col-sm-12.col-lg-6  
                       canvas#housing_bedPieChart
                     p.lead

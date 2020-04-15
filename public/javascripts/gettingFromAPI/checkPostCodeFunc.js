@@ -342,7 +342,7 @@ function getZoopla(json_zoopla, ward) {
 	}
 	calculateIncDecOutcode = numberWithCommas(calculateIncDecOutcode);
 	$("#valueChangeOut").append(textOutcode + calculateIncDecOutcode + " (" + "% " + calculateIncDecProcOutcode + ")");
-	zooplaChartJS("1 Year", "3 Years", "5 Years", "7 Years", currentSalepriceAvg, yr3SalepriceAvg, yr5SalepriceAvg, yr7SalepriceAvg, currentSalepriceAvgBrs, yr3SalepriceAvgBrs, yr5SalepriceAvgBrs, yr7SalepriceAvgBrs, currentSalepriceAvgOutcode, yr3SalepriceAvgOutcode, yr5SalepriceAvgOutcode, yr7SalepriceAvgOutcode, postZoopla);
+	zooplaChartJS("1 Year", "3 Years", "5 Years", "7 Years", currentSalepriceAvg, yr3SalepriceAvg, yr5SalepriceAvg, yr7SalepriceAvg, currentSalepriceAvgBrs, yr3SalepriceAvgBrs, yr5SalepriceAvgBrs, yr7SalepriceAvgBrs, currentSalepriceAvgOutcode, yr3SalepriceAvgOutcode, yr5SalepriceAvgOutcode, yr7SalepriceAvgOutcode, postZoopla,zooplaPostcodeOutCode);
 }
 //getting housing data
 function getHousing(json_housing, ward) {

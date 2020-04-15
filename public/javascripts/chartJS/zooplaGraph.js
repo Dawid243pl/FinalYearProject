@@ -1,4 +1,4 @@
-function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5Soldprice,yr7currentSoldprice,currentSoldpriceBrs,yr3SoldpriceBrs,yr5SoldpriceBrs,yr7currentSoldpriceBrs,currentSoldpriceOutcode,yr3SoldpriceOutcode,yr5SoldpriceOutcode,yr7currentSoldpriceOutcode,curPostCode){
+function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5Soldprice,yr7currentSoldprice,currentSoldpriceBrs,yr3SoldpriceBrs,yr5SoldpriceBrs,yr7currentSoldpriceBrs,currentSoldpriceOutcode,yr3SoldpriceOutcode,yr5SoldpriceOutcode,yr7currentSoldpriceOutcode,curPostCode,outcode){
  
     var ctx = document.getElementById('zooplaChart').getContext('2d');
 
@@ -30,7 +30,7 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
                 ],
             }
             , {
-                label: 'BS5',
+                label: outcode,
                 fill: false,
                 backgroundColor: "#007bff",
                 borderColor: "#007bff",

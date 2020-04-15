@@ -69,6 +69,7 @@ a {
 #popBar.Spacer {
 	max-height: 800px !important;
 }
+
 /*BOOSTRAP*/
 
 .jumbotron {
@@ -109,9 +110,7 @@ a.nav-link {
 	border-radius: .25rem;
 	transition: all .1s ease-in-out;
 }
-li.my-list.list-group-item.d-flex.justify-content-between.align-items-center {
-	font-size: 1.3vw;
-}
+
 .form-label-group {
 	position: relative;
 	margin-bottom: 1rem;
@@ -254,12 +253,18 @@ table th {
 	width: 100%;
 	/* The width is the width of the web page */
 }
+.contPopBar{
+	width: 100%;
+  
+}
 
 
 .viewAll{
 	cursor: pointer;
 }
 /*Media Queries*/
+
+
 
 @media only screen and (min-width: 320px) and (max-width: 600px) {
 	.container {
@@ -275,4 +280,67 @@ table th {
 	.jumbotron {
 		padding: 0px !important;
 	}
+	
+	li.my-list.list-group-item.d-flex.justify-content-between.align-items-center {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	li.my-list.list-group-item.d-flex.justify-content-between.align-items-center button{
+		margin-right: 3px;
+	}
+	.container.marketing{
+		margin-top: 80px !important;
+	}
+	.titContainer {
+		text-align: center;
+	}
+	.titContainer a.btn{
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	
+
+}
+
+@media only screen and (max-width: 575px)  {
+	.hiddenDesktop{
+		display: none !important;
+	} 
+	.header_sub{
+		text-align: center;
+	}
+
+}
+
+@media only screen and (min-width: 576px)  {
+	.hiddenMobile{
+		display: none !important;
+	} 
+	
+}
+
+@media only screen and (max-width: 991px)  {
+	.hideHousing{
+		display: none !important;
+	} 
+	
+}
+
+@media only screen and (min-width: 992px)  {
+	.hideMobileHousing{
+		display: none !important;
+	} 
+	
+}
+
+@media only screen and (max-width: 506px)  {
+	button#makeDB,button#openAddUser,button#openEdit,button#delUSer{
+		width: 100%;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	} 
+	
 }

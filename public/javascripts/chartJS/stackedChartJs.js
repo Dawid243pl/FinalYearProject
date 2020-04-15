@@ -7,10 +7,9 @@ function makeStacked(div,barChartData){
         data: barChartData,
     
         options: {
-            //maintainAspectRatio: false,
+            maintainAspectRatio: true,
             title: {
                 display: true,
-                text: 'Chart.js Bar Chart - Stacked'
             },
             tooltips: {
                 mode: 'index',
@@ -23,6 +22,28 @@ function makeStacked(div,barChartData){
                 },
                 y: {
                     stacked: true
+                }
+            },
+            plugins: {
+                datalabels: {
+                    color: 'black',
+                    anchor: "end",
+                    align: "right",
+                    offset: 10,
+                    display: function (context) {
+                        return context.dataset.data[context.dataIndex];
+                    },
+                    /* Adjust data label font size according to chart size */
+            			  font: function(context) {
+                        var width = context.chart.width;
+                        var size = Math.round(width / 32);
+
+                        return {
+                	          weight: 'bold',
+                            size: size
+                        };
+                     },
+                    formatter: Math.round
                 }
             }
         }
