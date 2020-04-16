@@ -1,3 +1,4 @@
+/*Visual for housing owned count */
 function housing_ownedPieChartJS(div,label1,label2,label3,data1,data2,data3){
 
     var ctx = document.getElementById(div).getContext('2d');

@@ -1,3 +1,4 @@
+/*Visual to show admin the user count */
 function timeChart(div,labelz,datas){
 
 var config= {

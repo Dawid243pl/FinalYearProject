@@ -1,3 +1,4 @@
+/*Visual for displaying the crime chart */
 function makeChartJsCrime(label1,label2,label3,makeJSONarr,){
     
 var ctx = document.getElementById('myChart').getContext('2d');

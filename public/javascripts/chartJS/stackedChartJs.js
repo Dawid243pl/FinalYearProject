@@ -1,3 +1,4 @@
+/*Visual to show population in all wards */
 function makeStacked(div,barChartData){
 
     var ctx = document.getElementById(div).getContext('2d');

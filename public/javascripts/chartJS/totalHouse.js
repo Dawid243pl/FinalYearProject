@@ -1,3 +1,4 @@
+/*Visual to show donughts charts for housing */
 function housing_totalPieChartJS(div,label1,data1,colorz){
 
 

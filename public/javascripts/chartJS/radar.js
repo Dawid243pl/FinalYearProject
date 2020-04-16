@@ -1,3 +1,4 @@
+/*Visual for displaying the stats on the user account */
 function radarData(data1,data2,data3){
 
 var chartColors = window.chartColors;

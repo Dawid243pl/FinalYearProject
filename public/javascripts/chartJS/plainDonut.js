@@ -1,3 +1,4 @@
+/*Visual to display user rating on the search page*/
 function plainDonut(div,label,datas){
 
 	if(datas[0].data[0] != null){

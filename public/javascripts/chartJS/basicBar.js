@@ -1,4 +1,4 @@
-
+/*Visual for User reviews */
 function basicBarChart(div,label1,label2,label3,makeJSONarr){
     
     //var ctx = document.getElementById(div).getContext('2d');
