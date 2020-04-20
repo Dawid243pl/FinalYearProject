@@ -161,12 +161,15 @@ $(".viewAll").click(function() {
 		return text === "View Less" ? "View More" : "View Less";
 	})
 });
+//function that shows a pop up on click
 $("#changePsw").click(function() {
 	$("#ChngPasw").slideToggle("slow");
 });
+//function that shows a pop up on click
 $("#openPassw").click(function() {
 	$("#myModalz").toggle("slow");
 });
+//function that shows a pop up on click
 $(".closez").click(function() {
 	//$("#myModalz").toggle("slow");
 	$(this).parent().parent().parent().parent().toggle("slow");
@@ -177,6 +180,7 @@ $('a').on('click', function(){
   $("#"+target).show().siblings("div").hide();
 });
 */
+//function that deals with changing colours on the category tabs
 $('a.btn#crimez').addClass("btn-success");
 $('a.btn').on('click', function(e) {
 	$("a.btn").removeClass("btn-success");
@@ -211,12 +215,14 @@ function isEmpty(obj) {
 	}
 	return JSON.stringify(obj) === JSON.stringify({});
 }
-
+//function that formats date into / instead of - format
 function formatDate (input) {
   var datePart = String(input).match(/\d+/g),
-  year = datePart[0].substring(2), // get only two digits
+  year = datePart[0], // get only two digits
   month = datePart[1], day = datePart[2];
 
   return day+'/'+month+'/'+year;
 }
+
+
 

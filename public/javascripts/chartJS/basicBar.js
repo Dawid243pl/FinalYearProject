@@ -14,7 +14,7 @@ function basicBarChart(div,label1,label2,label3,makeJSONarr){
     
         // Configuration options go here
         options: {
-            responsive: false,
+            responsive: true,
             maintainAspectRatio: false,
             tooltips: {
                 enabled: true,
@@ -25,12 +25,9 @@ function basicBarChart(div,label1,label2,label3,makeJSONarr){
         },
        
     }
-    
-
     var ctx = document.getElementById(div);
     var chart = new Chart(ctx, config);
      
-    
 function init() {
     // Chart declaration:
     var chartType = document.getElementById('type').value; 
@@ -42,7 +39,7 @@ function init() {
     },
     options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         tooltips: {
             enabled: true,
         },
@@ -51,6 +48,7 @@ function init() {
         },
     },
     });
+    
   }
 
   

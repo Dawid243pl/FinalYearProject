@@ -46,14 +46,16 @@ async function fetchAdminData() {
 			stampUserTimeArr.push(d);
 			stampUserMailArr.push(stampMail);
     });
+
 	
 		//sort date array
-		stampUserTimeArr.sort(function (a, b) {
+		/*stampUserTimeArr.sort(function (a, b) {
 			if (a > b) return 1;
 			if (a < b) return -1;
 			return 0;
-		  });
-	  
+		  });*/
+		 
+
 		//save second array so that its occurance can still be counted in the stampUserTimeArr
 		let unique = [...new Set(stampUserTimeArr)];
 
@@ -67,6 +69,16 @@ async function fetchAdminData() {
 	
 	}
 
+	//convert to numb
+	  function converDate(d) {
+		
+		d = d.split("/"); return Number(d[2]+d[1]+d[0]);
+	  }
+	  //sort dates
+	  unique.sort(function(a,b){
+		return converDate(a) - converDate(b);
+		
+	  });
 
 	
 		//count each uniqe time stamp. Count the second array as this has the orginal yyyy/mm/dd format but display the first array which is dd/mm/yyyy
