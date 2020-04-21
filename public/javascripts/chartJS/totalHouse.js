@@ -75,9 +75,6 @@ function housing_totalPieChartJS(div,label1,data1,colorz){
 					backgroundColor: [
 					  colorz,
 					],
-					hoverBackgroundColor: [
-					  "#FF6384",
-					],
 					borderWidth:0,
 					
 				}]
