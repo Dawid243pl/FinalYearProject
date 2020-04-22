@@ -6,16 +6,17 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
     var chart = new Chart(ctx, {  
         type: 'line',
         data: {
-            labels: [CurrentYear,Yr3,Yr5,Yr7],
+            labels: [Yr7,Yr5,Yr3,CurrentYear],
             datasets: [{
                 label: curPostCode,
                 backgroundColor: "#24252a",
                 borderColor: "#24252a",
                 data: [
-                    currentSoldprice,
-                    yr3Soldprice,
+                    
+                    yr7currentSoldprice,
                     yr5Soldprice,
-                    yr7currentSoldprice
+                    yr3Soldprice,
+                    currentSoldprice
                 ],
                 fill: false,
             }, {
@@ -24,10 +25,10 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
                 backgroundColor: "#304e8e",
                 borderColor: "#304e8e",
                 data: [
-                    currentSoldpriceBrs,
-                    yr3SoldpriceBrs,
+                    yr7currentSoldpriceBrs,
                     yr5SoldpriceBrs,
-                    yr7currentSoldpriceBrs
+                    yr3SoldpriceBrs,
+                    currentSoldpriceBrs,
                 ],
             }
             , {
@@ -36,10 +37,10 @@ function zooplaChartJS(CurrentYear,Yr3,Yr5,Yr7,currentSoldprice,yr3Soldprice,yr5
                 backgroundColor: "#007bff",
                 borderColor: "#007bff",
                 data: [
-                    currentSoldpriceOutcode,
-                    yr3SoldpriceOutcode,
+                    yr7currentSoldpriceOutcode,
                     yr5SoldpriceOutcode,
-                    yr7currentSoldpriceOutcode
+                    yr3SoldpriceOutcode,
+                    currentSoldpriceOutcode,
                 ],
             }]
         },

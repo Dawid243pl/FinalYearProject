@@ -29,13 +29,13 @@ block content
             hr      
             .form-group.col-sm-12
                 label(for='inputAddress') Address
-                input#inputAddress.form-control(type='text', placeholder='1234 Main St',required='', name='address')
+                input#inputAddress.form-control(type='text', placeholder='Address',required='', name='address')
                 .form-group.col-sm-12
                 label(for='inputZip') PostCode
-                input#inputZip.form-control(type='text', name='postCode',required='')
+                input#inputZip.form-control(type='text', name='postCode',required='',placeholder="Postcode")
             .form-group.col-sm-12
                 label(for='inputCity') City
-                input#inputCity.form-control(type='text' name='city',required='')
+                input#inputCity.form-control(type='text' name='city',required='',placeholder="City")
             input(type="hidden" id="wardName" name="wardName" value="")
             .form-group.col-sm-12    
                 button#subUser.btn.btn-primary.float-right(type='submit') Register

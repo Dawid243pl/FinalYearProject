@@ -226,7 +226,8 @@ table th {
 	width: 50% !important;
 }
 .table-responsive {
-    max-height: 500px;
+	max-height: 500px;
+	overflow: hidden;
 }
 /* Modal Content */
 
@@ -309,6 +310,9 @@ table th {
 	.registerForm{
 		width: 100% !important;
 	}
+	.table-responsive {
+		max-height: 300px !important;
+	}	
 	
 
 }

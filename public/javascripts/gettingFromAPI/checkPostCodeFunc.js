@@ -280,12 +280,27 @@ function getZoopla(json_zoopla, ward) {
 	var postZoopla = json_zoopla.zoopla.postcode;
 	//appending postcode housing data
 	$(".wr").append(postZoopla);
-	var numbComma = numberWithCommas(currentSalesNumb);
+	if (currentSalesNumb == null){
+		var numbComma = 0;	
+
+	}else{
+		var numbComma = numberWithCommas(currentSalesNumb);
+
+	}
+
 	$("#Sales").append(numbComma);
 	$("#avgPaidPrice").append("£" + currentSalepriceAvg);
 	//caluclating the averages
-	var calculateIncDec = currentSalepriceAvg - yr3SalepriceAvg;
-	var calculateIncDecProc = calculateIncDec / currentSalepriceAvg * 100;
+	if (currentSalepriceAvg ==null){
+		calculateIncDec=0;
+		calculateIncDecProc=0;
+		
+	}else{
+		var calculateIncDec = currentSalepriceAvg - yr3SalepriceAvg;
+		var calculateIncDecProc = calculateIncDec / currentSalepriceAvg * 100;
+		
+	}
+	
 	var text = "";
 	//caluclate the increase/decrase between now and last 3 years
 	if (calculateIncDec < 0) {
@@ -297,8 +312,16 @@ function getZoopla(json_zoopla, ward) {
 		text = "Increase £";
 		$("#valueChange").addClass("text-success");
 	}
-	calculateIncDec = numberWithCommas(calculateIncDec);
+	
+	if (calculateIncDec ==0) {
+		calculateIncDec = 0;
+	}else{
+		calculateIncDec = numberWithCommas(calculateIncDec);
+	}
+	
 	$("#valueChange").append(text + calculateIncDec + " (" + "% " + Math.round(calculateIncDecProc * 100) / 100 + ")");
+
+	
 	//bristol data
 	var turnoverBrs = json_zoopla.zoopla_brs.areas[0].turnover;
 	var currentSalepriceAvgBrs = json_zoopla.zoopla_brs.areas[0].average_sold_price_1year;
@@ -322,13 +345,28 @@ function getZoopla(json_zoopla, ward) {
 	var zooplaPostcodeOutCode = json_zoopla.zoopla_outcode.postcode;
 	//appending outcode data
 	$(".out").append(zooplaPostcodeOutCode);
-	var numbCommaOutcode = numberWithCommas(currentSalesNumbOutcode);
+	
+	if (currentSalesNumbOutcode == null){
+		var numbCommaOutcode = 0;	
+	}else{
+		var numbCommaOutcode = numberWithCommas(currentSalesNumbOutcode);
+	}
 	$("#SalesOut").append(numbCommaOutcode);
 	$("#avgPaidPriceOut").append("£" + currentSalepriceAvgOutcode);
 	//caluclating the averages
-	var calculateIncDecOutcode = currentSalepriceAvgOutcode - yr3SalepriceAvgOutcode;
-	var calculateIncDecProcOutcode = calculateIncDecOutcode / currentSalepriceAvgOutcode * 100;
-	var calculateIncDecProcOutcode = Math.round(calculateIncDecProcOutcode * 100) / 100;
+
+	if (currentSalepriceAvgOutcode ==null){
+		var calculateIncDecOutcode = 0;
+		var calculateIncDecProcOutcode = 0;
+		var calculateIncDecProcOutcode = 0;
+		
+	
+	}else{
+		var calculateIncDecOutcode = currentSalepriceAvgOutcode - yr3SalepriceAvgOutcode;
+		var calculateIncDecProcOutcode = calculateIncDecOutcode / currentSalepriceAvgOutcode * 100;
+		var calculateIncDecProcOutcode = Math.round(calculateIncDecProcOutcode * 100) / 100;
+	}
+
 	var textOutcode = "";
 	//caluclating the incrase/decrase in market value change in last 3 years
 	if (calculateIncDecOutcode < 0) {
@@ -340,7 +378,17 @@ function getZoopla(json_zoopla, ward) {
 		textOutcode = "Increase £";
 		$("#valueChangeOut").addClass("text-success");
 	}
-	calculateIncDecOutcode = numberWithCommas(calculateIncDecOutcode);
+
+	if (calculateIncDecOutcode == 0){
+
+		calculateIncDecOutcode = 0;
+
+	}else{
+		calculateIncDecOutcode = numberWithCommas(calculateIncDecOutcode);
+
+	}
+	
+
 	$("#valueChangeOut").append(textOutcode + calculateIncDecOutcode + " (" + "% " + calculateIncDecProcOutcode + ")");
 	zooplaChartJS("1 Year", "3 Years", "5 Years", "7 Years", currentSalepriceAvg, yr3SalepriceAvg, yr5SalepriceAvg, yr7SalepriceAvg, currentSalepriceAvgBrs, yr3SalepriceAvgBrs, yr5SalepriceAvgBrs, yr7SalepriceAvgBrs, currentSalepriceAvgOutcode, yr3SalepriceAvgOutcode, yr5SalepriceAvgOutcode, yr7SalepriceAvgOutcode, postZoopla,zooplaPostcodeOutCode);
 }
