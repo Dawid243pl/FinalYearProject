@@ -34,6 +34,7 @@ function getCrimeUserLevel(json_crime, wrd, ratingArrr) {
 			var trendYears = json_crime[i].year;
 			chartJsArrayLabels.push(trendYears);
 			//if this ward make a json object and append crime and population statistics
+			//console.log("ward vs ward",json_crime[i].WardName,"==",wrd)
 			if (json_crime[i].WardName == wrd) {
 				var crimeStat3 = new Object();
 				crimeStat3.name = "Total crimes";
@@ -51,6 +52,7 @@ function getCrimeUserLevel(json_crime, wrd, ratingArrr) {
 			}
 			//for each of the users ratings grab the population,ward name and crime data
 			for (var zx = 0; zx < ratingArrr.length; zx++) {
+					json_crime[i].WardName = json_crime[i].WardName.replace('&', 'and');
 				if (json_crime[i].WardName == ratingArrr[zx]) {
 					wardArr1.push(json_crime[i].WardName);
 					crimzArr1.push(json_crime[i].totalCrimes);
@@ -60,6 +62,7 @@ function getCrimeUserLevel(json_crime, wrd, ratingArrr) {
 		}
 		if (json_crime[i].year == "2017-18") {
 			for (var zx = 0; zx < ratingArrr.length; zx++) {
+				json_crime[i].WardName = json_crime[i].WardName.replace('&', 'and');
 				if (json_crime[i].WardName == ratingArrr[zx]) {
 					wardArr2.push(json_crime[i].WardName);
 					crimzArr2.push(json_crime[i].totalCrimes);
@@ -68,6 +71,7 @@ function getCrimeUserLevel(json_crime, wrd, ratingArrr) {
 			}
 		}
 		if (json_crime[i].year == "2016-17") {
+			json_crime[i].WardName = json_crime[i].WardName.replace('&', 'and');
 			for (var zx = 0; zx < ratingArrr.length; zx++) {
 				if (json_crime[i].WardName == ratingArrr[zx]) {
 					wardArr3.push(json_crime[i].WardName);
@@ -102,6 +106,8 @@ function getCrimeUserLevel(json_crime, wrd, ratingArrr) {
 		objArray.push(someObj2);
 	}
 	//making the visual for user rating stats
+
+	console.log( labels[0], labels[1], labels[2], objArray);
 	basicBarChart("ratingStats", labels[0], labels[1], labels[2], objArray);
 	//getting colour coding on population and crime
 	var userPopColour = colourCoding(colourCheckerArray[2], colourCheckerArray[0]);

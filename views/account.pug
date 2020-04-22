@@ -4,7 +4,7 @@ block content
     if accountType == 'Standard'   
         .container.marketing
             .row
-                h2 The statistics here show from the postcode on your account.
+                h2.col-lg-12.text-center My Account
                 .col-lg-6.col-sm-12
                     ul.list-group.mb-3
                         li.list-group-item.d-flex.justify-content-between.lh-condensed
@@ -22,14 +22,6 @@ block content
                                 h6.my-0 Population
                                 small.text-muted Total Population
                             buttton#popStatUser
-                        //li.list-group-item.d-flex.justify-content-between.bg-light
-                            .text-success
-                                h6.my-0 Promo code
-                                small EXAMPLECODE
-                                span.text-success -$5
-                        //li.list-group-item.d-flex.justify-content-between
-                            span Overall Score
-                            strong $20
                 .col-lg-6.col-sm-12
                     canvas#graphicOftop3
             .row
@@ -219,10 +211,10 @@ block content
                                                     input#inputAddress.form-control(type='text', placeholder='1234 Main St', name='address',required='')
                                                 .form-group.col-sm-6
                                                     label(for='inputZip') PostCode
-                                                    input#inputZip.Add.form-control(type='text', name='postCode',required='')
+                                                    input#inputZip.Add.form-control(type='text', name='postCode',required='',placeholder='PostCode')
                                                 .form-group.col-sm-6
                                                     label(for='inputCity') City
-                                                    input#inputCity.form-control(type='text' name='city',required='')
+                                                    input#inputCity.form-control(type='text' name='city',required='',placeholder='City')
                                                 .form-group.col-lg-12
                                                     label(for='inputPassword4') Password
                                                     input#inputPassword4.form-control(type='password', placeholder='Password', name='password',required='') 
